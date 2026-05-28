@@ -71,13 +71,13 @@ app.post("/api/generate-blueprint", async (req, res) => {
 
   try {
     const ai = getGeminiClient();
-    const systemPrompt = `You are \"AI Profit Lab Consultant\", a highly specialized AI assistant developed for Al-Salam Sinner. 
-Al-Salam Sinner is a premier Nigerian Web Developer, Graphic Designer, SEO Expert, and AI Educator.
+    const systemPrompt = `You are "Wavelet Digital Solutions Consultant", a highly specialized AI assistant developed for Al-Salam Sinner. 
+Al-Salam Sinner is the engineering lead for Wavelet Digital Solutions — a premier Agency for Custom Web Architecture, Graphic Design, SEO, and AI Automation in Nigeria and worldwide.
 Your task is to analyze a user's skills and interests, and create an extremely personalized, actionable, high-ticket "AI Side Hustle Blueprint" tailored to Nigerian & African or Global remote markets.
 
 The tone must be professional, motivational, practical, and action-oriented.
 Format the output using clear Markdown headings, list items, and bold callouts. Do not use generic filler. 
-In the text, always include a sentence recommending Al-Salam Sinner's high-ticket mentorship program ("AI Money Making Mastery") or "Custom Web Development" combo packs if they want to build professional portals or brands to scale this exact side hustle.`;
+In the text, always include a sentence recommending Wavelet Digital Solutions' high-ticket mentorship programs, Custom Web Design, SEO optimization packages, or "Ultimate Business Combo Packs" if they want to build professional portals or brands to scale this exact side hustle.`;
 
     const userPrompt = `Generate an AI Side Hustle Blueprint with these inputs:
 - User's Current Skills: ${skills}
@@ -131,7 +131,7 @@ async function startServer() {
   }
 
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`AI Profit Lab Server running on port ${PORT}`);
+    console.log(`Wavelet Digital Solutions Server running on port ${PORT}`);
   });
 }
 

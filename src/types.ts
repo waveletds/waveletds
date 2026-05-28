@@ -63,7 +63,7 @@ export const SERVICES_DATA: ServicePackage[] = [
   {
     id: "ai-money-2",
     category: "ai-mastery",
-    name: "AI Profit Lab VIP Mentorship",
+    name: "Wavelet VIP Mentorship Program",
     priceValue: 150000,
     priceLabel: "₦150,000",
     shortDesc: "Comprehensive 1-on-1 mentorship, personalized roadmap & automation scripts.",
@@ -227,7 +227,7 @@ export const SERVICES_DATA: ServicePackage[] = [
   {
     id: "combo-1",
     category: "combo",
-    name: "AI Profit Lab 'Local Business' Ultimate Combo",
+    name: "Wavelet 'Local Business' Ultimate Combo",
     priceValue: 350000,
     priceLabel: "₦350,000",
     shortDesc: "Core Web Dev + Full GMB Setup + SEO Starter Package. Best value.",
@@ -245,7 +245,7 @@ export const SERVICES_DATA: ServicePackage[] = [
   {
     id: "combo-2",
     category: "combo",
-    name: "AI Profit Lab 'Grand Growth' Combo",
+    name: "Wavelet 'Grand Growth' Combo",
     priceValue: 650000,
     priceLabel: "₦650,000",
     shortDesc: "Pro Web Application + Full Visual Branding pack + GMB + 1 Month Pro SEO.",

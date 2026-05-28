@@ -49,10 +49,10 @@ export default function Navbar({ activeView, setActiveView, openBookingModal }: 
             </span>
           </div>
           <div>
-            <h1 className="font-sans text-xl font-bold tracking-tight text-white">
-              AI Profit <span className="bg-gradient-to-r from-purple-400 to-amber-400 bg-clip-text text-transparent">Lab</span>
+            <h1 className="font-sans text-lg font-bold tracking-tight text-white md:text-xl">
+              Wavelet <span className="bg-gradient-to-r from-purple-400 to-amber-400 bg-clip-text text-transparent">Digital</span>
             </h1>
-            <p className="font-mono text-[9px] uppercase tracking-widest text-amber-400/80">AL-SALAM SINNER</p>
+            <p className="font-mono text-[9px] uppercase tracking-widest text-amber-400/80">Solutions</p>
           </div>
         </div>
 

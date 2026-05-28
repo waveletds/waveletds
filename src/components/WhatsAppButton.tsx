@@ -2,10 +2,11 @@ import { MessageSquare, PhoneCall } from "lucide-react";
 import { motion } from "motion/react";
 
 export default function WhatsAppButton() {
-  const whatsappNumber = "+2348012345678"; // Placeholder or real number
-  const defaultMessage = "Hello Al-Salam Sinner, I am visiting the AI Profit Lab and would like to inquire about your custom services and mentorship packages!";
+  const rawNumber = (import.meta as any).env.VITE_WHATSAPP_NUMBER || "+2348012345678";
+  const whatsappNumber = rawNumber.replace(/\D/g, "");
+  const defaultMessage = "Hello Al-Salam Sinner, I am visiting the Wavelet Digital Solutions site and would like to inquire about your custom services and mentorship packages!";
   const encodedMsg = encodeURIComponent(defaultMessage);
-  const whatsappUrl = `https://wa.me/${whatsappNumber.replace("+", "")}?text=${encodedMsg}`;
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
 
   return (
     <div className="fixed bottom-6 right-6 z-40" id="whatsapp-floating-trigger">

@@ -296,7 +296,7 @@ export default function App() {
             <div className="space-y-3">
               <h4 className="text-white text-sm font-bold flex items-center space-x-1.5 font-sans">
                 <Rocket className="h-4.5 w-4.5 text-purple-400" />
-                <span>AI Profit Lab</span>
+                <span>Wavelet Digital Solutions</span>
               </h4>
               <p className="text-[11px] leading-relaxed text-gray-500">
                 A modern professional workshop connecting AI capabilities with client-centric web architecture, design assets, and organic maps search.
@@ -331,7 +331,7 @@ export default function App() {
           </div>
 
           <div className="flex flex-col md:flex-row items-center justify-between text-[11px] text-gray-650" id="compliance-text">
-            <span>&copy; {new Date().getFullYear()} AI Profit Lab. All Rights Reserved. Crafted by Al-Salam Sinner (Web Developer & AI Educator).</span>
+            <span>&copy; {new Date().getFullYear()} Wavelet Digital Solutions. All Rights Reserved. Crafted by Al-Salam Sinner (Web Developer & AI Educator).</span>
             <span className="flex items-center space-x-1 mt-3 md:mt-0 text-[10px]">
               <ShieldCheck className="h-4 w-4 text-emerald-400" />
               <span>Full compliance verified. SSL Active</span>
@@ -394,7 +394,7 @@ export default function App() {
 
                   <div className="mt-8 pt-5 border-t border-purple-950 flex flex-col gap-3">
                     <a
-                      href={`https://wa.me/2348012345678?text=Hello%20Al-Salam%20Sinner%21%20I%20just%20submitted%20a%20booking%20request%20with%20invoice%20reference%20${successReceipt.invoiceId}.%20Please%20verify%20my%20slots%21`}
+                      href={`https://wa.me/${((import.meta as any).env.VITE_WHATSAPP_NUMBER || "+2348012345678").replace(/\D/g, "")}?text=Hello%20Al-Salam%20Sinner%21%20I%20just%20submitted%20a%20booking%20request%20with%20invoice%20reference%20${successReceipt.invoiceId}.%20Please%20verify%20my%20slots%21`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-full flex items-center justify-center space-x-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 py-3 text-xs font-bold text-white shadow-lg shadow-emerald-950/25"

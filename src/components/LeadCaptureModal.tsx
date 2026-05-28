@@ -157,7 +157,7 @@ export default function LeadCaptureModal() {
                 
                 <h3 className="text-lg font-black text-white leading-snug">Blueprint Dispatching!</h3>
                 <p className="mt-2.5 text-xs text-gray-300 px-2 leading-relaxed">
-                  Welcome to the Profit Lab! An email carrying the direct PDF download link of **Al-Salam Sinner's AI Side-Hustle Toolkit** with copyable prompt templates has been dispatched!
+                  Welcome to Wavelet Digital Solutions! An email carrying the direct PDF download link of **Al-Salam Sinner's AI Side-Hustle Toolkit** with copyable prompt templates has been dispatched!
                 </p>
 
                 <button

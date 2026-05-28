@@ -103,7 +103,9 @@ export default function Contact({ onSuccessLead }: ContactProps) {
                   </div>
                   <div>
                     <p className="text-[10px] text-gray-500 font-mono uppercase">WhatsApp Callouts</p>
-                    <p className="text-xs font-bold text-white mt-0.5">+234 80 1234 5678</p>
+                    <p className="text-xs font-bold text-white mt-0.5">
+                      {(import.meta as any).env.VITE_WHATSAPP_NUMBER || "+234 80 1234 5678"}
+                    </p>
                   </div>
                 </div>
 
