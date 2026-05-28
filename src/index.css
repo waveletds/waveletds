@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;750;800&family=Space+Grotesk:wght@500;650;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+  body {
+    background-color: #06060a;
+    color: #f3f4f6;
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+
+  /* Custom glassmorphism scrollbar designs */
+  ::-webkit-scrollbar {
+    width: 6.5px;
+    height: 6.5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #06060a;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1e1b4b;
+    border-radius: 99px;
+    border: 1px solid rgba(168, 85, 247, 0.15);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #4c1d95;
+  }
+}
+
+/* Custom view entry and layout keyframes animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4.5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Premium radial backing highlights of AI Profit Lab */
+.background-glow {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+}

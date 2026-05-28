@@ -1,0 +1,6 @@
+{
+  "name": "AI Profit Lab",
+  "description": "Portfolio & services website of Al-Salam Sinner: AI Educator, Web Developer, Graphic Designer & SEO Expert.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
