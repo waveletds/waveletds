@@ -584,25 +584,24 @@ export default function DashboardStore() {
   });
 
   return (
-    <section className="bg-zinc-50 border-t border-gray-200 py-24 relative overflow-hidden text-slate-950" id="dashboard-system-hub">
+    <section className="bg-white border-t border-gray-150 py-16 relative overflow-hidden text-slate-900" id="dashboard-system-hub">
       
-      {/* Absolute design aesthetic background gradients */}
-      <div className="background-glow hidden md:block w-[400px] h-[400px] bg-orange-100/10 top-20 left-10" />
-      <div className="background-glow hidden md:block w-[500px] h-[500px] bg-orange-100/5 bottom-10 right-10" />
+      {/* Absolute fintech grid pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#f1f5f9_1px,transparent_1px),linear-gradient(to_bottom,#f1f5f9_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-60 pointer-events-none" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Core Header Section */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center space-x-1.5 rounded-full bg-orange-50 px-3.5 py-1.5 text-xs text-orange-700 border border-orange-200 font-bold">
-            <Sparkles className="h-3.5 w-3.5 text-orange-500 animate-pulse" />
-            <span>Digital Solution Marketplace & Client Console</span>
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center space-x-1.5 rounded-full bg-orange-50 px-3.5 py-1.5 text-xs text-orange-700 border border-orange-100 font-bold">
+            <Sparkles className="h-3.5 w-3.5 text-orange-600 animate-pulse" />
+            <span>VTU Portal & Developer API Platform</span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-950 mt-3 font-display">
-            SaaS Dashboard & Services <span className="bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent">Hub</span>
+          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 mt-3 font-display">
+            Fintech Reseller <span className="text-orange-600">Console</span>
           </h2>
-          <p className="max-w-2xl mx-auto text-xs md:text-sm text-slate-550 mt-3 leading-relaxed">
-            Fund your digital wallet instantly to purchase scripts, deploy ready-made portals, generate fast OTP SIM routes, lease private foreign lines, and orchestrate direct mass SMS campaigns.
+          <p className="max-w-2xl mx-auto text-xs md:text-sm text-slate-500 mt-2.5 leading-relaxed font-medium">
+            Manage your agent profile, purchase pre-compiled scripts, generate instant OTP bypassing streams, lease active virtual phone lines, and dispatch direct bulk SMS campaigns.
           </p>
         </div>
 
@@ -613,117 +612,134 @@ export default function DashboardStore() {
               initial={{ opacity: 0, y: -20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className={`fixed top-24 left-1/2 -translate-x-1/2 z-50 p-4 rounded-xl border shadow-xl flex items-center space-x-3 text-xs w-[90%] max-w-md ${
+              className={`fixed top-24 left-1/2 -translate-x-1/2 z-50 p-4 rounded-xl border shadow-lg flex items-center space-x-3 text-xs w-[90%] max-w-md ${
                 globalNotice.type === "success" 
-                  ? "bg-emerald-950/90 border-emerald-500/30 text-emerald-300"
+                  ? "bg-emerald-50 border-emerald-200 text-emerald-800"
                   : globalNotice.type === "error" 
-                  ? "bg-rose-950/90 border-rose-500/30 text-rose-300"
-                  : "bg-indigo-950/90 border-indigo-500/30 text-indigo-300"
+                  ? "bg-rose-50 border-rose-200 text-rose-800"
+                  : "bg-blue-50 border-blue-200 text-blue-800"
               }`}
             >
-              <ShieldCheck className="h-5 w-5 shrink-0" />
-              <span>{globalNotice.msg}</span>
+              <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-600" />
+              <span className="font-semibold">{globalNotice.msg}</span>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* TOP STATUS ROW: Real-time Interactive Wallet Widget */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8 rounded-2xl bg-[#0e0e16]/80 border border-purple-950/30 p-6 shadow-2xl backdrop-blur-sm relative overflow-hidden" id="dashboard-status-control-panel">
+        {/* TOP STATUS ROW: Real-time Interactive Wallet Widget (Fintech Style) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-10 rounded-3xl bg-slate-50 border border-slate-150 p-6 shadow-xs relative overflow-hidden" id="dashboard-status-control-panel">
           
-          {/* Main User Balance Area */}
-          <div className="lg:col-span-4 flex items-center justify-between lg:border-r lg:border-purple-950/40 lg:pr-6">
-            <div className="flex items-center space-x-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-900/30">
-                <Wallet className="h-6 w-6" />
-              </div>
-              <div>
-                <span className="text-[10px] uppercase font-mono tracking-widest text-gray-400 block">Personal Funded Balance</span>
-                <span className="text-2xl md:text-3xl font-black text-amber-300 font-mono mt-0.5 block">
+          {/* Main User Balance Area (Overhauled into a modern Fintech style card) */}
+          <div className="lg:col-span-5 flex flex-col justify-between p-5 bg-gradient-to-br from-slate-900 to-slate-950 text-white rounded-2xl shadow-sm relative overflow-hidden">
+            <div className="absolute top-0 right-0 h-24 w-24 bg-gradient-to-br from-orange-500/20 to-transparent rounded-full blur-xl pointer-events-none" />
+            
+            <div className="flex items-center justify-between z-10">
+              <span className="text-[10px] md:text-[11px] font-bold text-orange-400 tracking-wider uppercase flex items-center space-x-1.5 font-mono">
+                <span className="h-2 w-2 rounded-full bg-orange-500 animate-pulse"></span>
+                <span>Active Agent Wallet</span>
+              </span>
+              <span className="text-[10px] text-slate-300 font-mono">ID: 6cd7e-NG</span>
+            </div>
+
+            <div className="mt-4 z-10">
+              <span className="text-[10px] text-slate-400 font-medium block">Personal Funded Balance</span>
+              <div className="flex items-baseline space-x-2 mt-1">
+                <span className="text-3xl md:text-4xl font-extrabold text-white font-mono tracking-tight">
                   ₦{walletBalance.toLocaleString()}
                 </span>
+                <span className="text-[10.5px] text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded font-mono font-bold">API ACTIVE</span>
               </div>
             </div>
-            
-            <button
-              onClick={() => setActiveTab("wallet")}
-              className="lg:hidden p-2 rounded-lg bg-purple-950/60 text-purple-300 border border-purple-800/30 text-xs flex items-center space-x-1"
-            >
-              <PlusCircle className="h-3.5 w-3.5" />
-              <span>Fund</span>
-            </button>
+
+            {/* Simulated virtual account details underneath (adds immense Naija Fintech vibes) */}
+            <div className="mt-5 pt-3.5 border-t border-slate-800/80 flex items-center justify-between text-[11px] z-10 w-full">
+              <div>
+                <span className="text-[9.5px] text-slate-400 block tracking-wider uppercase font-medium">Automatic Deposit Bank</span>
+                <span className="text-xs font-bold text-slate-200">Wema Bank • 8228819570</span>
+              </div>
+              <button 
+                onClick={() => {
+                  navigator.clipboard.writeText("Wema Bank 8228819570");
+                  showNotice("success", "Bank details copied to clipboard!");
+                }}
+                className="text-[9.5px] font-bold text-orange-400 hover:text-orange-300 border border-slate-800 bg-slate-900/60 px-2 py-1 rounded"
+              >
+                Copy Account
+              </button>
+            </div>
           </div>
 
-          {/* Quick Hub Navigation Controls */}
-          <div className="lg:col-span-8 flex flex-wrap gap-2 items-center justify-start md:justify-end">
+          {/* Quick Hub Navigation Controls  */}
+          <div className="lg:col-span-7 flex flex-wrap gap-2.5 items-center justify-start lg:justify-end content-center">
             <button
               onClick={() => { setActiveTab("store"); setFundingSuccessMsg(null); }}
-              className={`px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 ${
+              className={`px-4 py-3 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 cursor-pointer ${
                 activeTab === "store" 
-                  ? "bg-purple-600 text-white shadow-lg shadow-purple-950/40" 
-                  : "bg-purple-950/20 text-gray-400 hover:text-white border border-purple-950/40"
+                  ? "bg-orange-600 text-white shadow-md shadow-orange-100" 
+                  : "bg-white text-slate-650 hover:bg-slate-100 border border-slate-200"
               }`}
             >
               <Code2 className="h-4 w-4" />
-              <span>Scripts & Custom Web</span>
+              <span>Scripts & Core Store</span>
             </button>
 
             <button
               onClick={() => { setActiveTab("otp"); setFundingSuccessMsg(null); }}
-              className={`px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 ${
+              className={`px-4 py-3 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 cursor-pointer ${
                 activeTab === "otp" 
-                  ? "bg-purple-600 text-white shadow-lg shadow-purple-950/40" 
-                  : "bg-purple-950/20 text-gray-400 hover:text-white border border-purple-950/40"
+                  ? "bg-orange-600 text-white shadow-md shadow-orange-100" 
+                  : "bg-white text-slate-650 hover:bg-slate-100 border border-slate-200"
               }`}
             >
               <KeyRound className="h-4 w-4" />
-              <span>OTP Verifications</span>
+              <span>OTP SIM Channels</span>
             </button>
 
             <button
               onClick={() => { setActiveTab("virtual"); setFundingSuccessMsg(null); }}
-              className={`px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 ${
+              className={`px-4 py-3 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 cursor-pointer ${
                 activeTab === "virtual" 
-                  ? "bg-purple-600 text-white shadow-lg shadow-purple-950/40" 
-                  : "bg-purple-950/20 text-gray-400 hover:text-white border border-purple-950/40"
+                  ? "bg-orange-600 text-white shadow-md shadow-orange-100" 
+                  : "bg-white text-slate-650 hover:bg-slate-100 border border-slate-200"
               }`}
             >
               <PhoneCall className="h-4 w-4" />
-              <span>Foreign Numbers</span>
+              <span>Foreign DIDs</span>
             </button>
 
             <button
               onClick={() => { setActiveTab("sms"); setFundingSuccessMsg(null); }}
-              className={`px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 ${
+              className={`px-4 py-3 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 cursor-pointer ${
                 activeTab === "sms" 
-                  ? "bg-purple-600 text-white shadow-lg shadow-purple-950/40" 
-                  : "bg-purple-950/20 text-gray-400 hover:text-white border border-purple-950/40"
+                  ? "bg-orange-600 text-white shadow-md shadow-orange-100" 
+                  : "bg-white text-slate-650 hover:bg-slate-100 border border-slate-200"
               }`}
             >
               <Send className="h-4 w-4" />
-              <span>SMS Portals</span>
+              <span>Bulk SMS Alerts</span>
             </button>
 
             <button
               onClick={() => { setActiveTab("wallet"); setFundingSuccessMsg(null); }}
-              className={`px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 ${
+              className={`px-4 py-3 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 cursor-pointer ${
                 activeTab === "wallet" 
-                  ? "bg-purple-600 text-white shadow-lg shadow-purple-950/40" 
-                  : "bg-purple-950/20 text-gray-300 hover:text-white border border-purple-800/30"
+                  ? "bg-orange-600 text-white shadow-md shadow-orange-100" 
+                  : "bg-white text-slate-650 hover:bg-slate-100 border border-slate-200"
               }`}
             >
               <PlusCircle className="h-4 w-4" />
-              <span>Wallet Funding</span>
+              <span>Fund Account</span>
             </button>
 
             <button
               onClick={() => { setActiveTab("inventory"); setFundingSuccessMsg(null); }}
-              className={`px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all relative flex items-center space-x-1.5 ${
+              className={`px-4 py-3 rounded-xl text-xs font-bold transition-all relative flex items-center space-x-1.5 cursor-pointer ${
                 activeTab === "inventory" 
-                  ? "bg-amber-500 text-black shadow-lg" 
-                  : "bg-purple-900/30 text-amber-300 hover:text-white border border-amber-400/20"
+                  ? "bg-orange-100 border border-orange-200 text-orange-700" 
+                  : "bg-white text-slate-650 hover:bg-slate-100 border border-slate-200"
               }`}
             >
-              <Database className="h-4 w-4" />
+              <Database className="h-4 w-4 text-orange-600" />
               <span>Inventory Vault</span>
               {inventory.length > 0 && (
                 <span className="absolute -top-1.5 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[9px] font-black text-white">
@@ -739,51 +755,51 @@ export default function DashboardStore() {
           
           {/* TAB 1: SCRIPTS & READY-MADE WEBSITES */}
           {activeTab === "store" && (
-            <div className="space-y-6 animate-fade-in" id="dashboard-store-view text">
+            <div className="space-y-6 animate-fade-in" id="dashboard-store-view-text">
               
               {/* Filter controls */}
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 py-2 border-b border-purple-950/30">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 py-2 border-b border-slate-150">
                 <div className="flex items-center space-x-2">
-                  <Laptop className="h-4.5 w-4.5 text-purple-400" />
-                  <h3 className="text-base font-bold text-white">Scripts, Core Portals & Code Architecture</h3>
+                  <Laptop className="h-4.5 w-4.5 text-orange-600" />
+                  <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide">Developer Store & Scripts Catalog</h3>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
                   {/* Search bar */}
                   <div className="relative w-full md:w-48 shrink-0">
-                    <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-gray-500" />
+                    <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-slate-400" />
                     <input
                       type="text"
                       placeholder="Search asset catalog..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="w-full pl-8 pr-3 py-1.5 rounded-xl bg-[#0c0c14] border border-purple-950/50 text-xs focus:outline-none focus:border-purple-600 text-white"
+                      className="w-full pl-8 pr-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-105 text-slate-900"
                     />
                   </div>
 
                   <button
                     onClick={() => setStoreFilter("all")}
-                    className={`px-3 py-1.5 rounded-lg text-[11px] font-bold ${storeFilter === "all" ? "bg-purple-600/20 text-purple-300 border border-purple-500/30" : "text-gray-400 bg-[#09090f]"}`}
+                    className={`px-3 py-1.5 rounded-lg text-[11px] font-bold cursor-pointer transition-all ${storeFilter === "all" ? "bg-orange-600 text-white shadow-xs" : "text-slate-600 bg-slate-50 hover:bg-slate-100 border border-slate-200"}`}
                   >
                     All Items
                   </button>
                   <button
                     onClick={() => setStoreFilter("website")}
-                    className={`px-3 py-1.5 rounded-lg text-[11px] font-bold ${storeFilter === "website" ? "bg-purple-600/20 text-purple-300 border border-purple-500/30" : "text-gray-400 bg-[#09090f]"}`}
+                    className={`px-3 py-1.5 rounded-lg text-[11px] font-bold cursor-pointer transition-all ${storeFilter === "website" ? "bg-orange-600 text-white shadow-xs" : "text-slate-600 bg-slate-50 hover:bg-slate-100 border border-slate-200"}`}
                   >
                     Websites Deployed
                   </button>
                   <button
                     onClick={() => setStoreFilter("script")}
-                    className={`px-3 py-1.5 rounded-lg text-[11px] font-bold ${storeFilter === "script" ? "bg-purple-600/20 text-purple-300 border border-purple-500/30" : "text-gray-400 bg-[#09090f]"}`}
+                    className={`px-3 py-1.5 rounded-lg text-[11px] font-bold cursor-pointer transition-all ${storeFilter === "script" ? "bg-orange-600 text-white shadow-xs" : "text-slate-600 bg-slate-50 hover:bg-slate-100 border border-slate-200"}`}
                   >
                     Laravel / React Scripts
                   </button>
                   <button
                     onClick={() => setStoreFilter("service")}
-                    className={`px-3 py-1.5 rounded-lg text-[11px] font-bold ${storeFilter === "service" ? "bg-purple-600/20 text-purple-300 border border-purple-500/30" : "text-gray-400 bg-[#09090f]"}`}
+                    className={`px-3 py-1.5 rounded-lg text-[11px] font-bold cursor-pointer transition-all ${storeFilter === "service" ? "bg-orange-600 text-white shadow-xs" : "text-slate-600 bg-slate-50 hover:bg-slate-100 border border-slate-200"}`}
                   >
-                    Expert Fix Services
+                    Expert Fixes
                   </button>
                 </div>
               </div>
@@ -796,43 +812,43 @@ export default function DashboardStore() {
                   return (
                     <div 
                       key={asset.id}
-                      className="rounded-2xl border border-purple-950/40 bg-[#0d0d16]/90 p-5 flex flex-col justify-between hover:border-purple-600/30 transition-all hover:scale-[1.01] relative overflow-hidden"
+                      className="rounded-2xl border border-slate-150 bg-white p-5 flex flex-col justify-between hover:border-orange-500/30 transition-all hover:scale-[1.01] relative overflow-hidden shadow-xs"
                     >
                       {/* Badge category */}
                       <div className="flex items-center justify-between">
                         <span className={`px-2 py-0.5 rounded text-[9px] font-bold font-mono tracking-widest uppercase ${
                           asset.type === "website" 
-                            ? "bg-indigo-950 text-indigo-300 border border-indigo-800/20"
+                            ? "bg-blue-50 text-blue-700 border border-blue-100"
                             : asset.type === "script"
-                            ? "bg-amber-950 text-amber-300 border border-amber-800/20"
-                            : "bg-purple-950 text-purple-300 border border-purple-800/20"
+                            ? "bg-amber-50 text-amber-700 border border-amber-100"
+                            : "bg-orange-50 text-orange-750 border border-orange-100"
                         }`}>
                           {asset.type}
                         </span>
                         
                         {asset.approxSize && (
-                          <span className="text-[10px] text-gray-500 font-mono flex items-center space-x-1">
-                            <Server className="h-3 w-3 text-purple-500" />
+                          <span className="text-[10px] text-slate-500 font-mono flex items-center space-x-1">
+                            <Server className="h-3 w-3 text-orange-600" />
                             <span>{asset.approxSize}</span>
                           </span>
                         )}
                       </div>
 
                       <div className="mt-4">
-                        <p className="text-[10px] text-gray-500 font-mono tracking-wider">{asset.category}</p>
-                        <h4 className="text-base font-extrabold text-white mt-1 leading-snug lg:line-clamp-2 min-h-[44px]">
+                        <p className="text-[10px] text-slate-400 font-mono tracking-wider font-bold uppercase">{asset.category}</p>
+                        <h4 className="text-base font-extrabold text-slate-900 mt-1 leading-snug lg:line-clamp-2 min-h-[44px] font-display">
                           {asset.name}
                         </h4>
                         
-                        <p className="text-xs text-gray-400 mt-2 line-clamp-3 leading-relaxed min-h-[54px]">
+                        <p className="text-xs text-slate-500 mt-2 line-clamp-3 leading-relaxed min-h-[54px] font-medium">
                           {asset.shortDesc}
                         </p>
 
                         {/* Core Features bullets */}
                         <div className="mt-4 space-y-1.5">
                           {asset.features.slice(0, 3).map((feat, i) => (
-                            <div key={i} className="flex items-start space-x-1.5 text-[11px] text-gray-300">
-                              <CheckCircle2 className="h-3 w-3 text-purple-400 shrink-0 mt-0.5" />
+                            <div key={i} className="flex items-start space-x-1.5 text-[11px] text-slate-650 font-medium">
+                              <CheckCircle2 className="h-3 w-3 text-emerald-650 shrink-0 mt-0.5" />
                               <span>{feat}</span>
                             </div>
                           ))}
@@ -842,7 +858,7 @@ export default function DashboardStore() {
                         {asset.techStack && asset.techStack.length > 0 && (
                           <div className="mt-4 flex flex-wrap gap-1">
                             {asset.techStack.map((tech, i) => (
-                              <span key={i} className="text-[9px] font-mono px-1.5 py-0.5 bg-[#08080c] text-purple-300 rounded border border-purple-950/40">
+                              <span key={i} className="text-[9px] font-mono px-1.5 py-0.5 bg-slate-50 text-slate-600 rounded border border-slate-100 font-bold">
                                 {tech}
                               </span>
                             ))}
@@ -851,10 +867,10 @@ export default function DashboardStore() {
                       </div>
 
                       {/* Pricing & Checkout interaction */}
-                      <div className="mt-6 pt-4 border-t border-purple-950/50 flex items-center justify-between">
+                      <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
                         <div>
-                          <span className="text-[9.5px] font-mono text-gray-500 block">Single License Cost</span>
-                          <span className="text-lg font-black text-amber-300 font-mono">
+                          <span className="text-[9.5px] font-mono text-slate-400 block font-bold">License Cost</span>
+                          <span className="text-lg font-black text-slate-950 font-mono">
                             ₦{asset.price.toLocaleString()}
                           </span>
                         </div>
@@ -862,15 +878,15 @@ export default function DashboardStore() {
                         {hasPurchased ? (
                           <button
                             disabled
-                            className="bg-emerald-950 border border-emerald-500/20 text-emerald-300 px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-1"
+                            className="bg-emerald-50 border border-emerald-200 text-emerald-700 px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-1"
                           >
-                            <CheckCircle2 className="h-3.5 w-3.5" />
+                            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
                             <span>Purchased</span>
                           </button>
                         ) : (
                           <button
                             onClick={() => handlePurchaseAsset(asset)}
-                            className="bg-purple-600 hover:bg-purple-500 text-white px-4.5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-md shadow-purple-950/50 flex items-center space-x-1"
+                            className="bg-orange-600 hover:bg-orange-700 text-white px-4.5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm flex items-center space-x-1 cursor-pointer"
                           >
                             <span>Buy with Wallet</span>
                             <ChevronRight className="h-3.5 w-3.5" />
@@ -882,9 +898,9 @@ export default function DashboardStore() {
                 })}
 
                 {filteredAssets.length === 0 && (
-                  <div className="col-span-full text-center py-12 rounded-2xl bg-[#08080c] border border-purple-950/20">
+                  <div className="col-span-full text-center py-12 rounded-2xl bg-slate-50 border border-slate-150">
                     <AlertCircle className="h-8 w-8 text-amber-500 mx-auto mb-3" />
-                    <p className="text-gray-400 text-xs">No assets match your filter or term search.</p>
+                    <p className="text-slate-500 text-xs font-medium">No assets match your filter or term search.</p>
                   </div>
                 )}
               </div>
@@ -897,18 +913,18 @@ export default function DashboardStore() {
               
               {/* Left Selector: Choose application & Target Country */}
               <div className="lg:col-span-7 space-y-6">
-                <div className="p-6 rounded-2xl bg-[#0d0d16]/90 border border-purple-950/30">
-                  <h3 className="text-base font-bold text-white mb-1.5 flex items-center space-x-2">
-                    <KeyRound className="h-5 w-5 text-purple-400" />
+                <div className="p-6 rounded-2xl bg-white border border-slate-150 shadow-xs">
+                  <h3 className="text-sm font-bold text-slate-900 mb-1.5 flex items-center space-x-2 uppercase tracking-wide">
+                    <KeyRound className="h-5 w-5 text-orange-600" />
                     <span>Deploy OTP Verification Stream</span>
                   </h3>
-                  <p className="text-xs text-gray-400 mb-6 leading-relaxed">
+                  <p className="text-xs text-slate-500 mb-6 leading-relaxed font-medium">
                     Instantly generate Virtual SMS-Receiving numbers to complete authentications on Telegram, Google, WhatsApp, social networks, or custom enterprise routers.
                   </p>
-
+ 
                   {/* Choose Country Target */}
                   <div className="mb-6">
-                    <label className="text-[10px] uppercase font-mono tracking-wider text-gray-400 block mb-2">
+                    <label className="text-[10px] uppercase font-mono tracking-wider text-slate-400 block mb-2 font-bold">
                       1. Define Region
                     </label>
                     <div className="grid grid-cols-3 gap-2">
@@ -920,22 +936,22 @@ export default function DashboardStore() {
                         <button
                           key={country.code}
                           onClick={() => setSelectedOtpCountry(country.code)}
-                          className={`p-3 rounded-xl border text-xs font-bold transition-all flex flex-col items-center justify-center space-y-1.5 ${
+                          className={`p-3 rounded-xl border text-xs font-bold transition-all flex flex-col items-center justify-center space-y-1.5 cursor-pointer ${
                             selectedOtpCountry === country.code
-                              ? "bg-purple-600/10 border-purple-500 text-white"
-                              : "bg-[#090910] border-purple-950/45 text-gray-400 hover:text-white"
+                              ? "bg-orange-50 border-orange-500 text-orange-700"
+                              : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50"
                           }`}
                         >
                           <span className="text-xl">{country.flag}</span>
-                          <span>{country.label}</span>
+                          <span className="font-display text-[10.5px]">{country.label}</span>
                         </button>
                       ))}
                     </div>
                   </div>
-
+ 
                   {/* Choose Service Target App */}
                   <div className="space-y-3">
-                    <label className="text-[10px] uppercase font-mono tracking-wider text-gray-400 block">
+                    <label className="text-[10px] uppercase font-mono tracking-wider text-slate-400 block font-bold">
                       2. Select Locked Platform
                     </label>
                     
@@ -948,34 +964,34 @@ export default function DashboardStore() {
                             onClick={() => setSelectedOtpApp(app)}
                             className={`p-4 rounded-xl border transition-all cursor-pointer flex items-center justify-between ${
                               isSelected 
-                                ? "bg-purple-600/10 border-purple-500 text-white" 
-                                : "bg-[#08080c] border-purple-950/40 text-gray-300 hover:border-purple-600/25"
+                                ? "bg-orange-50/50 border-orange-500 text-slate-950" 
+                                : "bg-white border-slate-150 text-slate-705 hover:bg-slate-50"
                             }`}
                           >
                             <div className="flex items-center space-x-3 text-xs">
-                              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-950/60 border border-purple-800/20 text-purple-300">
+                              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-orange-50 border border-orange-100 text-orange-600">
                                 {app.appName.includes("WhatsApp") ? <Phone className="h-4 w-4" /> : <Sparkles className="h-4 w-4" />}
                               </div>
                               <div>
-                                <span className="font-bold block">{app.appName}</span>
-                                <span className="text-[9px] font-mono text-gray-500">
+                                <span className="font-bold block text-slate-900">{app.appName}</span>
+                                <span className="text-[9px] font-mono text-slate-400 font-semibold">
                                   {app.availableNumbers} SIM lines standby
                                 </span>
                               </div>
                             </div>
-
+ 
                             <div className="flex items-center space-x-4">
-                              <span className="font-mono text-xs text-amber-300 font-bold">
+                              <span className="font-mono text-xs text-orange-600 font-bold">
                                 ₦{app.price.toLocaleString()}
                               </span>
-
+ 
                               <button
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   setSelectedOtpApp(app);
                                   handleBuyOtpSIM(app);
                                 }}
-                                className="px-3 py-1.5 text-[10px] font-bold rounded-lg bg-purple-600 hover:bg-purple-500 text-white transition-all shadow"
+                                className="px-3 py-1.5 text-[10px] font-bold rounded-lg bg-orange-600 hover:bg-orange-700 text-white transition-all shadow-xs cursor-pointer"
                               >
                                 Activate SIM
                               </button>
@@ -987,38 +1003,38 @@ export default function DashboardStore() {
                   </div>
                 </div>
               </div>
-
+ 
               {/* Right Side Panel: LIVE OTP TERMINAL SIMULATION */}
               <div className="lg:col-span-5">
-                <div className="p-6 rounded-2xl bg-[#0b0b13] border border-purple-950/30 min-h-[380px] flex flex-col justify-between relative overflow-hidden">
+                <div className="p-6 rounded-2xl bg-slate-50 border border-slate-150 min-h-[380px] flex flex-col justify-between relative overflow-hidden shadow-xs">
                   
                   {activeVerificationSIM ? (
                     <div className="space-y-6 animate-fade-in relative z-10">
                       
                       {/* Active State Head */}
-                      <div className="flex items-center justify-between border-b border-purple-950/60 pb-4">
+                      <div className="flex items-center justify-between border-b border-slate-200 pb-4">
                         <div className="flex items-center space-x-2">
                           <span className="relative flex h-2 w-2">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
                           </span>
-                          <span className="text-xs font-mono font-bold text-red-400 uppercase tracking-widest">
+                          <span className="text-[10px] font-mono font-bold text-red-650 bg-red-50 px-2 py-0.5 rounded border border-red-100 uppercase tracking-wider">
                             LIVE SIM CHANNEL ACTIVE
                           </span>
                         </div>
-
-                        <div className="text-xs font-mono text-gray-400 bg-purple-950/40 px-2 py-1 rounded">
+ 
+                        <div className="text-[10.5px] font-mono text-slate-600 bg-slate-200/60 px-2 py-1 rounded font-bold">
                           Time left: {activeVerificationSIM.timer}s
                         </div>
                       </div>
-
+ 
                       {/* Phone Display Panel */}
-                      <div className="bg-[#07070d] rounded-xl border border-purple-950/60 p-5 text-center relative overflow-hidden">
-                        <div className="absolute top-2 right-3 font-mono text-[9px] text-[#a855f7] bg-[#a855f7]/5 border border-[#a855f7]/10 px-1.5 py-0.5 rounded">
+                      <div className="bg-slate-900 rounded-xl border border-slate-950 p-5 text-center relative overflow-hidden shadow-inner text-white">
+                        <div className="absolute top-2 right-3 font-mono text-[9px] text-orange-400 bg-orange-500/10 border border-orange-500/20 px-1.5 py-0.5 rounded uppercase font-bold">
                           SIM ROUTED
                         </div>
-
-                        <span className="text-xs font-mono text-gray-500 block uppercase tracking-widest">
+ 
+                        <span className="text-[10px] font-mono text-slate-400 block uppercase tracking-widest font-bold">
                           Allocated Virtual Number
                         </span>
                         
@@ -1029,81 +1045,81 @@ export default function DashboardStore() {
                               navigator.clipboard.writeText(activeVerificationSIM.number);
                               showNotice("success", "Virtual number copied to clipboard!");
                             }}
-                            className="text-gray-500 hover:text-white transition-colors"
+                            className="text-slate-450 hover:text-white transition-colors"
                             title="Copy Number"
                           >
                             <Clipboard className="h-4 w-4" />
                           </button>
                         </div>
-
-                        <span className="text-[10px] text-gray-400 mt-2 block leading-relaxed max-w-xs mx-auto">
+ 
+                        <span className="text-[10px] text-slate-350 mt-2 block leading-relaxed max-w-xs mx-auto">
                           Instructions: Input the number above on the <strong>{activeVerificationSIM.app}</strong> mobile application to transmit verification.
                         </span>
                       </div>
-
+ 
                       {/* Display Incoming Message Block */}
                       <div className="space-y-3">
-                        <span className="text-[9.5px] font-mono text-gray-400 block uppercase tracking-wider">
+                        <span className="text-[9.5px] font-mono text-slate-500 block uppercase tracking-wider font-bold">
                           SMS Receiving Terminal Feed
                         </span>
-
+ 
                         {activeVerificationSIM.receivedCode ? (
                           <motion.div
                             initial={{ scale: 0.95, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
-                            className="bg-emerald-950/30 border border-emerald-500/30 rounded-xl p-4 text-center"
+                            className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-center"
                           >
-                            <span className="text-[10px] uppercase font-mono tracking-widest text-emerald-400 block">
+                            <span className="text-[10px] uppercase font-mono tracking-widest text-emerald-700 block font-bold">
                               Incoming Broadcast Received!
                             </span>
                             
                             {/* Big code display */}
-                            <div className="text-3xl font-black text-amber-300 font-mono tracking-widest mt-2 uppercase px-4 py-2 bg-[#07070b] border border-emerald-500/10 rounded-lg inline-block">
+                            <div className="text-3xl font-black text-slate-900 font-mono tracking-widest mt-2 uppercase px-4 py-2 bg-white border border-emerald-300 rounded-lg inline-block shadow-sm">
                               {activeVerificationSIM.otpCode}
                             </div>
-
-                            <p className="text-[10px] text-gray-400 mt-3 leading-relaxed">
+ 
+                            <p className="text-[10px] text-slate-500 mt-3 leading-relaxed font-semibold">
                               Copy and enter this code on your target setup to bypass the cell check constraint. Kept logged in your inventory.
                             </p>
                           </motion.div>
                         ) : (
-                          <div className="rounded-xl bg-[#07070c] border border-purple-950/40 p-5 flex flex-col items-center justify-center min-h-[120px]">
-                            <RefreshCw className="h-6 w-6 text-purple-500 animate-spin mb-3" />
-                            <p className="text-[11px] font-mono text-gray-400 animate-pulse text-center">
+                          <div className="rounded-xl bg-slate-900 border border-slate-950 p-5 flex flex-col items-center justify-center min-h-[120px] shadow-inner text-white">
+                            <RefreshCw className="h-6 w-6 text-orange-500 animate-spin mb-3" />
+                            <p className="text-[11px] font-mono text-slate-400 animate-pulse text-center">
                               Listening for incoming verification packets...
                             </p>
                           </div>
                         )}
                       </div>
-
+ 
                       <button
                         onClick={() => {
                           setActiveVerificationSIM(null);
                           showNotice("info", "SIM session canceled manually.");
                         }}
-                        className="w-full py-2.5 text-xs text-center border border-purple-950 hover:bg-white/5 rounded-xl font-bold text-gray-400"
+                        className="w-full py-2.5 text-xs text-center border border-slate-200 bg-white hover:bg-slate-50 rounded-xl font-bold text-slate-500 cursor-pointer"
                       >
                         Cancel simulation and release lock
                       </button>
-
+ 
                     </div>
                   ) : (
                     <div className="flex flex-col items-center justify-center text-center space-y-4 my-auto">
-                      <div className="h-16 w-16 rounded-full bg-purple-950/40 border border-purple-800/20 flex items-center justify-center text-purple-300 shadow-inner">
-                        <KeyRound className="h-8 w-8 text-purple-400 animate-pulse" />
+                      <div className="h-16 w-16 rounded-full bg-orange-50 border border-orange-100 flex items-center justify-center text-orange-600 shadow-inner">
+                        <KeyRound className="h-8 w-8 text-orange-600 animate-pulse" />
                       </div>
                       <div>
-                        <h4 className="text-sm font-bold text-white">Standby Gateway</h4>
-                        <p className="text-xs text-gray-400 max-w-xs mt-1.5 leading-relaxed">
+                        <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider">Standby SIM Gateway</h4>
+                        <p className="text-xs text-slate-500 max-w-xs mt-1.5 leading-relaxed font-semibold">
                           No active verification stream. Please select an app from the catalogue grid and lock/credit a SIM router number to start the transmission listener loop.
                         </p>
                       </div>
                     </div>
                   )}
-
+ 
                   {/* Anti-fraud disclaimer info footer */}
-                  <div className="border-t border-purple-950/60 pt-3 flex items-start space-x-2 text-[9px] text-gray-500 font-mono">
-                    <ShieldCheck className="h-3.5 w-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                  <div className="border-t border-slate-200 pt-3 flex items-start space-x-2 text-[9px] text-slate-500 font-mono">
+                    <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
                     <span>Compliance Guard: virtual routing SIM blocks undergo rotating recycle policies. Numbers are non-persistent but clean.</span>
                   </div>
 
@@ -1116,12 +1132,12 @@ export default function DashboardStore() {
           {/* TAB 3: UK, US & FOREIGN NUMBERS LEASE */}
           {activeTab === "virtual" && (
             <div className="space-y-6 animate-fade-in" id="dashboard-virtual-dids">
-              <div className="p-6 rounded-2xl bg-[#0d0d16]/90 border border-purple-950/30">
+              <div className="p-6 rounded-2xl bg-white border border-slate-150 shadow-xs">
                 <div className="flex items-center space-x-2.5 mb-2">
-                  <PhoneCall className="h-5.5 w-5.5 text-purple-400 animate-bounce" />
-                  <h3 className="text-lg font-bold text-white">Dedicated US, UK & Foreign Number Lease</h3>
+                  <PhoneCall className="h-5.5 w-5.5 text-orange-600 animate-bounce" />
+                  <h3 className="text-sm font-bold text-slate-900 uppercase tracking-widest">Dedicated US, UK & Foreign Number Lease</h3>
                 </div>
-                <p className="text-xs text-gray-400 max-w-2xl leading-relaxed">
+                <p className="text-xs text-slate-500 max-w-2xl leading-relaxed font-medium">
                   Lease dedicated VoIP private virtual numbers directly routed back to your email / device browser. Perfect to keep verified profiles, long term business calling, local country business presence, and international client accessibility.
                 </p>
               </div>
@@ -1133,43 +1149,43 @@ export default function DashboardStore() {
                   return (
                     <div 
                       key={numObj.id}
-                      className="rounded-xl border border-purple-950 bg-[#0d0d16] p-5 flex flex-col justify-between hover:border-purple-600/30 transition-all"
+                      className="rounded-2xl border border-slate-150 bg-white p-5 flex flex-col justify-between hover:border-orange-500/30 transition-all shadow-xs"
                     >
                       <div>
-                        <div className="flex items-center justify-between border-b border-purple-950/40 pb-3">
+                        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                           <span className="text-2xl">{numObj.flag}</span>
-                          <span className="text-[10px] font-mono uppercase bg-purple-950 px-2 py-0.5 rounded text-purple-300">
+                          <span className="text-[10px] font-mono uppercase bg-slate-50 border border-slate-150 px-2 py-0.5 rounded text-slate-650 font-bold">
                             {numObj.prefix} Code Range
                           </span>
                         </div>
 
                         <div className="mt-4">
-                          <h4 className="text-base font-bold text-white">{numObj.country} Private Line</h4>
-                          <p className="text-xs text-gray-400 mt-1 leading-relaxed">
+                          <h4 className="text-base font-extrabold text-slate-900 font-display">{numObj.country} Private Line</h4>
+                          <p className="text-xs text-slate-500 mt-1 leading-relaxed font-medium">
                             Private routing with support for incoming voice and unlimited diagnostic SMS packets forwarding.
                           </p>
                         </div>
 
                         <div className="mt-4 space-y-1.5">
-                          <div className="flex items-center space-x-2 text-[11px] text-gray-300">
-                            <CheckCircle2 className="h-3.5 w-3.5 text-purple-400" />
+                          <div className="flex items-center space-x-2 text-[11px] text-slate-650 font-semibold">
+                            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
                             <span>1 Month dedicated holding lock</span>
                           </div>
-                          <div className="flex items-center space-x-2 text-[11px] text-gray-300">
-                            <CheckCircle2 className="h-3.5 w-3.5 text-purple-400" />
+                          <div className="flex items-center space-x-2 text-[11px] text-slate-650 font-semibold">
+                            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
                             <span>Inbound SMS forwarding to email</span>
                           </div>
-                          <div className="flex items-center space-x-2 text-[11px] text-gray-300">
-                            <CheckCircle2 className="h-3.5 w-3.5 text-purple-400" />
+                          <div className="flex items-center space-x-2 text-[11px] text-slate-650 font-semibold">
+                            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
                             <span>99.9% reliable DID delivery routing</span>
                           </div>
                         </div>
                       </div>
 
-                      <div className="mt-8 pt-4 border-t border-purple-950/60 flex items-center justify-between">
+                      <div className="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between">
                         <div>
-                          <span className="text-[9px] font-mono text-gray-500 block">Monthly Retainer</span>
-                          <span className="text-base font-black text-amber-300 font-mono">
+                          <span className="text-[9px] font-mono text-slate-400 block font-bold">Monthly Retainer</span>
+                          <span className="text-base font-black text-slate-950 font-mono">
                             ₦{numObj.monthlyCost.toLocaleString()}
                           </span>
                         </div>
@@ -1177,14 +1193,14 @@ export default function DashboardStore() {
                         {hasPurchasedLease ? (
                           <button
                             disabled
-                            className="bg-emerald-950 border border-emerald-500/20 text-emerald-300 px-3.5 py-2 rounded-xl text-xs font-bold"
+                            className="bg-emerald-50 border border-emerald-250 text-emerald-700 px-3.5 py-2 rounded-xl text-xs font-bold"
                           >
                             Lease Active
                           </button>
                         ) : (
                           <button
                             onClick={() => handleLeaseVirtualNumber(numObj)}
-                            className="bg-purple-600 hover:bg-purple-500 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all"
+                            className="bg-orange-600 hover:bg-orange-700 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer"
                           >
                             Lease Now
                           </button>
@@ -1202,12 +1218,12 @@ export default function DashboardStore() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 animate-fade-in" id="dashboard-sms-services">
               
               {/* Form Input for Bulk SMS Broadcasting */}
-              <div className="lg:col-span-8 p-6 rounded-2xl bg-[#0e0e16]/90 border border-purple-950/30">
+              <div className="lg:col-span-8 p-6 rounded-2xl bg-white border border-slate-150 shadow-xs">
                 <div className="flex items-center space-x-2 mb-2">
-                  <Send className="h-5.5 w-5.5 text-purple-400" />
-                  <h3 className="text-lg font-bold text-white">SMS Broadcast Console</h3>
+                  <Send className="h-5.5 w-5.5 text-orange-600" />
+                  <h3 className="text-sm font-bold text-slate-900 uppercase tracking-widest">SMS Broadcast Console</h3>
                 </div>
-                <p className="text-xs text-gray-400 mb-6 leading-relaxed">
+                <p className="text-xs text-slate-500 mb-6 leading-relaxed font-medium">
                   Compose single or mass campaigns dynamically using our robust local carrier routing. Instantly customize Sender IDs, verify rates, and dispatch transactional SMS alerts to users or clients.
                 </p>
 
@@ -1215,7 +1231,7 @@ export default function DashboardStore() {
                   {/* Sender ID & Routing type */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-[10px] uppercase font-mono text-gray-400 block mb-1">
+                      <label className="text-[10px] uppercase font-mono text-slate-400 block mb-1 font-bold">
                         A. Custom Sender ID (Alphanumeric max 11 chars)
                       </label>
                       <input
@@ -1224,18 +1240,18 @@ export default function DashboardStore() {
                         maxLength={11}
                         value={smsSenderId}
                         onChange={(e) => setSmsSenderId(e.target.value)}
-                        className="w-full bg-[#07070d] border border-purple-950 focus:border-purple-600 rounded-xl p-3 text-xs focus:outline-none text-white font-bold"
+                        className="w-full bg-white border border-slate-200 focus:border-orange-500 rounded-xl p-3 text-xs focus:outline-none text-slate-900 font-bold"
                       />
                     </div>
 
                     <div>
-                      <label className="text-[10px] uppercase font-mono text-gray-400 block mb-1">
+                      <label className="text-[10px] uppercase font-mono text-slate-400 block mb-1 font-bold">
                         B. Select Carrier Delivery Priority Route
                       </label>
                       <select
                         value={smsCategory}
                         onChange={(e: any) => setSmsCategory(e.target.value)}
-                        className="w-full bg-[#07070d] border border-purple-950 focus:border-purple-600 rounded-xl p-3 text-xs focus:outline-none text-white font-bold"
+                        className="w-full bg-white border border-slate-200 focus:border-orange-500 rounded-xl p-3 text-xs focus:outline-none text-slate-900 font-bold cursor-pointer"
                       >
                         <option value="high-delivery">Local Direct High Delivery Route (₦5/sms unit)</option>
                         <option value="promo">Bulk Promo Route [Recycle Pool] (₦4/sms unit)</option>
@@ -1244,9 +1260,9 @@ export default function DashboardStore() {
                     </div>
                   </div>
 
-                  {/* Recipients List input area */}
+                  {/* Message body input */}
                   <div>
-                    <label className="text-[10px] uppercase font-mono text-gray-400 block mb-1">
+                    <label className="text-[10px] uppercase font-mono text-slate-400 block mb-1 font-bold">
                       C. Destination Numbers (Separated by commas)
                     </label>
                     <textarea
@@ -1254,16 +1270,16 @@ export default function DashboardStore() {
                       placeholder="e.g., +2348012345678, +2349077123412, +13025550190"
                       value={smsRecipients}
                       onChange={(e) => setSmsRecipients(e.target.value)}
-                      className="w-full bg-[#07070d] border border-purple-950 focus:border-purple-600 rounded-xl p-3 text-xs focus:outline-none text-white font-mono"
+                      className="w-full bg-white border border-slate-200 focus:border-orange-500 rounded-xl p-3 text-xs focus:outline-none text-slate-950 font-mono"
                     />
-                    <span className="text-[10px] text-gray-500 font-mono block mt-1">
+                    <span className="text-[10px] text-slate-400 font-mono block mt-1 font-semibold">
                       Valid Nigerian, US, or UK phone addresses supported with dialing prefixes.
                     </span>
                   </div>
 
                   {/* Message body input */}
                   <div>
-                    <label className="text-[10px] uppercase font-mono text-gray-400 block mb-1">
+                    <label className="text-[10px] uppercase font-mono text-slate-400 block mb-1 font-bold">
                       D. Text SMS Message Body
                     </label>
                     <textarea
@@ -1271,11 +1287,11 @@ export default function DashboardStore() {
                       placeholder="Write your text alert here. Normal SMS count is 160 characters per page."
                       value={smsMessage}
                       onChange={(e) => setSmsMessage(e.target.value)}
-                      className="w-full bg-[#07070d] border border-purple-950 focus:border-purple-600 rounded-xl p-3 text-xs focus:outline-none text-white font-sans"
+                      className="w-full bg-white border border-slate-200 focus:border-orange-500 rounded-xl p-3 text-xs focus:outline-none text-slate-950 font-sans"
                     />
                     
                     {/* Character limit calculator indicator */}
-                    <div className="flex justify-between items-center text-[10px] text-gray-500 font-mono mt-1">
+                    <div className="flex justify-between items-center text-[10px] text-slate-400 font-mono mt-1 font-semibold">
                       <span>{smsMessage.length} characters written</span>
                       <span>{Math.ceil(smsMessage.length / 160) || 1} SMS unit charge page</span>
                     </div>
@@ -1285,24 +1301,24 @@ export default function DashboardStore() {
                     <button
                       disabled
                       type="button"
-                      className="w-full py-3 rounded-xl bg-purple-950 text-purple-300 font-bold text-xs flex items-center justify-center space-x-2"
+                      className="w-full py-3 rounded-xl bg-orange-100 text-orange-700 font-bold text-xs flex items-center justify-center space-x-2"
                     >
-                      <RefreshCw className="h-4 w-4 animate-spin" />
+                      <RefreshCw className="h-4 w-4 animate-spin text-orange-600" />
                       <span>Transmitting Broadcast Streams...</span>
                     </button>
                   ) : smsSendingState === "sent" ? (
                     <button
                       disabled
                       type="button"
-                      className="w-full py-3 rounded-xl bg-emerald-950 border border-emerald-500/20 text-emerald-300 font-bold text-xs flex items-center justify-center space-x-1"
+                      className="w-full py-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 font-bold text-xs flex items-center justify-center space-x-1"
                     >
-                      <CheckCircle2 className="h-4 w-4" />
+                      <CheckCircle2 className="h-4 w-4 text-emerald-650" />
                       <span>Broadcast Dispatched Success!</span>
                     </button>
                   ) : (
                     <button
                       type="submit"
-                      className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 font-bold text-xs text-white shadow-lg transition-all"
+                      className="w-full py-3 rounded-xl bg-orange-600 hover:bg-orange-700 font-bold text-xs text-white shadow-xs transition-all cursor-pointer"
                     >
                       Process SMS Broadcast (Est Expense: ₦{smsCostCalc.toLocaleString()})
                     </button>
@@ -1312,36 +1328,36 @@ export default function DashboardStore() {
 
               {/* Sidebar: Current SMS Routing Rules */}
               <div className="lg:col-span-4 space-y-6">
-                <div className="p-5 rounded-2xl bg-[#0b0b13] border border-purple-950/40 space-y-4">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-white">Bulk Carrier Service Stats</h4>
+                <div className="p-5 rounded-2xl bg-slate-50 border border-slate-150 space-y-4 shadow-xs text-slate-900">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-950">Bulk Carrier Service Stats</h4>
                   
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-gray-400">Gateway Status:</span>
-                      <span className="text-emerald-400 font-mono">ONLINE</span>
+                    <div className="flex items-center justify-between text-xs font-medium">
+                      <span className="text-slate-500 font-semibold">Gateway Status:</span>
+                      <span className="text-emerald-450 font-mono font-bold bg-emerald-50 px-1.5 py-0.5 rounded">ONLINE</span>
                     </div>
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-gray-400">Average Delivery Speed:</span>
-                      <span className="text-white font-mono">&lt; 2.4 seconds</span>
+                    <div className="flex items-center justify-between text-xs font-medium">
+                      <span className="text-slate-500 font-semibold">Average Delivery Speed:</span>
+                      <span className="text-slate-900 font-mono font-bold">&lt; 2.4 seconds</span>
                     </div>
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-gray-400">Total API Keys Registered:</span>
-                      <span className="text-amber-400 font-mono">1,824 Keys</span>
+                    <div className="flex items-center justify-between text-xs font-medium">
+                      <span className="text-slate-500 font-semibold">Total API Keys Registered:</span>
+                      <span className="text-orange-700 font-mono font-bold">1,824 Keys</span>
                     </div>
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-gray-400">Sender ID Whitelist Lock:</span>
-                      <span className="text-emerald-400 font-mono">Automatic DND Overpass</span>
+                    <div className="flex items-center justify-between text-xs font-medium">
+                      <span className="text-slate-500 font-semibold">Sender ID Whitelist Lock:</span>
+                      <span className="text-emerald-450 font-mono font-bold">Automatic DND Overpass</span>
                     </div>
                   </div>
 
-                  <div className="pt-3 border-t border-purple-950 text-[10.5px] text-gray-400 leading-relaxed">
+                  <div className="pt-3 border-t border-slate-200 text-[10.5px] text-slate-500 leading-relaxed font-semibold">
                     Our server integrates directly with African leading aggregators (Termii, Africa-Talking) and global networks (Twilio) to supply instant delivery rates even across DND (Do-Not-Disturb) active profiles in Nigeria.
                   </div>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-[#09090f] border border-purple-950/50">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-2">Did You Know?</h4>
-                  <p className="text-[11px] text-gray-500 leading-relaxed">
+                <div className="p-5 rounded-2xl bg-white border border-slate-150 text-slate-800 shadow-xs animate-fade-in">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-950 mb-2 font-display">Did You Know?</h4>
+                  <p className="text-[11px] text-slate-500 leading-relaxed font-semibold">
                     Instead of firing campaigns manually, you can buy the VTU airtime and bulk SMS source script from Wavelet solutions to integrate this exact high-ticket business onto your personal custom server!
                   </p>
                 </div>
@@ -1355,30 +1371,30 @@ export default function DashboardStore() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 animate-fade-in" id="dashboard-wallet-workspaces">
               
               {/* Funded Balance Form */}
-              <div className="lg:col-span-7 p-6 rounded-2xl bg-[#0d0d16]/90 border border-purple-950/30">
+              <div className="lg:col-span-7 p-6 rounded-2xl bg-white border border-slate-150 shadow-xs">
                 <div className="flex items-center space-x-2.5 mb-2">
-                  <CreditCard className="h-6 w-6 text-purple-400" />
-                  <h3 className="text-lg font-bold text-white font-display">Simulated Wallet Funding Workspace</h3>
+                  <CreditCard className="h-6 w-6 text-orange-600 animate-pulse" />
+                  <h3 className="text-sm font-bold text-slate-900 uppercase tracking-widest font-display">Simulated Wallet Funding Workspace</h3>
                 </div>
-                <p className="text-xs text-gray-400 mb-6 leading-relaxed">
+                <p className="text-xs text-slate-500 mb-6 leading-relaxed font-semibold">
                   Wavelet solution is offline-ready for preview. You can enter any amount below to fund your active balance in Naira manually or via secure mock cards/bank-transfer generators.
                 </p>
 
                 {fundingSuccessMsg && (
-                  <div className="mb-4 p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 text-xs flex items-center space-x-2">
-                    <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0" />
+                  <div className="mb-4 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center space-x-2 font-semibold shadow-xs">
+                    <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0" />
                     <span>{fundingSuccessMsg}</span>
                   </div>
                 )}
 
                 <form onSubmit={handleFundWalletSubmit} className="space-y-6">
                   <div>
-                    <label className="text-[10px] uppercase font-mono tracking-widest text-gray-400 block mb-2">
+                    <label className="text-[10px] uppercase font-mono tracking-widest text-slate-400 block mb-2 font-bold">
                       1. Specify Deposit Value
                     </label>
                     
                     <div className="relative">
-                      <span className="absolute left-3.5 top-3 text-lg font-black text-amber-300 font-mono">₦</span>
+                      <span className="absolute left-3.5 top-3.5 text-lg font-black text-slate-800 font-mono">₦</span>
                       <input
                         type="number"
                         min="1000"
@@ -1386,67 +1402,67 @@ export default function DashboardStore() {
                         placeholder="10000"
                         value={fundingAmount}
                         onChange={(e) => setFundingAmount(e.target.value)}
-                        className="w-full bg-[#07070c] border border-purple-950 focus:border-purple-600 rounded-xl py-3.5 pl-10 pr-4 text-sm font-black text-white font-mono focus:outline-none"
+                        className="w-full bg-white border border-slate-200 focus:border-orange-500 rounded-xl py-3.5 pl-10 pr-4 text-sm font-black text-slate-900 font-mono focus:outline-none"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="text-[10px] uppercase font-mono tracking-widest text-gray-400 block mb-3">
+                    <label className="text-[10px] uppercase font-mono tracking-widest text-slate-400 block mb-3 font-bold">
                       2. Choose Funding Gateway Route
                     </label>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                       <div
                         onClick={() => setPaymentMethod("card")}
-                        className={`p-4 rounded-xl border cursor-pointer transition-all flex flex-col items-center text-center ${
+                        className={`p-4 rounded-2xl border cursor-pointer transition-all flex flex-col items-center text-center ${
                           paymentMethod === "card" 
-                            ? "bg-purple-600/10 border-purple-500 text-white" 
-                            : "bg-[#09090f] border-purple-950/40 text-gray-400 hover:text-gray-200"
+                            ? "bg-orange-50 border-orange-500 text-orange-950 font-bold shadow-xs" 
+                            : "bg-slate-50 border-slate-200 text-slate-500 hover:text-slate-800"
                         }`}
                       >
-                        <CreditCard className="h-6 w-6 text-purple-400 mb-2" />
+                        <CreditCard className="h-6 w-6 text-orange-600 mb-2" />
                         <span className="text-xs font-bold font-sans">Card / USSD Sim</span>
-                        <span className="text-[8.5px] font-mono text-gray-500 mt-1">Paystack Sandbox ready</span>
+                        <span className="text-[8.5px] font-mono text-slate-400 mt-1 font-bold">Paystack Sandbox ready</span>
                       </div>
 
                       <div
                         onClick={() => setPaymentMethod("bank")}
-                        className={`p-4 rounded-xl border cursor-pointer transition-all flex flex-col items-center text-center ${
+                        className={`p-4 rounded-2xl border cursor-pointer transition-all flex flex-col items-center text-center ${
                           paymentMethod === "bank" 
-                            ? "bg-purple-600/10 border-purple-500 text-white" 
-                            : "bg-[#09090f] border-purple-950/40 text-gray-400 hover:text-gray-200"
+                            ? "bg-orange-50 border-orange-500 text-orange-950 font-bold shadow-xs" 
+                            : "bg-slate-50 border-slate-200 text-slate-500 hover:text-slate-800"
                         }`}
                       >
-                        <Landmark className="h-6 w-6 text-indigo-400 mb-2" />
+                        <Landmark className="h-6 w-6 text-emerald-600 mb-2" />
                         <span className="text-xs font-bold font-sans">Bank Transfer</span>
-                        <span className="text-[8.5px] font-mono text-gray-500 mt-1">GTB/Zenith sandbox</span>
+                        <span className="text-[8.5px] font-mono text-slate-400 mt-1 font-bold">GTB/Zenith sandbox</span>
                       </div>
 
                       <div
                         onClick={() => setPaymentMethod("usdt")}
-                        className={`p-4 rounded-xl border cursor-pointer transition-all flex flex-col items-center text-center ${
+                        className={`p-4 rounded-2xl border cursor-pointer transition-all flex flex-col items-center text-center ${
                           paymentMethod === "usdt" 
-                            ? "bg-purple-600/10 border-purple-500 text-white" 
-                            : "bg-[#09090f] border-purple-950/40 text-gray-400 hover:text-gray-200"
+                            ? "bg-orange-50 border-orange-500 text-orange-950 font-bold shadow-xs" 
+                            : "bg-slate-50 border-slate-200 text-slate-500 hover:text-slate-800"
                         }`}
                       >
-                        <Sparkles className="h-6 w-6 text-amber-400 mb-2" />
+                        <Sparkles className="h-6 w-6 text-amber-500 mb-2" />
                         <span className="text-xs font-bold font-sans">USDT / USDC Pay</span>
-                        <span className="text-[8.5px] font-mono text-gray-500 mt-1">Multi-chain stablecoin</span>
+                        <span className="text-[8.5px] font-mono text-slate-400 mt-1 font-bold">Multi-chain stablecoin</span>
                       </div>
                     </div>
                   </div>
 
                   {isFundingLoading ? (
-                    <div className="w-full py-4 bg-purple-950 text-purple-300 font-bold text-xs flex items-center justify-center space-x-2 rounded-xl border border-purple-800/10">
-                      <RefreshCw className="h-4 w-4 animate-spin" />
+                    <div className="w-full py-4 bg-orange-50 text-orange-700 font-extrabold text-xs flex items-center justify-center space-x-2 rounded-xl border border-orange-200">
+                      <RefreshCw className="h-4 w-4 animate-spin text-orange-600" />
                       <span>Simulating Secure Sandbox Checkout Portal...</span>
                     </div>
                   ) : (
                     <button
                       type="submit"
-                      className="w-full py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 font-extrabold text-xs text-white shadow-xl flex items-center justify-center space-x-1"
+                      className="w-full py-3.5 rounded-xl bg-orange-600 hover:bg-orange-700 font-extrabold text-xs text-white shadow-xs flex items-center justify-center space-x-1 transition-all cursor-pointer"
                     >
                       <PlusCircle className="h-4.5 w-4.5" />
                       <span>Fund Wallet Instantly</span>
@@ -1457,35 +1473,35 @@ export default function DashboardStore() {
 
               {/* Transactions Log sidebar */}
               <div className="lg:col-span-5 space-y-6">
-                <div className="p-6 rounded-2xl bg-[#0b0b13] border border-purple-950/40">
-                  <div className="flex items-center justify-between border-b border-purple-950 pb-3 mb-4">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-white flex items-center space-x-1.5">
-                      <History className="h-4 w-4 text-purple-400" />
+                <div className="p-6 rounded-2xl bg-white border border-slate-150 shadow-xs">
+                  <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 flex items-center space-x-1.5 font-display">
+                      <History className="h-4 w-4 text-orange-600 animate-pulse" />
                       <span>Financial Transactions Ledger</span>
                     </h4>
                     
-                    <span className="text-[9px] font-mono text-gray-500 uppercase">Secure logs</span>
+                    <span className="text-[10px] font-mono text-slate-400 uppercase font-bold">Secure logs</span>
                   </div>
 
-                  <div className="space-y-3 max-h-[290px] overflow-y-auto pr-1">
+                  <div className="space-y-3 max-h-[320px] overflow-y-auto pr-1">
                     {transactions.map((tx, idx) => (
                       <div 
                         key={`${tx.id}-${idx}`}
-                        className="p-3.5 rounded-xl bg-slate-50 border border-gray-150 flex justify-between items-start text-xs hover:border-orange-500/25 transition-all text-slate-950"
+                        className="p-3.5 rounded-xl bg-slate-50 border border-slate-100 flex justify-between items-start text-xs hover:border-orange-500/25 transition-all text-slate-950"
                       >
                         <div className="space-y-1">
-                          <p className="font-bold text-white leading-tight">{tx.serviceName}</p>
-                          <p className="text-[9px] text-[#a855f7] font-mono">{tx.reference}</p>
-                          <p className="text-[9.5px] text-gray-500 font-mono">{tx.date}</p>
+                          <p className="font-bold text-slate-800 leading-tight">{tx.serviceName}</p>
+                          <p className="text-[9px] text-orange-600 font-mono font-bold">{tx.reference}</p>
+                          <p className="text-[9.5px] text-slate-500 font-mono">{tx.date}</p>
                         </div>
 
                         <div className="text-right">
-                          <span className={`font-mono font-bold block ${tx.type === "funding" ? "text-emerald-400" : "text-amber-400"}`}>
+                          <span className={`font-mono font-bold block ${tx.type === "funding" ? "text-emerald-600" : "text-amber-700"}`}>
                             {tx.type === "funding" ? "+" : "-"}₦{tx.amount.toLocaleString()}
                           </span>
                           
-                          <span className="inline-flex items-center text-[8.5px] text-emerald-400 font-bold mt-0.5">
-                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 mr-1"></span>
+                          <span className="inline-flex items-center text-[8.5px] text-emerald-600 font-bold mt-0.5">
+                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 mr-1"></span>
                             <span>Success</span>
                           </span>
                         </div>
@@ -1493,7 +1509,7 @@ export default function DashboardStore() {
                     ))}
 
                     {transactions.length === 0 && (
-                      <p className="text-center text-xs text-gray-500 py-6">No previous ledger operations found.</p>
+                      <p className="text-center text-xs text-slate-400 py-6 font-semibold">No previous ledger operations found.</p>
                     )}
                   </div>
                 </div>
@@ -1505,13 +1521,13 @@ export default function DashboardStore() {
           {/* TAB 6: INVENTORY VAULT */}
           {activeTab === "inventory" && (
             <div className="space-y-6 animate-fade-in" id="dashboard-inventory-cabinet">
-              <div className="p-6 rounded-2xl bg-[#0d0d16]/90 border border-purple-950/30">
+              <div className="p-6 rounded-2xl bg-white border border-slate-150 shadow-xs">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2.5">
-                    <Database className="h-6 w-6 text-amber-400 animate-pulse" />
+                    <Database className="h-6 w-6 text-orange-600 animate-pulse" />
                     <div>
-                      <h3 className="text-lg font-bold text-white">Your Provisioned Key & Script Vault</h3>
-                      <p className="text-xs text-gray-400 mt-0.5">
+                      <h3 className="text-base font-extrabold text-slate-900 tracking-wider font-display uppercase">Your Provisioned Key & Script Vault</h3>
+                      <p className="text-xs text-slate-500 mt-0.5 font-medium">
                         Access all bought script links, custom developer keys, active DID telephone rentals, and generated OTP records.
                       </p>
                     </div>
@@ -1525,7 +1541,7 @@ export default function DashboardStore() {
                         showNotice("success", "Inventory reset complete.");
                       }
                     }}
-                    className="p-2 text-gray-500 hover:text-red-400 border border-purple-950 hover:border-red-500/25 rounded-xl text-[10px] font-mono transition-all"
+                    className="p-2 text-slate-500 hover:text-red-650 border border-slate-200 hover:border-red-400 rounded-xl text-[10px] font-mono transition-all font-bold cursor-pointer bg-white shadow-xs"
                     title="Reset simulation data"
                   >
                     Reset Inventory
@@ -1537,28 +1553,28 @@ export default function DashboardStore() {
                 {inventory.map((item, idx) => (
                   <div 
                     key={`${item.id}-${idx}`}
-                    className="rounded-2xl border border-gray-150 bg-white p-5 flex flex-col justify-between hover:border-orange-500/20 transition-all relative overflow-hidden text-slate-900"
+                    className="rounded-2xl border border-slate-150 bg-white p-5 flex flex-col justify-between hover:border-orange-500/20 transition-all relative overflow-hidden text-slate-900 shadow-xs"
                   >
                     
                     {/* Glowing highlight anchor */}
-                    <div className="absolute top-0 right-0 h-10 w-10 bg-gradient-to-bl from-purple-500/10 to-transparent pointer-events-none" />
+                    <div className="absolute top-0 right-0 h-10 w-10 bg-gradient-to-bl from-orange-500/5 to-transparent pointer-events-none" />
 
                     <div>
-                      <span className="text-[9px] font-mono text-amber-300 bg-amber-500/5 border border-amber-400/20 px-2 py-0.5 rounded uppercase">
+                      <span className="text-[9px] font-mono font-bold text-orange-700 bg-orange-50 border border-orange-200 px-2 py-0.5 rounded uppercase">
                         Active Access Node #{idx + 1}
                       </span>
 
-                      <h4 className="text-base font-bold text-white mt-3">{item.name}</h4>
-                      <p className="text-[10.5px] text-gray-500 mt-1 font-mono">Bought Date: {item.date}</p>
+                      <h4 className="text-base font-extrabold text-slate-900 font-display mt-3">{item.name}</h4>
+                      <p className="text-[10.5px] text-slate-400 mt-1 font-mono font-semibold">Bought Date: {item.date}</p>
 
                       {/* Phone specific details */}
                       {item.phoneDetails && (
-                        <div className="mt-4 p-3 rounded-xl bg-[#07070c] border border-purple-950/50 space-y-1.5">
-                          <p className="text-[10px] text-gray-500 uppercase font-mono tracking-wider">DID SIM details</p>
-                          <p className="text-sm font-bold text-white font-mono">{item.phoneDetails.number}</p>
-                          <div className="flex items-center justify-between text-[11px] text-gray-400">
+                        <div className="mt-4 p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
+                          <p className="text-[10px] text-slate-400 uppercase font-mono tracking-wider font-bold">DID SIM details</p>
+                          <p className="text-sm font-extrabold text-slate-900 font-mono">{item.phoneDetails.number}</p>
+                          <div className="flex items-center justify-between text-[11px] text-slate-650 font-bold">
                             <span>Country: {item.phoneDetails.country}</span>
-                            <span className="text-red-400 font-mono text-[10px]">{item.phoneDetails.expiresAt}</span>
+                            <span className="text-red-650 font-mono text-[10px]">{item.phoneDetails.expiresAt}</span>
                           </div>
                         </div>
                       )}
@@ -1566,11 +1582,11 @@ export default function DashboardStore() {
                       {/* Display developer keys */}
                       {item.key && (
                         <div className="mt-4">
-                          <label className="text-[9px] text-gray-500 uppercase font-mono block mb-1">
+                          <label className="text-[9px] text-slate-400 uppercase font-mono block mb-1 font-bold">
                             Secured Authorization Key
                           </label>
-                          <div className="flex items-center space-x-2 bg-[#07070c] border border-purple-950/80 p-3 rounded-xl">
-                            <span className="text-xs font-mono text-purple-300 font-bold tracking-wider select-all block truncate w-full">
+                          <div className="flex items-center space-x-2 bg-slate-50 border border-slate-200 p-3 rounded-xl">
+                            <span className="text-xs font-mono text-orange-700 font-bold tracking-wider select-all block truncate w-full">
                               {item.key}
                             </span>
                             <button
@@ -1578,7 +1594,7 @@ export default function DashboardStore() {
                                 navigator.clipboard.writeText(item.key || "");
                                 showNotice("success", "Authorization Key copied!");
                               }}
-                              className="text-gray-500 hover:text-white shrink-0"
+                              className="text-slate-400 hover:text-slate-900 shrink-0 cursor-pointer"
                               title="Copy Key"
                             >
                               <Clipboard className="h-4 w-4" />
@@ -1589,8 +1605,8 @@ export default function DashboardStore() {
                     </div>
 
                     {/* Download link or manual support */}
-                    <div className="mt-6 pt-4 border-t border-purple-950/60 flex items-center justify-between">
-                      <span className="text-xs font-mono text-gray-400">Paid Amount: ₦{item.price.toLocaleString()}</span>
+                    <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                      <span className="text-xs font-mono text-slate-500 font-bold">Paid Amount: ₦{item.price.toLocaleString()}</span>
 
                       {item.downloadLink ? (
                         <a
@@ -1599,7 +1615,7 @@ export default function DashboardStore() {
                             e.preventDefault();
                             alert(`Simulation: Downloading script bundle package compiled inside dynamic ZIP archive ${item.name} (${item.key}) has started!`);
                           }}
-                          className="px-4 py-2 rounded-xl text-xs font-bold bg-[#1e1b4b] hover:bg-[#2e1d65] text-purple-200 border border-purple-500/25 transition-all flex items-center space-x-1"
+                          className="px-4 py-2 rounded-xl text-xs font-bold bg-orange-650 hover:bg-orange-700 text-white border border-orange-500/10 transition-all flex items-center space-x-1 shadow-xs cursor-pointer"
                         >
                           <ExternalLink className="h-3.5 w-3.5" />
                           <span>Download script package</span>
@@ -1609,7 +1625,7 @@ export default function DashboardStore() {
                           href={`https://wa.me/${((import.meta as any).env.VITE_WHATSAPP_NUMBER || "+2348012345678").replace(/\D/g, "")}?text=Hello%20Al-Salam%20Sinner%21%20I%20just%20acquired%20${encodeURIComponent(item.name)}%20via%20Wavelet%20Solutions.%20Let's%20activate%20and%20coordinate%20delivery%21`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-950 hover:bg-emerald-900 border border-emerald-500/25 text-emerald-300 transition-all flex items-center space-x-1"
+                          className="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-800 transition-all flex items-center space-x-1 cursor-pointer"
                         >
                           <Phone className="h-3.5 w-3.5" />
                           <span>Contact Lead Engineer</span>
@@ -1621,12 +1637,12 @@ export default function DashboardStore() {
                 ))}
 
                 {inventory.length === 0 && (
-                  <div className="col-span-full py-16 text-center border border-dashed border-purple-950/60 rounded-2xl bg-[#09090f]">
-                    <Database className="h-10 w-10 text-gray-600 mx-auto mb-3" />
-                    <p className="text-gray-400 text-xs">Your purchase inventory vault is empty.</p>
+                  <div className="col-span-full py-16 text-center border border-dashed border-slate-200 rounded-2xl bg-slate-50">
+                    <Database className="h-10 w-10 text-slate-400 mx-auto mb-3" />
+                    <p className="text-slate-500 text-xs font-semibold">Your purchase inventory vault is empty.</p>
                     <button
                       onClick={() => setActiveTab("store")}
-                      className="mt-4 px-4 py-2 text-xs font-bold bg-purple-600 text-white rounded-xl transition-all"
+                      className="mt-4 px-4 py-2 text-xs font-bold bg-orange-600 hover:bg-orange-700 text-white rounded-xl transition-all shadow-xs cursor-pointer"
                     >
                       Browse Digital Marketplace
                     </button>
