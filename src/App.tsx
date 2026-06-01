@@ -16,6 +16,7 @@ import Contact from "./components/Contact";
 import WhatsAppButton from "./components/WhatsAppButton";
 import LeadCaptureModal from "./components/LeadCaptureModal";
 import DashboardStore from "./components/DashboardStore";
+import AdminPanel from "./components/AdminPanel";
 import { SERVICES_DATA, PORTFOLIO_DATA, BLOG_DATA, ServicePackage, PortfolioItem } from "./types";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -100,14 +101,14 @@ export default function App() {
   };
 
   return (
-    <div id="app-root-shell" className="min-h-screen bg-[#06060a] text-gray-100 font-sans selection:bg-purple-600/30 selection:text-amber-300">
+    <div id="app-root-shell" className="min-h-screen bg-white text-slate-900 font-sans selection:bg-orange-600/10 selection:text-orange-600">
       
       {/* Top Banner Global Trust */}
-      <div id="top-alert-banner" className="bg-[#0b0b14] border-b border-purple-900/30 text-center py-2 px-3 text-[10px] md:text-xs">
+      <div id="top-alert-banner" className="bg-orange-50 border-b border-orange-100 text-center py-2 px-3 text-[10px] md:text-xs text-orange-850 font-medium">
         <span className="inline-flex items-center space-x-1">
-          <Sparkles className="h-3.5 w-3.5 text-amber-400 animate-pulse" />
-          <span className="text-gray-300 font-bold">Nigeria AI & Web Development Integration Specialist</span>
-          <span className="text-amber-300 underline pl-1 cursor-pointer" onClick={() => setActiveView("ai-advisor")}>Launch Dynamic Profit Advisor &rarr;</span>
+          <Sparkles className="h-3.5 w-3.5 text-orange-600 animate-pulse" />
+          <span className="text-slate-700 font-bold">Nigeria AI & Web Development Integration Specialist</span>
+          <span className="text-orange-600 underline pl-1 cursor-pointer font-bold" onClick={() => setActiveView("ai-advisor")}>Launch Dynamic Profit Advisor &rarr;</span>
         </span>
       </div>
 
@@ -130,39 +131,39 @@ export default function App() {
             />
 
             {/* Quick Pricing Showcase Segment */}
-            <section className="bg-[#08080c] py-16 border-t border-purple-950/20" id="home-services-summary">
+            <section className="bg-white py-16 border-t border-gray-150" id="home-services-summary">
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-12">
-                  <h3 className="text-xs font-bold text-[#a855f7] uppercase tracking-widest font-mono">POPULAR WORK CHOICES</h3>
-                  <h2 className="text-3xl font-extrabold text-white mt-1">Direct Profit Solutions</h2>
+                  <h3 className="text-xs font-bold text-orange-600 uppercase tracking-widest font-mono">POPULAR WORK CHOICES</h3>
+                  <h2 className="text-3xl font-extrabold text-slate-900 mt-1 font-display">Direct Profit Solutions</h2>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {SERVICES_DATA.slice(0, 3).map((pkg) => (
                     <div 
                       key={pkg.id} 
-                      className={`rounded-2xl border bg-[#0d0d15]/80 p-6 relative overflow-hidden transition-all hover:scale-[1.01] hover:border-purple-600/30 flex flex-col justify-between ${
-                        pkg.tag ? "border-amber-400/30 ring-1 ring-amber-400/10" : "border-purple-950"
+                      className={`rounded-2xl border bg-slate-50 p-6 relative overflow-hidden transition-all hover:scale-[1.01] hover:border-orange-500/40 flex flex-col justify-between ${
+                        pkg.tag ? "border-orange-500/30 ring-1 ring-orange-500/10" : "border-gray-200"
                       }`}
                     >
                       <div>
                         {pkg.tag && (
-                          <span className="absolute -top-3 right-5 rounded-full bg-gradient-to-r from-amber-400 to-amber-600 px-3 py-1 text-[10px] font-bold text-black uppercase tracking-wider">{pkg.tag}</span>
+                          <span className="absolute -top-3 right-5 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 px-3 py-1 text-[10px] font-bold text-white uppercase tracking-wider">{pkg.tag}</span>
                         )}
-                        <span className="text-[10px] font-mono uppercase text-purple-400 font-bold tracking-wider">{pkg.category.replace("-", " ")}</span>
-                        <h4 className="text-lg font-bold text-white mt-1.5">{pkg.name}</h4>
-                        <p className="text-2xl font-black text-white font-mono mt-3">{pkg.priceLabel}</p>
-                        <p className="text-xs text-gray-400 mt-2 min-h-[48px] leading-relaxed">{pkg.shortDesc}</p>
+                        <span className="text-[10px] font-mono uppercase text-orange-600 font-bold tracking-wider">{pkg.category.replace("-", " ")}</span>
+                        <h4 className="text-lg font-bold text-slate-900 mt-1.5 font-display">{pkg.name}</h4>
+                        <p className="text-2xl font-black text-slate-950 font-mono mt-3">{pkg.priceLabel}</p>
+                        <p className="text-xs text-slate-500 mt-2 min-h-[48px] leading-relaxed">{pkg.shortDesc}</p>
                       </div>
 
-                      <div className="mt-6 pt-4 border-t border-purple-950 flex flex-col gap-3">
+                      <div className="mt-6 pt-4 border-t border-gray-150 flex flex-col gap-3">
                         <button
                           id={`home-rent-pkg-${pkg.id}`}
                           onClick={() => handleOpenBookingWithPackage(pkg)}
-                          className={`w-full text-xs font-bold py-3.5 rounded-xl transition-all ${
+                          className={`w-full text-xs font-bold py-3.5 rounded-xl transition-all cursor-pointer ${
                             pkg.tag 
-                              ? "bg-gradient-to-r from-amber-400 to-amber-500 text-black hover:brightness-110" 
-                              : "bg-purple-950 border border-purple-500/10 text-white hover:bg-purple-900/40"
+                              ? "bg-orange-600 text-white hover:bg-orange-700 shadow-md shadow-orange-100" 
+                              : "bg-slate-100 border border-gray-200 text-slate-705 hover:bg-slate-200"
                           }`}
                         >
                           Rent This Package
@@ -176,7 +177,7 @@ export default function App() {
                   <button
                     id="home-explore-all-services"
                     onClick={() => setActiveView("services")}
-                    className="inline-flex items-center space-x-1.5 text-xs font-bold text-purple-400 hover:text-purple-300"
+                    className="inline-flex items-center space-x-1.5 text-xs font-bold text-orange-600 hover:text-orange-750 cursor-pointer"
                   >
                     <span>Explore All Pricing Tiers & Packages</span>
                     <ArrowRight className="h-4 w-4" />
@@ -186,11 +187,11 @@ export default function App() {
             </section>
 
             {/* Testimonials Review Slider */}
-            <section className="bg-[#050508] py-16 border-t border-purple-950/20" id="home-customer-reviews">
+            <section className="bg-slate-50 py-16 border-t border-gray-150" id="home-customer-reviews">
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="text-center max-w-xl mx-auto mb-12">
-                  <h3 className="text-xs font-bold text-amber-300 tracking-wider uppercase">TRUST SIGNALS</h3>
-                  <h2 className="text-2xl font-black text-white mt-1.5">Client Feedbacks (Naija & Abroad)</h2>
+                  <h3 className="text-xs font-bold text-orange-600 tracking-wider uppercase">TRUST SIGNALS</h3>
+                  <h2 className="text-2xl font-black text-slate-900 mt-1.5 font-display">Client Feedbacks (Naija & Abroad)</h2>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -212,21 +213,21 @@ export default function App() {
                       pkg: "Branding Pack"
                     }
                   ].map((rev, idx) => (
-                    <div key={idx} className="rounded-2xl border border-purple-950 bg-[#0d0d15]/50 p-6 relative">
-                      <div className="flex items-center space-x-1 text-amber-400 mb-3.5">
+                    <div key={idx} className="rounded-2xl border border-gray-200 bg-white p-6 relative shadow-xs">
+                      <div className="flex items-center space-x-1 text-amber-500 mb-3.5">
                         {[...Array(rev.stars)].map((_, i) => (
-                          <Star key={i} className="h-4 w-4 fill-amber-400" />
+                          <Star key={i} className="h-4 w-4 fill-amber-500 text-amber-500" />
                         ))}
                       </div>
-                      <p className="text-xs text-gray-300 leading-relaxed italic">"{rev.feedback}"</p>
+                      <p className="text-xs text-slate-650 leading-relaxed italic">"{rev.feedback}"</p>
                       
-                      <div className="mt-5 border-t border-purple-950 pt-4.5 flex items-center space-x-3">
+                      <div className="mt-5 border-t border-gray-100 pt-4.5 flex items-center space-x-3">
                         <img 
                           referrerPolicy="no-referrer"
                           src={rev.image} alt={rev.name} className="h-10 w-10 rounded-full object-cover" />
                         <div>
-                          <h4 className="text-xs font-bold text-white">{rev.name}</h4>
-                          <p className="text-[10px] text-gray-500">{rev.role}</p>
+                          <h4 className="text-xs font-bold text-slate-900">{rev.name}</h4>
+                          <p className="text-[10px] text-slate-500">{rev.role}</p>
                         </div>
                       </div>
                     </div>
@@ -294,57 +295,72 @@ export default function App() {
           </div>
         )}
 
+        {/* SECURE ADMINISTRATIVE CONTROL HUB PANEL */}
+        {activeView === "admin" && (
+          <div id="view-admin-container" className="animate-fade-in">
+            <AdminPanel />
+          </div>
+        )}
+
       </main>
 
       {/* FOOTER METRICS AREA */}
-      <footer id="app-footer-bar" className="bg-[#040407] border-t border-purple-950/40 py-12 text-xs text-gray-400">
+      <footer id="app-footer-bar" className="bg-slate-50 border-t border-gray-200 py-12 text-xs text-slate-500">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10 pb-10 border-b border-purple-950/40">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10 pb-10 border-b border-gray-200">
             {/* C1 Brand */}
             <div className="space-y-3">
-              <h4 className="text-white text-sm font-bold flex items-center space-x-1.5 font-sans">
-                <Rocket className="h-4.5 w-4.5 text-purple-400" />
+              <h4 className="text-slate-900 text-sm font-bold flex items-center space-x-1.5 font-sans">
+                <Rocket className="h-4.5 w-4.5 text-orange-600" />
                 <span>Wavelet Digital Solutions</span>
               </h4>
-              <p className="text-[11px] leading-relaxed text-gray-500">
+              <p className="text-[11px] leading-relaxed text-slate-500 font-medium">
                 A modern professional workshop connecting AI capabilities with client-centric web architecture, design assets, and organic maps search.
               </p>
             </div>
             {/* C2 Services */}
             <div>
-              <h5 className="text-white font-bold mb-3.5 text-xs text-gray-200">Our Services</h5>
-              <ul className="space-y-2 text-[11px]">
-                <li className="hover:text-white transition-colors cursor-pointer" onClick={() => setActiveView("services")}>AI Money Making Mastery</li>
-                <li className="hover:text-white transition-colors cursor-pointer" onClick={() => setActiveView("services")}>Custom Websites Development</li>
-                <li className="hover:text-white transition-colors cursor-pointer" onClick={() => setActiveView("services")}>Google My Business Boost</li>
-                <li className="hover:text-white transition-colors cursor-pointer" onClick={() => setActiveView("services")}>Strategic Search Audits (SEO)</li>
+              <h5 className="text-slate-900 font-bold mb-3.5 text-xs font-display">Our Services</h5>
+              <ul className="space-y-2 text-[11px] font-semibold text-slate-500">
+                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("services")}>AI Money Making Mastery</li>
+                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("services")}>Custom Websites Development</li>
+                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("services")}>Google My Business Boost</li>
+                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("services")}>Strategic Search Audits (SEO)</li>
               </ul>
             </div>
             {/* C3 Resources */}
             <div>
-              <h5 className="text-white font-bold mb-3.5 text-xs text-gray-200">Interactive Tools</h5>
-              <ul className="space-y-2 text-[11px]">
-                <li className="hover:text-white transition-colors cursor-pointer" onClick={() => setActiveView("dashboard")}>SaaS & Scripts Shop</li>
-                <li className="hover:text-white transition-colors cursor-pointer" onClick={() => setActiveView("ai-advisor")}>AI Side-Hustle Advisor</li>
-                <li className="hover:text-white transition-colors cursor-pointer" onClick={() => setActiveView("services")}>Instant Naira Calculator</li>
-                <li className="hover:text-white transition-colors cursor-pointer" onClick={() => setActiveView("blog")}>Secret Conversion Hub</li>
+              <h5 className="text-slate-900 font-bold mb-3.5 text-xs font-display">Interactive Tools</h5>
+              <ul className="space-y-2 text-[11px] font-semibold text-slate-500">
+                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("dashboard")}>SaaS & Scripts Shop</li>
+                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("ai-advisor")}>AI Side-Hustle Advisor</li>
+                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("services")}>Instant Naira Calculator</li>
+                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("blog")}>Secret Conversion Hub</li>
               </ul>
             </div>
             {/* C4 Local verification */}
             <div>
-              <h5 className="text-white font-bold mb-3.5 text-xs text-gray-200 font-mono text-amber-400 uppercase tracking-widest pl-1.5 border-l border-amber-400/30">Lagos Head Office</h5>
-              <p className="text-[11px] leading-relaxed text-gray-500">
+              <h5 className="text-orange-600 font-bold mb-3.5 text-xs font-mono uppercase tracking-widest pl-1.5 border-l border-orange-500/30">Lagos Head Office</h5>
+              <p className="text-[11px] leading-relaxed text-slate-500 font-medium">
                 Yaba, mainland district, LagosState, Nigeria. Support worldwide bookings via direct WhatsApp channels.
               </p>
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row items-center justify-between text-[11px] text-gray-650" id="compliance-text">
-            <span>&copy; {new Date().getFullYear()} Wavelet Digital Solutions. All Rights Reserved. Crafted by Al-Salam Sinner (Web Developer & AI Educator).</span>
-            <span className="flex items-center space-x-1 mt-3 md:mt-0 text-[10px]">
-              <ShieldCheck className="h-4 w-4 text-emerald-400" />
-              <span>Full compliance verified. SSL Active</span>
-            </span>
+          <div className="flex flex-col md:flex-row items-center justify-between text-[11px] text-slate-450 font-medium gap-4" id="compliance-text">
+            <span>&copy; {new Date().getFullYear()} Wavelet Digital Solutions. All Rights Reserved. Crafted by Al-Salam Sinner.</span>
+            <div className="flex items-center space-x-3 mt-3 md:mt-0">
+              <span className="flex items-center space-x-1 text-[10px] text-emerald-600 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded">
+                <ShieldCheck className="h-4 w-4 text-emerald-650" />
+                <span>SSL Active</span>
+              </span>
+              <button 
+                onClick={() => { setActiveView("admin"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                className="flex items-center space-x-1 text-[10px] text-slate-600 bg-white border border-gray-200 px-2.5 py-1 rounded hover:text-orange-650 hover:border-orange-200 transition-colors cursor-pointer"
+              >
+                <span>Administrative Login</span>
+              </button>
+            </div>
           </div>
         </div>
       </footer>
