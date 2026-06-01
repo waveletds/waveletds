@@ -71,7 +71,22 @@ export default function DashboardStore() {
 
   const [transactions, setTransactions] = useState<Transaction[]>(() => {
     const saved = localStorage.getItem("wavelet_transactions");
-    if (saved) return JSON.parse(saved);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        const seen = new Set<string>();
+        return parsed.map((tx: any, idx: number) => {
+          let cid = tx.id;
+          if (!cid || seen.has(cid)) {
+            cid = `tx-${Date.now()}-${idx}-${Math.floor(Math.random() * 1000000)}`;
+          }
+          seen.add(cid);
+          return { ...tx, id: cid };
+        });
+      } catch (e) {
+        // Fallback on error
+      }
+    }
     return [
       {
         id: "tx-1",
@@ -96,7 +111,22 @@ export default function DashboardStore() {
 
   const [inventory, setInventory] = useState<PurchasedItem[]>(() => {
     const saved = localStorage.getItem("wavelet_inventory");
-    if (saved) return JSON.parse(saved);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        const seen = new Set<string>();
+        return parsed.map((item: any, idx: number) => {
+          let cid = item.id;
+          if (!cid || seen.has(cid)) {
+            cid = `purch-${Date.now()}-${idx}-${Math.floor(Math.random() * 1000000)}`;
+          }
+          seen.add(cid);
+          return { ...item, id: cid };
+        });
+      } catch (e) {
+        // Fallback on error
+      }
+    }
     return [
       {
         id: "purch-1",
@@ -304,7 +334,7 @@ export default function DashboardStore() {
       setWalletBalance(prev => prev + amount);
 
       const newTx: Transaction = {
-        id: "tx-" + Date.now(),
+        id: "tx-" + Date.now() + "-" + Math.floor(Math.random() * 1000000),
         type: "funding",
         amount: amount,
         serviceName: `Funded via ${paymentLabel}`,
@@ -334,7 +364,7 @@ export default function DashboardStore() {
     const refCode = "WVL-PR-" + Math.floor(100000 + Math.random() * 900000);
 
     const newTx: Transaction = {
-      id: "tx-" + Date.now(),
+      id: "tx-" + Date.now() + "-" + Math.floor(Math.random() * 1000000),
       type: "purchase",
       amount: asset.price,
       serviceName: `Bought: ${asset.name}`,
@@ -350,7 +380,7 @@ export default function DashboardStore() {
     const generatedKey = "WVL-" + asset.type.toUpperCase().substring(0, 3) + "-" + Math.floor(1000 + Math.random() * 9000) + "-CONF";
 
     const newInv: PurchasedItem = {
-      id: "purch-" + Date.now(),
+      id: "purch-" + Date.now() + "-" + Math.floor(Math.random() * 1000000),
       purchaseId: asset.id,
       name: asset.name,
       price: asset.price,
@@ -378,7 +408,7 @@ export default function DashboardStore() {
 
     const refCode = "WVL-OTP-" + Math.floor(100000 + Math.random() * 900000);
     const newTx: Transaction = {
-      id: "tx-" + Date.now(),
+      id: "tx-" + Date.now() + "-" + Math.floor(Math.random() * 1000000),
       type: "purchase",
       amount: app.price,
       serviceName: `Provisioned OTP SIM: ${app.appName} (${selectedOtpCountry})`,
@@ -422,7 +452,7 @@ export default function DashboardStore() {
           if (showCode && !prev.receivedCode) {
             // Instantly push this to purchased inventory too so they don't lose it
             const newInv: PurchasedItem = {
-              id: "purch-" + Date.now(),
+              id: "purch-" + Date.now() + "-otp-" + Math.floor(Math.random() * 1000000),
               purchaseId: "otp-sim",
               name: `OTP SIM Code: ${prev.app} Verify`,
               price: selectedOtpApp?.price || 2000,
@@ -463,7 +493,7 @@ export default function DashboardStore() {
 
     const refCode = "WVL-NUM-" + Math.floor(100000 + Math.random() * 900000);
     const newTx: Transaction = {
-      id: "tx-" + Date.now(),
+      id: "tx-" + Date.now() + "-" + Math.floor(Math.random() * 1000000),
       type: "purchase",
       amount: numObj.monthlyCost,
       serviceName: `Leased ${numObj.country} Dedicated Line`,
@@ -473,7 +503,7 @@ export default function DashboardStore() {
     };
 
     const newInv: PurchasedItem = {
-      id: "purch-" + Date.now(),
+      id: "purch-" + Date.now() + "-" + Math.floor(Math.random() * 1000000),
       purchaseId: numObj.id,
       name: `${numObj.country} Dedicated Number Lease`,
       price: numObj.monthlyCost,
@@ -524,7 +554,7 @@ export default function DashboardStore() {
       const refCode = "WVL-SMS-" + Math.floor(100000 + Math.random() * 900000);
 
       const newTx: Transaction = {
-        id: "tx-" + Date.now(),
+        id: "tx-" + Date.now() + "-" + Math.floor(Math.random() * 1000000),
         type: "purchase",
         amount: smsCostCalc,
         serviceName: `SMS Broadcast: [${smsSenderId}] to ${smsRecipients.split(",").length} targets`,
@@ -554,24 +584,24 @@ export default function DashboardStore() {
   });
 
   return (
-    <section className="bg-gradient-to-b from-[#0b0b14] via-[#06060a] to-[#07070b] py-24 relative overflow-hidden" id="dashboard-system-hub">
+    <section className="bg-zinc-50 border-t border-gray-200 py-24 relative overflow-hidden text-slate-950" id="dashboard-system-hub">
       
       {/* Absolute design aesthetic background gradients */}
-      <div className="background-glow hidden md:block w-[400px] h-[400px] bg-purple-900/15 top-20 left-10" />
-      <div className="background-glow hidden md:block w-[500px] h-[500px] bg-indigo-950/10 bottom-10 right-10" />
+      <div className="background-glow hidden md:block w-[400px] h-[400px] bg-orange-100/10 top-20 left-10" />
+      <div className="background-glow hidden md:block w-[500px] h-[500px] bg-orange-100/5 bottom-10 right-10" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Core Header Section */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center space-x-1.5 rounded-full bg-purple-950/45 px-3.5 py-1.5 text-xs text-purple-300 border border-purple-800/30 font-medium">
-            <Sparkles className="h-3.5 w-3.5 text-amber-400" />
+          <div className="inline-flex items-center space-x-1.5 rounded-full bg-orange-50 px-3.5 py-1.5 text-xs text-orange-700 border border-orange-200 font-bold">
+            <Sparkles className="h-3.5 w-3.5 text-orange-500 animate-pulse" />
             <span>Digital Solution Marketplace & Client Console</span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white mt-3 font-display">
-            SaaS Dashboard & Services <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-amber-300">Hub</span>
+          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-950 mt-3 font-display">
+            SaaS Dashboard & Services <span className="bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent">Hub</span>
           </h2>
-          <p className="max-w-2xl mx-auto text-xs md:text-sm text-gray-400 mt-3 leading-relaxed">
+          <p className="max-w-2xl mx-auto text-xs md:text-sm text-slate-550 mt-3 leading-relaxed">
             Fund your digital wallet instantly to purchase scripts, deploy ready-made portals, generate fast OTP SIM routes, lease private foreign lines, and orchestrate direct mass SMS campaigns.
           </p>
         </div>
@@ -1438,10 +1468,10 @@ export default function DashboardStore() {
                   </div>
 
                   <div className="space-y-3 max-h-[290px] overflow-y-auto pr-1">
-                    {transactions.map(tx => (
+                    {transactions.map((tx, idx) => (
                       <div 
-                        key={tx.id}
-                        className="p-3.5 rounded-xl bg-[#07070d] border border-purple-950/50 flex justify-between items-start text-xs hover:border-purple-600/20 transition-all"
+                        key={`${tx.id}-${idx}`}
+                        className="p-3.5 rounded-xl bg-slate-50 border border-gray-150 flex justify-between items-start text-xs hover:border-orange-500/25 transition-all text-slate-950"
                       >
                         <div className="space-y-1">
                           <p className="font-bold text-white leading-tight">{tx.serviceName}</p>
@@ -1506,8 +1536,8 @@ export default function DashboardStore() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {inventory.map((item, idx) => (
                   <div 
-                    key={item.id}
-                    className="rounded-2xl border border-purple-950 bg-[#0b0b13] p-5 flex flex-col justify-between hover:border-purple-600/25 transition-all relative overflow-hidden"
+                    key={`${item.id}-${idx}`}
+                    className="rounded-2xl border border-gray-150 bg-white p-5 flex flex-col justify-between hover:border-orange-500/20 transition-all relative overflow-hidden text-slate-900"
                   >
                     
                     {/* Glowing highlight anchor */}

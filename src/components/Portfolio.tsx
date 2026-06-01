@@ -22,33 +22,33 @@ export default function Portfolio({ onSelectProject }: PortfolioProps) {
     : PORTFOLIO_DATA.filter((item) => item.category === activeFilter);
 
   return (
-    <section id="portfolio-page" className="bg-[#06060a]/95 py-16 md:py-24 border-t border-purple-900/10">
+    <section id="portfolio-page" className="bg-white py-16 md:py-24 border-t border-gray-150">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Header Title */}
         <div id="portfolio-header" className="text-center max-w-2xl mx-auto mb-12">
-          <span className="inline-flex items-center space-x-1.5 rounded-full bg-gradient-to-r from-purple-500/10 to-indigo-500/10 border border-purple-500/20 px-3 py-1.5 text-xs font-bold text-purple-300">
-            <Cpu className="h-3.5 w-3.5" />
+          <span className="inline-flex items-center space-x-1.5 rounded-full bg-orange-50 border border-orange-200 px-3 py-1.5 text-xs font-bold text-orange-705">
+            <Cpu className="h-3.5 w-3.5 text-orange-600" />
             <span>CASE STUDIES & PROOFS</span>
           </span>
-          <h2 className="mt-4 text-3xl font-extrabold text-white sm:text-4xl">
-            Delivering <span className="bg-gradient-to-r from-purple-400 to-amber-300 bg-clip-text text-transparent">Real Business Numbers</span>
+          <h2 className="mt-4 text-3xl font-extrabold text-slate-950 sm:text-4xl font-display">
+            Delivering <span className="bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent">Real Business Numbers</span>
           </h2>
-          <p className="mt-3.5 text-xs text-gray-400">
+          <p className="mt-3.5 text-xs text-slate-550 leading-relaxed max-w-lg mx-auto">
             Browse true client milestones from Lagos to worldwide. We don't just build sites or logos — we craft monetization structures that scale.
           </p>
         </div>
 
         {/* Filter Navigation */}
-        <div id="portfolio-filters" className="flex flex-wrap items-center justify-center gap-2 mb-12 border-b border-purple-950/20 pb-6">
+        <div id="portfolio-filters" className="flex flex-wrap items-center justify-center gap-2 mb-12 border-b border-gray-150 pb-6">
           {filterOpts.map((opt) => (
             <button
               key={opt.id}
               onClick={() => setActiveFilter(opt.id)}
               className={`flex items-center space-x-2 rounded-xl px-4 py-2.5 text-xs font-bold transition-all duration-200 ${
                 activeFilter === opt.id
-                  ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg"
-                  : "bg-[#0d0d14]/70 text-gray-400 hover:text-white hover:bg-[#12121b]"
+                  ? "bg-orange-600 text-white shadow-lg"
+                  : "bg-slate-50 border border-gray-200 text-slate-600 hover:text-slate-950 hover:bg-slate-100"
               }`}
             >
               <opt.icon className="h-4 w-4" />
@@ -68,7 +68,7 @@ export default function Portfolio({ onSelectProject }: PortfolioProps) {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.25, delay: idx * 0.03 }}
-                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-purple-950 bg-[#0d0d15]/80 shadow-xl transition-all hover:border-purple-600/40"
+                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-gray-250 bg-white shadow-sm hover:shadow-md transition-all hover:border-orange-500/30"
               >
                 {/* Image card wrapper */}
                 <div className="relative overflow-hidden aspect-video cursor-pointer" onClick={() => onSelectProject(item)}>
@@ -79,18 +79,18 @@ export default function Portfolio({ onSelectProject }: PortfolioProps) {
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   {/* Backdrop blur overlay on image hover */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e15] via-[#0e0e15]/40 to-transparent opacity-90"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent opacity-85"></div>
                   
                   {/* Key Stats highlight badging */}
                   {item.stats && (
-                    <div className="absolute top-4 right-4 rounded-xl bg-purple-950/90 border border-purple-500/30 backdrop-blur px-3 py-1.5 text-center shadow-lg">
-                      <p className="text-[9px] uppercase tracking-widest text-purple-300 font-bold leading-tight">{item.stats.label}</p>
-                      <p className="text-sm font-extrabold text-amber-300 font-mono leading-tight">{item.stats.value}</p>
+                    <div className="absolute top-4 right-4 rounded-xl bg-orange-600 border border-orange-500 px-3 py-1.5 text-center shadow-lg">
+                      <p className="text-[9px] uppercase tracking-widest text-orange-100 font-bold leading-tight">{item.stats.label}</p>
+                      <p className="text-sm font-extrabold text-white font-mono leading-tight">{item.stats.value}</p>
                     </div>
                   )}
 
                   {/* Icon badge based on category */}
-                  <div className="absolute bottom-4 left-4 inline-flex items-center space-x-1.5 rounded-lg bg-black/50 backdrop-blur-md px-2.5 py-1 border border-white/5 text-[9px] font-bold text-gray-300 uppercase tracking-widest">
+                  <div className="absolute bottom-4 left-4 inline-flex items-center space-x-1.5 rounded-lg bg-black/55 backdrop-blur-md px-2.5 py-1 border border-white/10 text-[9px] font-bold text-gray-200 uppercase tracking-widest">
                     <span>{item.category.replace("-", " ")}</span>
                   </div>
                 </div>
@@ -98,32 +98,32 @@ export default function Portfolio({ onSelectProject }: PortfolioProps) {
                 {/* Content info wrapper */}
                 <div className="p-5 flex-grow flex flex-col justify-between">
                   <div>
-                    <h4 className="text-[#a855f7] text-[10px] font-bold tracking-widest uppercase font-mono mb-1">{item.client || "CONFIDENTIAL BRAND"}</h4>
-                    <h3 className="text-lg font-bold text-white group-hover:text-amber-400 transition-colors">
+                    <h4 className="text-orange-600 text-[10px] font-bold tracking-widest uppercase font-mono mb-1">{item.client || "CONFIDENTIAL BRAND"}</h4>
+                    <h3 className="text-lg font-bold text-slate-905 group-hover:text-orange-600 transition-colors">
                       {item.title}
                     </h3>
-                    <p className="mt-2.5 text-xs text-gray-400 leading-relaxed min-h-[55px]">
+                    <p className="mt-2.5 text-xs text-slate-500 leading-relaxed min-h-[55px]">
                       {item.description}
                     </p>
                   </div>
 
                   {/* Tags and interaction link buttons */}
-                  <div className="mt-5 pt-4 border-t border-purple-950 flex flex-col gap-3.5">
+                  <div className="mt-5 pt-4 border-t border-gray-150 flex flex-col gap-3.5">
                     <div className="flex flex-wrap gap-1.5">
                       {item.technologies.slice(0, 3).map((tech, tIdx) => (
-                        <span key={tIdx} className="rounded-md bg-purple-950/40 border border-purple-900/20 px-2 py-0.5 text-[10px] text-gray-400 font-semibold uppercase">
+                        <span key={tIdx} className="rounded-md bg-slate-50 border border-gray-200 px-2 py-0.5 text-[10px] text-slate-600 font-semibold uppercase">
                           {tech}
                         </span>
                       ))}
                       {item.technologies.length > 3 && (
-                        <span className="text-[10px] text-purple-400 pt-0.5 font-bold">+{item.technologies.length - 3} more</span>
+                        <span className="text-[10px] text-orange-600 pt-0.5 font-bold">+{item.technologies.length - 3} more</span>
                       )}
                     </div>
 
                     <button
                       id={`view-details-${item.id}`}
                       onClick={() => onSelectProject(item)}
-                      className="w-full inline-flex items-center justify-center space-x-1.5 rounded-xl bg-purple-950/20 hover:bg-purple-900/25 border border-purple-500/10 hover:border-purple-400/30 py-2.5 text-xs font-bold text-gray-300 hover:text-white transition-all cursor-pointer"
+                      className="w-full inline-flex items-center justify-center space-x-1.5 rounded-xl bg-orange-50 hover:bg-orange-100/70 border border-orange-150 py-2.5 text-xs font-bold text-orange-700 hover:text-orange-800 transition-all cursor-pointer"
                     >
                       <span>Examine Case Study</span>
                       <ExternalLink className="h-3 w-3" />
@@ -137,20 +137,20 @@ export default function Portfolio({ onSelectProject }: PortfolioProps) {
         </div>
 
         {/* Bottom banner for high trust callouts */}
-        <div id="portfolio-trust" className="mt-16 flex flex-col md:flex-row items-center justify-around gap-6 border-t border-purple-950/40 pt-12 text-center max-w-4xl mx-auto">
+        <div id="portfolio-trust" className="mt-16 flex flex-col md:flex-row items-center justify-around gap-6 border-t border-gray-200 pt-12 text-center max-w-4xl mx-auto">
           <div>
-            <span className="text-2xl font-black text-amber-300 font-mono">80+</span>
-            <p className="text-xs text-gray-400 mt-1">Delivered Global Jobs</p>
+            <span className="text-2xl font-black text-orange-600 font-mono">80+</span>
+            <p className="text-xs text-slate-500 mt-1">Delivered Global Jobs</p>
           </div>
-          <div className="hidden md:block h-8 w-px bg-purple-950"></div>
+          <div className="hidden md:block h-8 w-px bg-gray-200"></div>
           <div>
-            <span className="text-2xl font-black text-white font-mono">₦24M+</span>
-            <p className="text-xs text-gray-400 mt-1">Naira Revenue Generated for Clients</p>
+            <span className="text-2xl font-black text-slate-950 font-mono">₦24M+</span>
+            <p className="text-xs text-slate-500 mt-1">Naira Revenue Generated for Clients</p>
           </div>
-          <div className="hidden md:block h-8 w-px bg-purple-950"></div>
+          <div className="hidden md:block h-8 w-px bg-gray-200"></div>
           <div>
-            <span className="text-2xl font-black text-white font-mono">100%</span>
-            <p className="text-xs text-gray-400 mt-1">Client Retention Score</p>
+            <span className="text-2xl font-black text-slate-950 font-mono">100%</span>
+            <p className="text-xs text-slate-500 mt-1">Client Retention Score</p>
           </div>
         </div>
 
