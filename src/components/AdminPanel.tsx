@@ -10,7 +10,7 @@ export default function AdminPanel() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [authError, setAuthError] = useState("");
-  const [activeTab, setActiveTab] = useState<"leads" | "services" | "users" | "keys">("leads");
+  const [activeTab, setActiveTab] = useState<"leads" | "services" | "users" | "keys" | "sms_templates">("leads");
   
   // Dynamic API Loaded State
   const [leads, setLeads] = useState<any[]>([]);
@@ -32,11 +32,16 @@ export default function AdminPanel() {
     GEMINI_API_KEY: "",
     VITE_WHATSAPP_NUMBER: "",
     PAYSTACK_SECRET_KEY: "",
-    BULK_SMS_API_KEY: ""
+    BULK_SMS_API_KEY: "",
+    ADMIN_LOGIN_PASSWORD: ""
   });
 
   const [isLoading, setIsLoading] = useState(false);
   const [notice, setNotice] = useState<{ type: "success" | "error"; msg: string } | null>(null);
+
+  const [smsTemplates, setSmsTemplates] = useState<any[]>([]);
+  const [providers, setProviders] = useState<any[]>([]);
+  const [editingTemplate, setEditingTemplate] = useState<any | null>(null);
 
   // Edit Service Workspace
   const [editingService, setEditingService] = useState<{
@@ -113,7 +118,25 @@ export default function AdminPanel() {
         setServices(data.services);
       }
       if (data.apiKeys) {
-        setApiKeys(data.apiKeys);
+        setApiKeys({
+          GEMINI_API_KEY: data.apiKeys.GEMINI_API_KEY || "",
+          VITE_WHATSAPP_NUMBER: data.apiKeys.VITE_WHATSAPP_NUMBER || "",
+          PAYSTACK_SECRET_KEY: data.apiKeys.PAYSTACK_SECRET_KEY || "",
+          BULK_SMS_API_KEY: data.apiKeys.BULK_SMS_API_KEY || "",
+          ADMIN_LOGIN_PASSWORD: data.apiKeys.ADMIN_LOGIN_PASSWORD || "salamadmin77"
+        });
+      }
+
+      const tRes = await fetch("/api/admin/templates");
+      const tData = await tRes.json();
+      if (tData.success) {
+        setSmsTemplates(tData.smsTemplates || []);
+      }
+
+      const pRes = await fetch("/api/admin/providers");
+      const pData = await pRes.json();
+      if (pData.success) {
+        setProviders(pData.providers || []);
       }
     } catch (err: any) {
       showSystemNotice("error", err.message || "Data fetching failed.");
@@ -271,6 +294,51 @@ export default function AdminPanel() {
       }
     } catch (err: any) {
       showSystemNotice("error", "Error removing user.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSaveTemplate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingTemplate) return;
+
+    try {
+      setIsLoading(true);
+      const res = await fetch("/api/admin/templates", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(editingTemplate)
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to save template.");
+
+      showSystemNotice("success", data.message || "Template saved perfectly!");
+      setEditingTemplate(null);
+      fetchAdminData();
+    } catch (err: any) {
+      showSystemNotice("error", err.message || "Failed to submit template updates.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleDeleteTemplate = async (templateId: string) => {
+    if (!confirm("Are you sure you want to delete this SMS template?")) return;
+    try {
+      setIsLoading(true);
+      const res = await fetch("/api/admin/delete-template", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ templateId })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to delete template.");
+
+      showSystemNotice("success", "Template removed from dashboard registry.");
+      fetchAdminData();
+    } catch (err: any) {
+      showSystemNotice("error", err.message || "Failed to delete template.");
     } finally {
       setIsLoading(false);
     }
@@ -514,6 +582,23 @@ export default function AdminPanel() {
               </span>
               <span className={`h-5 px-1.5 rounded-full font-sans text-[10px] flex items-center justify-center font-black ${activeTab === "users" ? "bg-white text-orange-600" : "bg-slate-100 text-slate-600"}`}>
                 {users.length}
+              </span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab("sms_templates")}
+              className={`w-full flex items-center justify-between px-4 py-3 text-xs font-bold rounded-xl transition-all ${
+                activeTab === "sms_templates"
+                  ? "bg-orange-600 text-white shadow-md shadow-orange-100"
+                  : "bg-white border border-gray-200 text-slate-600 hover:text-slate-900 hover:bg-white/80"
+              }`}
+            >
+              <span className="flex items-center space-x-2">
+                <Mail className="h-4.5 w-4.5" />
+                <span>SMS Templates Tab</span>
+              </span>
+              <span className={`h-5 px-1.5 rounded-full font-sans text-[10px] flex items-center justify-center font-black ${activeTab === "sms_templates" ? "bg-white text-orange-600" : "bg-slate-100 text-slate-600"}`}>
+                {smsTemplates.length}
               </span>
             </button>
 
@@ -931,6 +1016,209 @@ export default function AdminPanel() {
               </div>
             )}
 
+            {/* SUB-TAB 3.5: SMS Message Templates & Automated API Services */}
+            {activeTab === "sms_templates" && (
+              <div className="space-y-6">
+                
+                {/* 1. Recuring Bulk SMS Templates section */}
+                <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-gray-150 mb-6 gap-3">
+                    <div>
+                      <h3 className="text-base font-bold text-slate-900">Recurring Bulk SMS Templates</h3>
+                      <p className="text-xs text-slate-500 mt-1">
+                        Manage automated alerts, sign up notifications, and billing receipt SMS templates.
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => setEditingTemplate({ id: "", title: "", body: "", senderId: "Wavelet" })}
+                      className="px-3.5 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-700 text-white font-extrabold text-xs flex items-center space-x-1.5 cursor-pointer self-start"
+                    >
+                      <Plus className="h-4 w-4" />
+                      <span>Create SMS Template</span>
+                    </button>
+                  </div>
+
+                  {editingTemplate && (
+                    <form onSubmit={handleSaveTemplate} className="mb-8 p-5 bg-orange-50/20 border border-orange-200/50 rounded-xl space-y-4">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-black text-orange-700 uppercase tracking-wider block">
+                          {editingTemplate.id ? "Edit SMS Template" : "New SMS Template"}
+                        </span>
+                        <button 
+                          type="button" 
+                          onClick={() => setEditingTemplate(null)}
+                          className="text-slate-400 hover:text-slate-600"
+                        >
+                          <X className="h-4 w-4" />
+                        </button>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div className="space-y-1.5">
+                          <label className="font-bold text-slate-700">Template Name / Title *</label>
+                          <input
+                            type="text"
+                            required
+                            value={editingTemplate.title}
+                            onChange={(e) => setEditingTemplate({ ...editingTemplate, title: e.target.value })}
+                            placeholder="e.g., Deposit Alert"
+                            className="w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-slate-950 focus:border-orange-500 focus:outline-none"
+                          />
+                        </div>
+
+                        <div className="space-y-1.5">
+                          <label className="font-bold text-slate-700">Sender ID (Alpha Tag)</label>
+                          <input
+                            type="text"
+                            value={editingTemplate.senderId || ""}
+                            onChange={(e) => setEditingTemplate({ ...editingTemplate, senderId: e.target.value })}
+                            placeholder="e.g., WAVELET (Max 11 chars)"
+                            className="w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-slate-950 font-mono focus:border-orange-500 focus:outline-none"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-1.5 text-xs">
+                        <div className="flex justify-between items-center">
+                          <label className="font-bold text-slate-700">Message Content Body *</label>
+                          <span className="text-[10px] text-slate-450 font-medium italic">
+                            Character count: {editingTemplate.body?.length || 0} ({Math.ceil((editingTemplate.body?.length || 0) / 160)} SMS units)
+                          </span>
+                        </div>
+                        <textarea
+                          required
+                          rows={4}
+                          value={editingTemplate.body}
+                          onChange={(e) => setEditingTemplate({ ...editingTemplate, body: e.target.value })}
+                          placeholder="Type message block here. You can use wildcards: {name}, {email}, {amount}, {balance}, {code}."
+                          className="w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-slate-950 leading-relaxed focus:border-orange-500 focus:outline-none"
+                        ></textarea>
+                        
+                        <div className="bg-white/80 rounded-lg p-2.5 border border-gray-200/50 flex flex-wrap gap-2 text-[10px] text-slate-500">
+                          <span className="font-bold">Dynamic Tags:</span>
+                          <code className="bg-slate-100 px-1 rounded text-orange-600 font-bold font-mono">{`{name}`}</code>
+                          <code className="bg-slate-100 px-1 rounded text-orange-600 font-bold font-mono">{`{email}`}</code>
+                          <code className="bg-slate-100 px-1 rounded text-orange-600 font-bold font-mono">{`{amount}`}</code>
+                          <code className="bg-slate-100 px-1 rounded text-orange-600 font-bold font-mono">{`{balance}`}</code>
+                          <code className="bg-slate-100 px-1 rounded text-orange-600 font-bold font-mono">{`{code}`}</code>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-end space-x-2.5 pt-2 border-t border-gray-150">
+                        <button
+                          type="button"
+                          onClick={() => setEditingTemplate(null)}
+                          className="px-3 py-2 rounded-xl text-xs font-bold text-slate-600 border border-gray-200 bg-white hover:bg-slate-50"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          type="submit"
+                          className="px-4 py-2.5 rounded-xl text-xs font-bold bg-orange-600 hover:bg-orange-700 text-white shadow-sm flex items-center space-x-1.5 cursor-pointer"
+                        >
+                          <Save className="h-4 w-4" />
+                          <span>Save Template</span>
+                        </button>
+                      </div>
+                    </form>
+                  )}
+
+                  {smsTemplates.length === 0 ? (
+                    <div className="text-center py-12 italic text-xs text-slate-400">
+                      No SMS Message Templates saved inside database yet. Click Create to build.
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {smsTemplates.map((tmpl: any) => (
+                        <div key={tmpl.id} className="p-4 rounded-xl border border-gray-200 bg-slate-50 flex flex-col justify-between hover:border-gray-200 transition-all text-xs">
+                          <div>
+                            <div className="flex justify-between items-start">
+                              <span className="text-[10px] font-bold text-orange-600 bg-orange-50 border border-orange-100 px-2 py-0.5 rounded">
+                                Tag: {tmpl.senderId || "WVL-SMS"}
+                              </span>
+                              <span className="text-[10px] font-mono text-slate-450">Ref: {tmpl.id}</span>
+                            </div>
+                            <h4 className="font-extrabold text-slate-900 mt-2">{tmpl.title}</h4>
+                            <p className="text-slate-600 mt-2 bg-white rounded-lg border border-gray-150 p-3 leading-relaxed font-sans italic min-h-[70px]">
+                              "{tmpl.body}"
+                            </p>
+                          </div>
+
+                          <div className="mt-4 pt-3 border-t border-gray-200/50 flex justify-end space-x-2">
+                            <button
+                              onClick={() => setEditingTemplate({ ...tmpl })}
+                              className="px-2.5 py-1.5 rounded-lg border border-gray-200 bg-white hover:bg-slate-55 text-[10px] font-bold text-slate-700"
+                            >
+                              Edit Info
+                            </button>
+                            <button
+                              onClick={() => handleDeleteTemplate(tmpl.id)}
+                              className="px-2.5 py-1.5 rounded-lg border border-red-100 bg-red-50 hover:bg-red-100 text-[10px] font-bold text-red-600 flex items-center space-x-1"
+                            >
+                              <Trash2 className="h-3 w-3" />
+                              <span>Delete</span>
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* 2. Automated API Service Providers section */}
+                <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                  <div className="pb-3 border-b border-gray-150 mb-5">
+                    <h3 className="text-base font-bold text-slate-900">API Service Provider Connections</h3>
+                    <p className="text-xs text-slate-500 mt-0.5">
+                      Check automated ping times, transaction success rates, and live service configurations.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                    {providers.map((p: any) => (
+                      <div key={p.id} className="p-4 rounded-xl border border-gray-200 bg-slate-50 hover:border-gray-300 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 font-mono">{p.category}</span>
+                          <span className={`rounded-xl px-2 py-0.5 text-[9px] font-mono font-bold flex items-center gap-1 ${
+                            p.status === "active" 
+                              ? "bg-emerald-50 text-emerald-800 border border-emerald-100" 
+                              : "bg-amber-50 text-amber-800 border border-amber-100"
+                          }`}>
+                            <span className={`h-1.5 w-1.5 rounded-full ${p.status === "active" ? "bg-emerald-500 animate-pulse" : "bg-amber-500"}`}></span>
+                            <span>{p.status === "active" ? "Connected" : "Unset / Simulated"}</span>
+                          </span>
+                        </div>
+                        <h4 className="font-bold text-slate-900 mt-2 text-sm">{p.name}</h4>
+                        
+                        <div className="grid grid-cols-3 gap-2 mt-4 pt-3.5 border-t border-gray-200/50 text-[10px] text-slate-500 font-mono">
+                          <div>
+                            <p className="text-[9px] text-slate-400 uppercase font-mono">Ping Delay</p>
+                            <p className="font-bold text-slate-800 mt-0.5 font-mono">{p.pingTime}</p>
+                          </div>
+                          <div>
+                            <p className="text-[9px] text-slate-400 uppercase font-mono">Success</p>
+                            <p className="font-bold text-slate-800 mt-0.5 font-mono">{p.successRate}</p>
+                          </div>
+                          <div>
+                            <p className="text-[9px] text-slate-400 uppercase font-mono">Auto Retry</p>
+                            <p className="font-bold text-slate-800 mt-0.5 font-mono">{p.autoRetry ? "Enabled" : "Disabled"}</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-5 p-3.5 bg-indigo-50 border border-indigo-100 rounded-xl flex items-start gap-2.5 text-xs text-indigo-800">
+                    <span className="font-mono font-bold shrink-0 bg-indigo-600 text-white rounded px-1.5 py-0.5 text-[9px]">SYSTEM PROXY INFO</span>
+                    <p className="leading-relaxed text-[11px]">
+                      The backend auto-manages server-to-server integration pipelines. Every user VTU funding, Gemini advisor prompt, dynamic OTP SIM Activation and checkout validates credentials via automated API protocols. No manual triggers required.
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            )}
+
             {/* SUB-TAB 4: SYSTEM API KEY UPDATER */}
             {activeTab === "keys" && (
               <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
@@ -1001,6 +1289,23 @@ export default function AdminPanel() {
                         className="w-full rounded-xl border border-gray-200 bg-slate-50 px-3.5 py-3 text-slate-950 font-mono focus:border-orange-500 focus:outline-none"
                       />
                     </div>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="font-bold text-slate-700 uppercase tracking-wider block">
+                      Customized Admin Login Password (ADMIN_LOGIN_PASSWORD)
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={apiKeys.ADMIN_LOGIN_PASSWORD || ""}
+                      onChange={(e) => setApiKeys({ ...apiKeys, ADMIN_LOGIN_PASSWORD: e.target.value })}
+                      placeholder="e.g., salamadmin77"
+                      className="w-full rounded-xl border border-gray-200 bg-slate-50 px-4 py-3 text-slate-950 font-mono focus:border-orange-500 focus:outline-none"
+                    />
+                    <p className="text-[10px] text-slate-450 leading-normal italic mt-1">
+                      Customize your active Admin login password directly. Default is "salamadmin77".
+                    </p>
                   </div>
 
                   <div className="pt-4 border-t border-gray-200 flex justify-end">

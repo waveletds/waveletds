@@ -63,13 +63,43 @@ interface PurchasedItem {
 }
 
 export default function DashboardStore() {
+  // --- USER AUTHENTICATION STATES ---
+  const [currentUser, setCurrentUser] = useState<any>(() => {
+    const saved = localStorage.getItem("wavelet_active_user");
+    return saved ? JSON.parse(saved) : null;
+  });
+
+  const [authTab, setAuthTab] = useState<"login" | "signup">("login");
+  const [authForm, setAuthForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    phone: ""
+  });
+  const [authError, setAuthError] = useState("");
+  const [authLoading, setAuthLoading] = useState(false);
+
   // --- STATE PERSISTENCE IN LOCALSTORAGE ---
   const [walletBalance, setWalletBalance] = useState<number>(() => {
+    const savedUser = localStorage.getItem("wavelet_active_user");
+    if (savedUser) {
+      try {
+        const u = JSON.parse(savedUser);
+        return typeof u.walletBalance === "number" ? u.walletBalance : 45000;
+      } catch (e) {}
+    }
     const saved = localStorage.getItem("wavelet_wallet_balance");
-    return saved ? parseFloat(saved) : 45000; // Start with a generous initial credit for easy testing
+    return saved ? parseFloat(saved) : 45000; 
   });
 
   const [transactions, setTransactions] = useState<Transaction[]>(() => {
+    const savedUser = localStorage.getItem("wavelet_active_user");
+    if (savedUser) {
+      try {
+        const u = JSON.parse(savedUser);
+        if (u.transactions) return u.transactions;
+      } catch (e) {}
+    }
     const saved = localStorage.getItem("wavelet_transactions");
     if (saved) {
       try {
@@ -110,6 +140,13 @@ export default function DashboardStore() {
   });
 
   const [inventory, setInventory] = useState<PurchasedItem[]>(() => {
+    const savedUser = localStorage.getItem("wavelet_active_user");
+    if (savedUser) {
+      try {
+        const u = JSON.parse(savedUser);
+        if (u.inventory) return u.inventory;
+      } catch (e) {}
+    }
     const saved = localStorage.getItem("wavelet_inventory");
     if (saved) {
       try {
@@ -140,7 +177,80 @@ export default function DashboardStore() {
     ];
   });
 
-  // Save to localStorage whenever user state updates
+  // Local Sync Database Back to Server
+  const syncUserWithServer = async (updatedBalance: number, updatedTxs: any[], updatedInv: any[]) => {
+    if (!currentUser) return;
+    try {
+      await fetch("/api/admin/update-user", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: currentUser.id,
+          walletBalance: updatedBalance,
+          name: currentUser.name,
+          email: currentUser.email,
+          phone: currentUser.phone
+        })
+      });
+      
+      const updatedUser = { 
+        ...currentUser, 
+        walletBalance: updatedBalance, 
+        transactions: updatedTxs, 
+        inventory: updatedInv 
+      };
+      setCurrentUser(updatedUser);
+      localStorage.setItem("wavelet_active_user", JSON.stringify(updatedUser));
+    } catch (err) {
+      console.error("Local sync issue:", err);
+    }
+  };
+
+  const handleAuthSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthError("");
+    setAuthLoading(true);
+
+    try {
+      const endpoint = authTab === "signup" ? "/api/users/signup" : "/api/users/login";
+      const payload = authTab === "signup"
+        ? { name: authForm.name, email: authForm.email, password: authForm.password, phone: authForm.phone }
+        : { email: authForm.email, password: authForm.password };
+
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Authentication operation failed.");
+
+      const user = data.user;
+      setCurrentUser(user);
+      localStorage.setItem("wavelet_active_user", JSON.stringify(user));
+
+      setWalletBalance(user.walletBalance);
+      setTransactions(user.transactions || []);
+      setInventory(user.inventory || []);
+
+      showNotice("success", authTab === "signup" ? `Welcome to Wavelet, ${user.name}! Starting welcome credit loaded.` : `Welcome back, ${user.name}!`);
+    } catch (err: any) {
+      setAuthError(err.message || "Failed to connect profile registry.");
+    } finally {
+      setAuthLoading(false);
+    }
+  };
+
+  const handleLogoutUser = () => {
+    localStorage.removeItem("wavelet_active_user");
+    setCurrentUser(null);
+    setWalletBalance(45000);
+    setTransactions([]);
+    setInventory([]);
+    showNotice("success", "Session cleared from terminal.");
+  };
+
+  // Save to localStorage whenever user state updates (fallback client resilience)
   useEffect(() => {
     localStorage.setItem("wavelet_wallet_balance", walletBalance.toString());
   }, [walletBalance]);
@@ -171,6 +281,24 @@ export default function DashboardStore() {
   const [smsCategory, setSmsCategory] = useState<"high-delivery" | "promo" | "otp-route">("high-delivery");
   const [smsSendingState, setSmsSendingState] = useState<"idle" | "sending" | "sent">("idle");
   const [smsCostCalc, setSmsCostCalc] = useState<number>(0);
+
+  const [dbSmsTemplates, setDbSmsTemplates] = useState<any[]>([]);
+
+  // Fetch SMS templates on active tab === "sms" or on mount!
+  useEffect(() => {
+    const fetchTemplates = async () => {
+      try {
+        const res = await fetch("/api/admin/sms-templates");
+        if (res.ok) {
+          const data = await res.json();
+          setDbSmsTemplates(data.smsTemplates || []);
+        }
+      } catch (err) {
+        console.error("Failed to load SMS templates for user selection:", err);
+      }
+    };
+    fetchTemplates();
+  }, [activeTab]);
 
   // OTP Verification Simulator screen state
   const [selectedOtpApp, setSelectedOtpApp] = useState<OTPService | null>(null);
@@ -312,7 +440,7 @@ export default function DashboardStore() {
   // --- ACTIONS & MUTATORS ---
 
   // Refunding / Funding Trigger Action
-  const handleFundWalletSubmit = (e: React.FormEvent) => {
+  const handleFundWalletSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const amount = parseFloat(fundingAmount);
     if (isNaN(amount) || amount <= 0) {
@@ -322,33 +450,28 @@ export default function DashboardStore() {
 
     setIsFundingLoading(true);
 
-    // Simulate Paystack or USDT processing delay
-    setTimeout(() => {
-      const refCode = "WVL-" + Math.floor(100000 + Math.random() * 900000);
-      const paymentLabel = paymentMethod === "card" 
-        ? "Card Simulation Paystack" 
-        : paymentMethod === "bank" 
-        ? "Transfer Simulation" 
-        : "USD Stablecoin Transfer";
+    try {
+      const emailParam = currentUser ? currentUser.email : "iqleadsbloger@gmail.com";
+      const res = await fetch("/api/paystack/initialize", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: emailParam, amount })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed initiating Paystack link.");
 
-      setWalletBalance(prev => prev + amount);
-
-      const newTx: Transaction = {
-        id: "tx-" + Date.now() + "-" + Math.floor(Math.random() * 1000000),
-        type: "funding",
-        amount: amount,
-        serviceName: `Funded via ${paymentLabel}`,
-        date: new Date().toISOString().replace("T", " ").substring(0, 16),
-        status: "success",
-        reference: refCode
-      };
-
-      setTransactions(prev => [newTx, ...prev]);
+      showNotice("success", "Connecting securely with Paystack Checkout. Please wait...");
+      
+      if (data.data && data.data.authorization_url) {
+        // Redirection
+        window.location.href = data.data.authorization_url;
+      } else {
+        throw new Error("Paystack checkout redirect URL is missing.");
+      }
+    } catch (err: any) {
+      showNotice("error", err.message || "Failed initializing Paystack Gateway payment.");
       setIsFundingLoading(false);
-      setFundingSuccessMsg(`Wallet successfully loaded with ₦${amount.toLocaleString()} via simulated secure pipeline!`);
-      showNotice("success", `Excellent! Deposited ₦${amount.toLocaleString()} into your active wallet.`);
-      setFundingAmount("10000");
-    }, 1800);
+    }
   };
 
   // Pure Wallet Purchase Logic
@@ -389,8 +512,11 @@ export default function DashboardStore() {
       downloadLink: dlLink,
     };
 
-    setTransactions(prev => [newTx, ...prev]);
-    setInventory(prev => [newInv, ...prev]);
+    const nextTxs = [newTx, ...transactions];
+    const nextInv = [newInv, ...inventory];
+    setTransactions(nextTxs);
+    setInventory(nextInv);
+    syncUserWithServer(walletBalance - asset.price, nextTxs, nextInv);
     showNotice("success", `Successfully purchased! Check your downloads inside the vault folder.`);
   };
 
@@ -417,7 +543,9 @@ export default function DashboardStore() {
       reference: refCode
     };
 
-    setTransactions(prev => [newTx, ...prev]);
+    const nextTxs = [newTx, ...transactions];
+    setTransactions(nextTxs);
+    syncUserWithServer(walletBalance - app.price, nextTxs, inventory);
 
     // Activate the interactive simulation loop!
     const generatedCodeStr = Math.floor(100000 + Math.random() * 900000).toString();
@@ -516,8 +644,11 @@ export default function DashboardStore() {
       }
     };
 
-    setTransactions(prev => [newTx, ...prev]);
-    setInventory(prev => [newInv, ...prev]);
+    const nextTxs = [newTx, ...transactions];
+    const nextInv = [newInv, ...inventory];
+    setTransactions(nextTxs);
+    setInventory(nextInv);
+    syncUserWithServer(walletBalance - numObj.monthlyCost, nextTxs, nextInv);
     showNotice("success", `Private Number Configured! Defer outbound SIP links inside inventory dashboard.`);
   };
 
@@ -550,7 +681,6 @@ export default function DashboardStore() {
     setSmsSendingState("sending");
 
     setTimeout(() => {
-      setWalletBalance(prev => prev - smsCostCalc);
       const refCode = "WVL-SMS-" + Math.floor(100000 + Math.random() * 900000);
 
       const newTx: Transaction = {
@@ -563,7 +693,9 @@ export default function DashboardStore() {
         reference: refCode
       };
 
-      setTransactions(prev => [newTx, ...prev]);
+      const nextTxs = [newTx, ...transactions];
+      setTransactions(nextTxs);
+      syncUserWithServer(walletBalance - smsCostCalc, nextTxs, inventory);
       setSmsSendingState("sent");
       showNotice("success", `Broadcasting dispatch success! Route API verified. Sender ID registry matched.`);
       
@@ -582,6 +714,148 @@ export default function DashboardStore() {
                           asset.shortDesc.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesFilter && matchesSearch;
   });
+
+  if (!currentUser) {
+    return (
+      <section className="bg-white border-t border-gray-150 py-16 relative overflow-hidden text-slate-900" id="dashboard-system-hub">
+        
+        {/* Absolute fintech grid pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#f1f5f9_1px,transparent_1px),linear-gradient(to_bottom,#f1f5f9_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-60 pointer-events-none" />
+
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+          
+          {/* Core Header Section */}
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center space-x-1.5 rounded-full bg-orange-50 px-3.5 py-1.5 text-xs text-orange-700 border border-orange-100 font-bold">
+              <Sparkles className="h-3.5 w-3.5 text-orange-600 animate-pulse" />
+              <span>VTU Portal & Developer API Platform</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 mt-3 font-display">
+              Fintech Reseller <span className="text-orange-600">Console</span>
+            </h2>
+            <p className="max-w-2xl mx-auto text-xs md:text-sm text-slate-500 mt-2.5 leading-relaxed font-medium">
+              Manage your agent profile, purchase pre-compiled scripts, generate instant OTP bypassing streams, lease active virtual phone lines, and dispatch direct bulk SMS campaigns.
+            </p>
+          </div>
+
+          <div id="auth-onboarding-panel" className="max-w-md mx-auto bg-white border border-slate-200 rounded-3xl p-6.5 shadow-md mt-6 animate-fade-in relative z-10 font-sans text-xs text-slate-800">
+            <div className="text-center mb-6">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-orange-650 bg-orange-50 border border-orange-100 px-3 py-1 rounded-full inline-block mb-3">
+                SECURE MERCHANT GATEWAY
+              </span>
+              <h3 className="text-lg font-extrabold text-slate-900 tracking-tight font-display">
+                {authTab === "login" ? "Access Agent Terminal" : "Register Agent Wallet"}
+              </h3>
+              <p className="text-[11px] text-slate-500 mt-1 font-medium leading-normal">
+                {authTab === "login" 
+                  ? "Sign in to deploy pre-compiled scripts, rent SIM OTP lines, and dispatch direct bulk messages." 
+                  : "Establish your developer wallet reseller portfolio on Wavelet instantly."}
+              </p>
+
+              {/* Tabs selector */}
+              <div className="grid grid-cols-2 gap-1 bg-slate-100 p-1 rounded-xl mt-4.5 border border-slate-200">
+                <button
+                  type="button"
+                  onClick={() => { setAuthTab("login"); setAuthError(""); }}
+                  className={`py-2 text-[11px] font-bold rounded-lg transition-all cursor-pointer ${
+                    authTab === "login" ? "bg-white text-slate-950 shadow-xs" : "text-slate-550 hover:text-slate-800"
+                  }`}
+                >
+                  Sign In
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setAuthTab("signup"); setAuthError(""); }}
+                  className={`py-2 text-[11px] font-bold rounded-lg transition-all cursor-pointer ${
+                    authTab === "signup" ? "bg-white text-slate-950 shadow-xs" : "text-slate-550 hover:text-slate-800"
+                  }`}
+                >
+                  Create Account
+                </button>
+              </div>
+            </div>
+
+            {authError && (
+              <div className="mb-4 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-[11px] flex items-center space-x-2 font-semibold">
+                <AlertCircle className="h-4 w-4 shrink-0 text-rose-650" />
+                <span>{authError}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleAuthSubmit} className="space-y-4">
+              {authTab === "signup" && (
+                <div className="space-y-1">
+                  <label className="font-bold text-slate-700 block uppercase tracking-wider text-[10px]">Full Name</label>
+                  <input
+                    type="text"
+                    required
+                    value={authForm.name}
+                    onChange={(e) => setAuthForm({ ...authForm, name: e.target.value })}
+                    placeholder="e.g. Al-Salam Student"
+                    className="w-full bg-slate-50 border border-slate-200 focus:border-orange-500 rounded-xl px-4 py-3 text-slate-950 focus:outline-none placeholder-slate-400 text-xs font-medium font-sans"
+                  />
+                </div>
+              )}
+
+              <div className="space-y-1">
+                <label className="font-bold text-slate-700 block uppercase tracking-wider text-[10px]">Business Email</label>
+                <input
+                  type="email"
+                  required
+                  value={authForm.email}
+                  onChange={(e) => setAuthForm({ ...authForm, email: e.target.value })}
+                  placeholder="name@agency.com"
+                  className="w-full bg-slate-50 border border-slate-200 focus:border-orange-500 rounded-xl px-4 py-3 text-slate-950 focus:outline-none placeholder-slate-400 text-xs font-medium font-sans"
+                />
+              </div>
+
+              {authTab === "signup" && (
+                <div className="space-y-1">
+                  <label className="font-bold text-slate-700 block uppercase tracking-wider text-[10px]">WhatsApp Phone Target</label>
+                  <input
+                    type="tel"
+                    required
+                    value={authForm.phone}
+                    onChange={(e) => setAuthForm({ ...authForm, phone: e.target.value })}
+                    placeholder="e.g. +2348012345678"
+                    className="w-full bg-slate-50 border border-slate-200 focus:border-orange-500 rounded-xl px-4 py-3 text-slate-950 focus:outline-none placeholder-slate-400 text-xs font-medium font-sans"
+                  />
+                </div>
+              )}
+
+              <div className="space-y-1">
+                <label className="font-bold text-slate-700 block uppercase tracking-wider text-[10px]">Choose Password</label>
+                <input
+                  type="password"
+                  required
+                  value={authForm.password}
+                  onChange={(e) => setAuthForm({ ...authForm, password: e.target.value })}
+                  placeholder="Minimum 6 characters"
+                  className="w-full bg-slate-50 border border-slate-200 focus:border-orange-500 rounded-xl px-4 py-3 text-slate-950 focus:outline-none placeholder-slate-400 text-xs font-medium font-sans"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={authLoading}
+                className="w-full py-3 rounded-xl bg-orange-650 hover:bg-orange-700 active:scale-[0.99] text-white font-bold text-xs shadow-md transition-all cursor-pointer flex items-center justify-center space-x-2 disabled:opacity-50"
+              >
+                {authLoading ? (
+                  <span className="flex items-center space-x-1.5">
+                    <RefreshCw className="h-4 w-4 animate-spin text-white" />
+                    <span>Synchronizing Terminal...</span>
+                  </span>
+                ) : (
+                  <span>{authTab === "login" ? "Open Reseller Account" : "Deploy Wallet Credentials"}</span>
+                )}
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="bg-white border-t border-gray-150 py-16 relative overflow-hidden text-slate-900" id="dashboard-system-hub">
@@ -633,12 +907,21 @@ export default function DashboardStore() {
           <div className="lg:col-span-5 flex flex-col justify-between p-5 bg-gradient-to-br from-slate-900 to-slate-950 text-white rounded-2xl shadow-sm relative overflow-hidden">
             <div className="absolute top-0 right-0 h-24 w-24 bg-gradient-to-br from-orange-500/20 to-transparent rounded-full blur-xl pointer-events-none" />
             
-            <div className="flex items-center justify-between z-10">
-              <span className="text-[10px] md:text-[11px] font-bold text-orange-400 tracking-wider uppercase flex items-center space-x-1.5 font-mono">
-                <span className="h-2 w-2 rounded-full bg-orange-500 animate-pulse"></span>
-                <span>Active Agent Wallet</span>
-              </span>
-              <span className="text-[10px] text-slate-300 font-mono">ID: 6cd7e-NG</span>
+            <div className="flex items-center justify-between z-10 font-sans">
+              <div className="flex flex-col">
+                <span className="text-[10px] md:text-[11px] font-bold text-orange-400 tracking-wider uppercase flex items-center space-x-1.5 font-mono">
+                  <span className="h-2 w-2 rounded-full bg-orange-500 animate-pulse"></span>
+                  <span>Active Agent: {currentUser?.name || "Root"}</span>
+                </span>
+                <span className="text-[9px] text-slate-400 font-mono italic">{currentUser?.email}</span>
+              </div>
+              <button
+                onClick={handleLogoutUser}
+                title="Disconnect Active Terminal Session"
+                className="text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 font-sans font-bold px-2 py-1 rounded border border-slate-700 cursor-pointer hover:text-white transition-all animate-pulse"
+              >
+                Sign Out
+              </button>
             </div>
 
             <div className="mt-4 z-10">
@@ -1277,10 +1560,36 @@ export default function DashboardStore() {
                     </span>
                   </div>
 
+                  {/* Select Recurring Saved Template */}
+                  {dbSmsTemplates.length > 0 && (
+                    <div>
+                      <label className="text-[10px] uppercase font-mono text-slate-400 block mb-1 font-bold">
+                        D-1. Autofill From Recurring Template
+                      </label>
+                      <select
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          if (val) {
+                            setSmsMessage(val);
+                          }
+                        }}
+                        className="w-full bg-slate-50 border border-slate-200 focus:border-orange-500 rounded-xl p-3 text-slate-900 focus:outline-none font-semibold text-xs cursor-pointer"
+                        defaultValue=""
+                      >
+                        <option value="">-- Choose a recurring bulk SMS template --</option>
+                        {dbSmsTemplates.map((tpl) => (
+                          <option key={tpl.id} value={tpl.content}>
+                            [{tpl.title}] - {tpl.content.substring(0, 50)}...
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+
                   {/* Message body input */}
                   <div>
                     <label className="text-[10px] uppercase font-mono text-slate-400 block mb-1 font-bold">
-                      D. Text SMS Message Body
+                      D-2. Text SMS Message Body
                     </label>
                     <textarea
                       rows={4}

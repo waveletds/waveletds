@@ -83,10 +83,19 @@ export interface PurchasedItem {
   };
 }
 
+export interface SmsTemplate {
+  id: string;
+  title: string;
+  body: string;
+  senderId?: string;
+  createdAt: string;
+}
+
 export interface UserProfile {
   id: string;
   name: string;
   email: string;
+  password?: string;
   phone: string;
   walletBalance: number;
   createdAt: string;
@@ -100,6 +109,7 @@ export interface DbSchema {
     VITE_WHATSAPP_NUMBER: string;
     PAYSTACK_SECRET_KEY: string;
     BULK_SMS_API_KEY: string;
+    ADMIN_LOGIN_PASSWORD?: string;
   };
   nairaPackages: ServicePackage[];
   digitalAssets: ScriptOrWebsite[];
@@ -111,6 +121,7 @@ export interface DbSchema {
   };
   leads: LeadSubmission[];
   users: UserProfile[];
+  smsTemplates: SmsTemplate[];
 }
 
 const DEFAULT_NAIRA_PACKAGES: ServicePackage[] = [
@@ -500,6 +511,7 @@ export function getInitialDbState(): DbSchema {
       VITE_WHATSAPP_NUMBER: process.env.VITE_WHATSAPP_NUMBER || "+2348012345678",
       PAYSTACK_SECRET_KEY: process.env.PAYSTACK_SECRET_KEY || "sk_test_mock771239920",
       BULK_SMS_API_KEY: process.env.BULK_SMS_API_KEY || "bulk_sms_default_prod_key",
+      ADMIN_LOGIN_PASSWORD: process.env.ADMIN_LOGIN_PASSWORD || "salamadmin77",
     },
     nairaPackages: DEFAULT_NAIRA_PACKAGES,
     digitalAssets: DEFAULT_DIGITAL_ASSETS,
@@ -511,6 +523,22 @@ export function getInitialDbState(): DbSchema {
     },
     leads: DEFAULT_LEADS,
     users: DEFAULT_USERS,
+    smsTemplates: [
+      {
+        id: "tmpl-welcome",
+        title: "Welcome New Member",
+        body: "Hello {name}, welcome to Wavelet Digital Solutions! Your account is active, use code {code} to verify. For mentoring call Al-Salam Sinner.",
+        senderId: "Wavelet",
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: "tmpl-payment",
+        title: "Deposit Successful Alert",
+        body: "Wavelet CreditAlert: Account {email} has been credited with ₦{amount} via Paystack Secure checkout. New Balance: ₦{balance}.",
+        senderId: "WVLAlert",
+        createdAt: new Date().toISOString()
+      }
+    ],
   };
 }
 
@@ -535,6 +563,7 @@ export function loadDb(): DbSchema {
       miscRates: data.miscRates || defaultState.miscRates,
       leads: data.leads || defaultState.leads,
       users: data.users || defaultState.users,
+      smsTemplates: data.smsTemplates || defaultState.smsTemplates || [],
     };
   } catch (err) {
     console.error("Error loading JSON db, fallback to defaults", err);
