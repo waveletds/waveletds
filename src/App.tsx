@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { 
   Rocket, Code, Palette, Search, GraduationCap, ArrowRight, CheckCircle, 
   ChevronRight, Sparkles, MessageSquare, ShieldCheck, HelpCircle, 
-  X, AlertCircle, BookmarkCheck, Calendar, Star, MapPin
+  X, AlertCircle, BookmarkCheck, Calendar, Star, MapPin,
+  Phone, Key, Laptop, Share2, Smartphone
 } from "lucide-react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -21,6 +22,28 @@ import { SERVICES_DATA, PORTFOLIO_DATA, BLOG_DATA, ServicePackage, PortfolioItem
 import { motion, AnimatePresence } from "motion/react";
 
 export default function App() {
+  // Helper to map category to service-specific icon
+  const getServiceIcon = (category: string) => {
+    switch (category) {
+      case "phone-numbers":
+        return <Phone className="h-5 w-5 text-orange-600" />;
+      case "otp-services":
+        return <Key className="h-5 w-5 text-orange-600" />;
+      case "web-sales":
+        return <Laptop className="h-5 w-5 text-orange-600" />;
+      case "social-accounts":
+        return <Share2 className="h-5 w-5 text-orange-600" />;
+      case "airtime-to-cash":
+        return <Smartphone className="h-5 w-5 text-orange-600" />;
+      case "gmb":
+        return <MapPin className="h-5 w-5 text-orange-600" />;
+      case "combo":
+        return <Sparkles className="h-5 w-5 text-orange-600" />;
+      default:
+        return <Rocket className="h-5 w-5 text-orange-600" />;
+    }
+  };
+
   const [activeView, setActiveView] = useState<string>("home");
   
   // Funnel Booking State
@@ -139,38 +162,51 @@ export default function App() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {SERVICES_DATA.slice(0, 3).map((pkg) => (
-                    <div 
-                      key={pkg.id} 
-                      className={`rounded-2xl border bg-slate-50 p-6 relative overflow-hidden transition-all hover:scale-[1.01] hover:border-orange-500/40 flex flex-col justify-between ${
-                        pkg.tag ? "border-orange-500/30 ring-1 ring-orange-500/10" : "border-gray-200"
-                      }`}
-                    >
-                      <div>
-                        {pkg.tag && (
-                          <span className="absolute -top-3 right-5 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 px-3 py-1 text-[10px] font-bold text-white uppercase tracking-wider">{pkg.tag}</span>
-                        )}
-                        <span className="text-[10px] font-mono uppercase text-orange-600 font-bold tracking-wider">{pkg.category.replace("-", " ")}</span>
-                        <h4 className="text-lg font-bold text-slate-900 mt-1.5 font-display">{pkg.name}</h4>
-                        <p className="text-2xl font-black text-slate-950 font-mono mt-3">{pkg.priceLabel}</p>
-                        <p className="text-xs text-slate-500 mt-2 min-h-[48px] leading-relaxed">{pkg.shortDesc}</p>
-                      </div>
+                  {SERVICES_DATA.slice(0, 3).map((pkg, idx) => {
+                    const icon = getServiceIcon(pkg.category);
+                    return (
+                      <motion.div 
+                        key={pkg.id} 
+                        initial={{ opacity: 0, y: 25 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-20px" }}
+                        transition={{ duration: 0.45, delay: idx * 0.12 }}
+                        whileHover={{ y: -5 }}
+                        className={`rounded-2xl border bg-slate-50 p-6 relative overflow-hidden transition-all hover:border-orange-500/40 flex flex-col justify-between ${
+                          pkg.tag ? "border-orange-500/30 ring-1 ring-orange-500/10 shadow-lg shadow-orange-950/5" : "border-gray-200 shadow-xs"
+                        }`}
+                      >
+                        <div>
+                          {pkg.tag && (
+                            <span className="absolute -top-3 right-5 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 px-3 py-1 text-[10px] font-bold text-white uppercase tracking-wider">{pkg.tag}</span>
+                          )}
+                          <div className="flex items-center space-x-2.5">
+                            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-50 border border-orange-100 shadow-sm">
+                              {icon}
+                            </div>
+                            <span className="text-[10px] font-mono uppercase text-orange-600 font-bold tracking-wider">{pkg.category.replace("-", " ")}</span>
+                          </div>
+                          <h4 className="text-lg font-bold text-slate-900 mt-4 font-display leading-tight">{pkg.name}</h4>
+                          <p className="text-2xl font-black text-slate-950 font-mono mt-3">{pkg.priceLabel}</p>
+                          <p className="text-xs text-slate-500 mt-2 min-h-[48px] leading-relaxed">{pkg.shortDesc}</p>
+                        </div>
 
-                      <div className="mt-6 pt-4 border-t border-gray-150 flex flex-col gap-3">
-                        <button
-                          id={`home-rent-pkg-${pkg.id}`}
-                          onClick={() => handleOpenBookingWithPackage(pkg)}
-                          className={`w-full text-xs font-bold py-3.5 rounded-xl transition-all cursor-pointer ${
-                            pkg.tag 
-                              ? "bg-orange-600 text-white hover:bg-orange-700 shadow-md shadow-orange-100" 
-                              : "bg-slate-100 border border-gray-200 text-slate-705 hover:bg-slate-200"
-                          }`}
-                        >
-                          Rent This Package
-                        </button>
-                      </div>
-                    </div>
-                  ))}
+                        <div className="mt-6 pt-4 border-t border-gray-150 flex flex-col gap-3">
+                          <button
+                            id={`home-rent-pkg-${pkg.id}`}
+                            onClick={() => handleOpenBookingWithPackage(pkg)}
+                            className={`w-full text-xs font-bold py-3.5 rounded-xl transition-all cursor-pointer ${
+                              pkg.tag 
+                                ? "bg-orange-600 text-white hover:bg-orange-700 shadow-md shadow-orange-100" 
+                                : "bg-slate-105 border border-gray-200 text-slate-700 hover:bg-slate-200"
+                            }`}
+                          >
+                            Rent This Package
+                          </button>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
                 </div>
 
                 <div className="text-center mt-10">
