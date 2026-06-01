@@ -9,11 +9,12 @@ interface ServiceCalculatorProps {
 
 export default function ServiceCalculator({ onSuccessLead }: ServiceCalculatorProps) {
   // Config selection categories
-  const [webDevTier, setWebDevTier] = useState<string>("none");
-  const [designTier, setDesignTier] = useState<string>("none");
-  const [seoTier, setSeoTier] = useState<string>("none");
+  const [phoneTier, setPhoneTier] = useState<string>("none");
+  const [otpTier, setOtpTier] = useState<string>("none");
+  const [webTier, setWebTier] = useState<string>("none");
+  const [socialTier, setSocialTier] = useState<string>("none");
+  const [airtimeTier, setAirtimeTier] = useState<string>("none");
   const [gmbTier, setGmbTier] = useState<string>("none");
-  const [aiTier, setAiTier] = useState<string>("none");
 
   // Additional options checkboxes
   const [fastTrack, setFastTrack] = useState<boolean>(false);
@@ -48,33 +49,35 @@ export default function ServiceCalculator({ onSuccessLead }: ServiceCalculatorPr
     let t = 0;
     
     // Add base package items
-    if (webDevTier !== "none") t += findPrice(webDevTier);
-    if (designTier !== "none") t += findPrice(designTier);
-    if (seoTier !== "none") t += findPrice(seoTier);
+    if (phoneTier !== "none") t += findPrice(phoneTier);
+    if (otpTier !== "none") t += findPrice(otpTier);
+    if (webTier !== "none") t += findPrice(webTier);
+    if (socialTier !== "none") t += findPrice(socialTier);
+    if (airtimeTier !== "none") t += findPrice(airtimeTier);
     if (gmbTier !== "none") t += findPrice(gmbTier);
-    if (aiTier !== "none") t += findPrice(aiTier);
 
     // Add checkboxes configuration values
-    if (fastTrack) t += 50000; // 50k Naira
-    if (monthlySupport) t += 30000; // 30k Naira
+    if (fastTrack) t += 20000; 
+    if (monthlySupport) t += 15000; 
 
-    // Calculate package combo discount (15% off if 3 or more services selected, or total > 300,000)
+    // Calculate package combo discount (15% off if 3 or more services selected, or total > 150,000)
     let selectedCount = 0;
-    if (webDevTier !== "none") selectedCount++;
-    if (designTier !== "none") selectedCount++;
-    if (seoTier !== "none") selectedCount++;
+    if (phoneTier !== "none") selectedCount++;
+    if (otpTier !== "none") selectedCount++;
+    if (webTier !== "none") selectedCount++;
+    if (socialTier !== "none") selectedCount++;
+    if (airtimeTier !== "none") selectedCount++;
     if (gmbTier !== "none") selectedCount++;
-    if (aiTier !== "none") selectedCount++;
 
     let discount = 0;
-    if (selectedCount >= 3 || t >= 300000) {
-      discount = Math.round(t * 0.15); // 15% Nigerian VIP Combo Discount
+    if (selectedCount >= 3 || t >= 150000) {
+      discount = Math.round(t * 0.15); // 15% VIP Combo Discount
     }
 
     setRawTotal(t);
     setDiscountValue(discount);
     setFinalTotal(t - discount);
-  }, [webDevTier, designTier, seoTier, gmbTier, aiTier, fastTrack, monthlySupport]);
+  }, [phoneTier, otpTier, webTier, socialTier, airtimeTier, gmbTier, fastTrack, monthlySupport]);
 
   // Form trigger
   const handleSubmitPackage = async (e: React.FormEvent) => {
@@ -89,13 +92,14 @@ export default function ServiceCalculator({ onSuccessLead }: ServiceCalculatorPr
 
     // Assemble dynamic packages listing string
     const activePackages: string[] = [];
-    if (webDevTier !== "none") activePackages.push(findName(webDevTier));
-    if (designTier !== "none") activePackages.push(findName(designTier));
-    if (seoTier !== "none") activePackages.push(findName(seoTier));
+    if (phoneTier !== "none") activePackages.push(findName(phoneTier));
+    if (otpTier !== "none") activePackages.push(findName(otpTier));
+    if (webTier !== "none") activePackages.push(findName(webTier));
+    if (socialTier !== "none") activePackages.push(findName(socialTier));
+    if (airtimeTier !== "none") activePackages.push(findName(airtimeTier));
     if (gmbTier !== "none") activePackages.push(findName(gmbTier));
-    if (aiTier !== "none") activePackages.push(findName(aiTier));
-    if (fastTrack) activePackages.push("Fast-Track Delivery Option (₦50,000)");
-    if (monthlySupport) activePackages.push("Ongoing Quality Care SLA (₦30,000)");
+    if (fastTrack) activePackages.push("Fast-Track Delivery Option (₦20,000)");
+    if (monthlySupport) activePackages.push("Ongoing Quality Care SLA (₦15,000)");
 
     const compiledMessage = `
 --- CLIENT CUSTOM INVOICE GENERATOR ---
@@ -160,186 +164,155 @@ export default function ServiceCalculator({ onSuccessLead }: ServiceCalculatorPr
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          
-          {/* Config options selectors selector - 7 Cols */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">          {/* Config options selectors selector - 7 Cols */}
           <div className="lg:col-span-7 bg-white border border-gray-200 rounded-2xl p-6 space-y-7 shadow-sm" id="calculator-controls">
             
-            {/* 1. Custom Web Dev */}
+            {/* 1. Custom Website Sales */}
             <div className="space-y-3">
-              <label className="text-sm font-bold text-slate-900 block font-sans">1. Custom Web Architecture</label>
-              <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
+              <label className="text-sm font-bold text-slate-900 block font-sans">1. Custom Website Sales & Projects</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <button
                   type="button"
-                  onClick={() => setWebDevTier("none")}
+                  onClick={() => setWebTier("none")}
                   className={`border rounded-xl p-3 text-xs font-semibold text-center transition-all cursor-pointer ${
-                    webDevTier === "none" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-600 lg:hover:bg-slate-100 lg:hover:text-slate-950"
+                    webTier === "none" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-600 lg:hover:bg-slate-100 lg:hover:text-slate-950"
                   }`}
                 >
                   None
                 </button>
                 <button
                   type="button"
-                  onClick={() => setWebDevTier("web-1")}
+                  onClick={() => setWebTier("web-sale-1")}
                   className={`border rounded-xl p-3 text-xs font-semibold text-center transition-all cursor-pointer ${
-                    webDevTier === "web-1" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-600 lg:hover:bg-slate-100 lg:hover:text-slate-955"
+                    webTier === "web-sale-1" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-600 lg:hover:bg-slate-100 lg:hover:text-slate-955"
                   }`}
                 >
-                  Portal (₦120k)
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setWebDevTier("web-2")}
-                  className={`border rounded-xl p-3 text-xs font-semibold text-center transition-all cursor-pointer ${
-                    webDevTier === "web-2" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-600 lg:hover:bg-slate-100 lg:hover:text-slate-955"
-                  }`}
-                >
-                  Pro App (₦250k)
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setWebDevTier("web-3")}
-                  className={`border rounded-xl p-3 text-xs font-semibold text-center transition-all cursor-pointer ${
-                    webDevTier === "web-3" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-600 lg:hover:bg-slate-100 lg:hover:text-slate-955"
-                  }`}
-                >
-                  Enterprise (₦450k)
+                  Premium Responsive Website (₦120k)
                 </button>
               </div>
             </div>
 
-            {/* 2. Graphic Design */}
+            {/* 2. Google My Business Maps Positioning */}
             <div className="space-y-3">
-              <label className="text-sm font-bold text-slate-900 block font-sans">2. Graphic Design & Identity Visage</label>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <button
-                  type="button"
-                  onClick={() => setDesignTier("none")}
-                  className={`border rounded-xl p-3 text-xs font-semibold text-center transition-all cursor-pointer ${
-                    designTier === "none" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-600 lg:hover:bg-slate-100 lg:hover:text-slate-950"
-                  }`}
-                >
-                  None
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setDesignTier("design-1")}
-                  className={`border rounded-xl p-3 text-xs font-semibold text-center transition-all cursor-pointer ${
-                    designTier === "design-1" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-605 lg:hover:bg-slate-100 lg:hover:text-slate-955"
-                  }`}
-                >
-                  SVG Logo Pack (₦35k)
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setDesignTier("design-2")}
-                  className={`border rounded-xl p-3 text-xs font-semibold text-center transition-all cursor-pointer ${
-                    designTier === "design-2" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-605 lg:hover:bg-slate-100 lg:hover:text-slate-955"
-                  }`}
-                >
-                  Brand Visuals (₦180k)
-                </button>
-              </div>
-            </div>
-
-            {/* 3. SEO Services */}
-            <div className="space-y-3">
-              <label className="text-sm font-bold text-slate-900 block font-sans">3. Organic SEO Target Tuning</label>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <button
-                  type="button"
-                  onClick={() => setSeoTier("none")}
-                  className={`border rounded-xl p-3 text-xs font-semibold text-center transition-all cursor-pointer ${
-                    seoTier === "none" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-600 lg:hover:bg-slate-100 lg:hover:text-slate-950 font-sans"
-                  }`}
-                >
-                  None
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setSeoTier("seo-1")}
-                  className={`border rounded-xl p-3 text-xs font-semibold text-center transition-all cursor-pointer ${
-                    seoTier === "seo-1" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-605 lg:hover:bg-slate-100 lg:hover:text-slate-955"
-                  }`}
-                >
-                  SEO Kickstart (₦80k)
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setSeoTier("seo-2")}
-                  className={`border rounded-xl p-3 text-xs font-semibold text-center transition-all cursor-pointer ${
-                    seoTier === "seo-2" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-605 lg:hover:bg-slate-100 lg:hover:text-slate-955"
-                  }`}
-                >
-                  Rank Retainer (₦250k)
-                </button>
-              </div>
-            </div>
-
-            {/* 4. GMB maps mapping */}
-            <div className="space-y-3">
-              <label className="text-sm font-bold text-slate-900 block font-sans">4. Google My Business Maps Positioning</label>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <label className="text-sm font-bold text-slate-900 block font-sans">2. Google My Business Maps Positioning</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <button
                   type="button"
                   onClick={() => setGmbTier("none")}
                   className={`border rounded-xl p-3 text-xs font-semibold text-center transition-all cursor-pointer ${
-                    gmbTier === "none" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-600 lg:hover:bg-slate-100 lg:hover:text-slate-950 font-sans"
+                    gmbTier === "none" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-600 lg:hover:bg-slate-100 lg:hover:text-slate-950"
                   }`}
                 >
                   None
                 </button>
                 <button
                   type="button"
-                  onClick={() => setGmbTier("gmb-1")}
+                  onClick={() => setGmbTier("gmb-service-1")}
                   className={`border rounded-xl p-3 text-xs font-semibold text-center transition-all cursor-pointer ${
-                    gmbTier === "gmb-1" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-605 lg:hover:bg-slate-100 lg:hover:text-slate-955"
+                    gmbTier === "gmb-service-1" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-605 lg:hover:bg-slate-100 lg:hover:text-slate-955"
                   }`}
                 >
-                  Map Setup (₦45k)
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setGmbTier("gmb-2")}
-                  className={`border rounded-xl p-3 text-xs font-semibold text-center transition-all cursor-pointer ${
-                    gmbTier === "gmb-2" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-605 lg:hover:bg-slate-100 lg:hover:text-slate-955"
-                  }`}
-                >
-                  Maps Dominator (₦120k)
+                  GMB Setup & Rank Promotion (₦45k)
                 </button>
               </div>
             </div>
 
-            {/* 5. AI Education Course */}
+            {/* 3. Virtual Phone Numbers Lease */}
             <div className="space-y-3">
-              <label className="text-sm font-bold text-slate-900 block font-sans">5. AI Money Mastery & Direct Mentorship</label>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <label className="text-sm font-bold text-slate-900 block font-sans">3. Virtual Phone Numbers (All Kinds)</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <button
                   type="button"
-                  onClick={() => setAiTier("none")}
+                  onClick={() => setPhoneTier("none")}
                   className={`border rounded-xl p-3 text-xs font-semibold text-center transition-all cursor-pointer ${
-                    aiTier === "none" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-600 lg:hover:bg-slate-100 lg:hover:text-slate-950 font-sans"
+                    phoneTier === "none" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-600 lg:hover:bg-slate-100 lg:hover:text-slate-950"
                   }`}
                 >
                   None
                 </button>
                 <button
                   type="button"
-                  onClick={() => setAiTier("ai-money-1")}
+                  onClick={() => setPhoneTier("phone-num-1")}
                   className={`border rounded-xl p-3 text-xs font-semibold text-center transition-all cursor-pointer ${
-                    aiTier === "ai-money-1" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-605 lg:hover:bg-slate-100 lg:hover:text-slate-955"
+                    phoneTier === "phone-num-1" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-605 lg:hover:bg-slate-100 lg:hover:text-slate-955"
                   }`}
                 >
-                  Essentials Cohort (₦45k)
+                  Global Virtual Number Lease (₦12k/mo)
+                </button>
+              </div>
+            </div>
+
+            {/* 4. SMS OTP Verification Streams */}
+            <div className="space-y-3">
+              <label className="text-sm font-bold text-slate-900 block font-sans">4. SMS OTP Bypass & SIM Verification</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  onClick={() => setOtpTier("none")}
+                  className={`border rounded-xl p-3 text-xs font-semibold text-center transition-all cursor-pointer ${
+                    otpTier === "none" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-650 lg:hover:bg-slate-100 lg:hover:text-slate-955"
+                  }`}
+                >
+                  None
                 </button>
                 <button
                   type="button"
-                  onClick={() => setAiTier("ai-money-2")}
+                  onClick={() => setOtpTier("otp-service-1")}
                   className={`border rounded-xl p-3 text-xs font-semibold text-center transition-all cursor-pointer ${
-                    aiTier === "ai-money-2" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-605 lg:hover:bg-slate-100 lg:hover:text-slate-955"
+                    otpTier === "otp-service-1" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-650 lg:hover:bg-slate-100 lg:hover:text-slate-955"
                   }`}
                 >
-                  VIP Group Coaching (₦150k)
+                  SIM SMS Verification Code (₦1.5k/code)
+                </button>
+              </div>
+            </div>
+
+            {/* 5. Aged Organic Social Accounts */}
+            <div className="space-y-3">
+              <label className="text-sm font-bold text-slate-900 block font-sans">5. Aged Organic Social Accounts Store</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  onClick={() => setSocialTier("none")}
+                  className={`border rounded-xl p-3 text-xs font-semibold text-center transition-all cursor-pointer ${
+                    socialTier === "none" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-600 lg:hover:bg-slate-100 lg:hover:text-slate-950 font-sans"
+                  }`}
+                >
+                  None
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSocialTier("social-acc-1")}
+                  className={`border rounded-xl p-3 text-xs font-semibold text-center transition-all cursor-pointer ${
+                    socialTier === "social-acc-1" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-605 lg:hover:bg-slate-100 lg:hover:text-slate-955"
+                  }`}
+                >
+                  Aged High-Engagement Account (₦25k)
+                </button>
+              </div>
+            </div>
+
+            {/* 6. Naira Airtime Cash swapping */}
+            <div className="space-y-3">
+              <label className="text-sm font-bold text-slate-900 block font-sans">6. Naira Airtime to Cash Exchange Swapping</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  onClick={() => setAirtimeTier("none")}
+                  className={`border rounded-xl p-3 text-xs font-semibold text-center transition-all cursor-pointer ${
+                    airtimeTier === "none" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-600 lg:hover:bg-slate-100 lg:hover:text-slate-950 font-sans"
+                  }`}
+                >
+                  None
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setAirtimeTier("airtime-cash-1")}
+                  className={`border rounded-xl p-3 text-xs font-semibold text-center transition-all cursor-pointer ${
+                    airtimeTier === "airtime-cash-1" ? "bg-orange-600 border-orange-600 text-white shadow-inner" : "bg-slate-50 border-gray-200 text-slate-605 lg:hover:bg-slate-100 lg:hover:text-slate-955"
+                  }`}
+                >
+                  Swap Airtel/MTN Airtime VTU (₦1k min swapping rate)
                 </button>
               </div>
             </div>
@@ -355,7 +328,7 @@ export default function ServiceCalculator({ onSuccessLead }: ServiceCalculatorPr
                     onChange={(e) => setFastTrack(e.target.checked)}
                     className="h-4 w-4 rounded border-gray-300 text-orange-600 focus:ring-orange-500 cursor-pointer bg-slate-50"
                   />
-                  <span><strong>Fast-Track Timeline Delivery</strong> (Deliver websites in under 3 business days) - <strong>+₦50,000</strong></span>
+                  <span><strong>Priority Rapid Setup</strong> (Process credentials & accounts in under 1 hour) - <strong>+₦20,000</strong></span>
                 </label>
 
                 <label className="flex items-center space-x-3 text-xs text-slate-600 cursor-pointer select-none">
@@ -365,7 +338,7 @@ export default function ServiceCalculator({ onSuccessLead }: ServiceCalculatorPr
                     onChange={(e) => setMonthlySupport(e.target.checked)}
                     className="h-4 w-4 rounded border-gray-300 text-orange-600 focus:ring-orange-500 cursor-pointer bg-slate-50"
                   />
-                  <span><strong>Dedicated Ongoing Site Care</strong> (Security auditing, daily backups, speed maintenance) - <strong>+₦30,000 / month</strong></span>
+                  <span><strong>Replacement Guard Insurance</strong> (Premium continuous replacements for leased profiles/OTP SIM blocks) - <strong>+₦15,000</strong></span>
                 </label>
               </div>
             </div>
@@ -384,51 +357,57 @@ export default function ServiceCalculator({ onSuccessLead }: ServiceCalculatorPr
 
               {/* Dynamic cost listing details */}
               <div className="mt-5 space-y-3.5 border-b border-gray-200 pb-5 text-xs text-slate-650">
-                {webDevTier !== "none" && (
+                {webTier !== "none" && (
                   <div className="flex justify-between">
-                    <span className="text-slate-500">Web Dev: {findName(webDevTier)}</span>
-                    <span className="font-mono text-slate-950 font-bold">₦{findPrice(webDevTier).toLocaleString()}</span>
-                  </div>
-                )}
-                {designTier !== "none" && (
-                  <div className="flex justify-between">
-                    <span className="text-slate-500">Branding: {findName(designTier)}</span>
-                    <span className="font-mono text-slate-950 font-bold">₦{findPrice(designTier).toLocaleString()}</span>
-                  </div>
-                )}
-                {seoTier !== "none" && (
-                  <div className="flex justify-between">
-                    <span className="text-slate-500">SEO Strategy: {findName(seoTier)}</span>
-                    <span className="font-mono text-slate-950 font-bold">₦{findPrice(seoTier).toLocaleString()}</span>
+                    <span className="text-slate-500">Website Sale: {findName(webTier)}</span>
+                    <span className="font-mono text-slate-950 font-bold">₦{findPrice(webTier).toLocaleString()}</span>
                   </div>
                 )}
                 {gmbTier !== "none" && (
                   <div className="flex justify-between">
-                    <span className="text-slate-500">GMB Maps Setup: {findName(gmbTier)}</span>
+                    <span className="text-slate-500">Maps SEO: {findName(gmbTier)}</span>
                     <span className="font-mono text-slate-950 font-bold">₦{findPrice(gmbTier).toLocaleString()}</span>
                   </div>
                 )}
-                {aiTier !== "none" && (
+                {phoneTier !== "none" && (
                   <div className="flex justify-between">
-                    <span className="text-slate-550">AI Mentorship: {findName(aiTier)}</span>
-                    <span className="font-mono text-slate-950 font-bold">₦{findPrice(aiTier).toLocaleString()}</span>
+                    <span className="text-slate-500">Phone Lease: {findName(phoneTier)}</span>
+                    <span className="font-mono text-slate-950 font-bold">₦{findPrice(phoneTier).toLocaleString()}</span>
+                  </div>
+                )}
+                {otpTier !== "none" && (
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">OTP Bypass SIM: {findName(otpTier)}</span>
+                    <span className="font-mono text-slate-950 font-bold">₦{findPrice(otpTier).toLocaleString()}</span>
+                  </div>
+                )}
+                {socialTier !== "none" && (
+                  <div className="flex justify-between">
+                    <span className="text-slate-550">Aged Social Acc: {findName(socialTier)}</span>
+                    <span className="font-mono text-slate-950 font-bold">₦{findPrice(socialTier).toLocaleString()}</span>
+                  </div>
+                )}
+                {airtimeTier !== "none" && (
+                  <div className="flex justify-between">
+                    <span className="text-slate-550">VTU Airtime Convert: {findName(airtimeTier)}</span>
+                    <span className="font-mono text-slate-950 font-bold">₦{findPrice(airtimeTier).toLocaleString()}</span>
                   </div>
                 )}
                 {fastTrack && (
                   <div className="flex justify-between text-orange-600 font-semibold">
-                    <span>TIMELINE: Fast-Track (3-day target)</span>
-                    <span className="font-mono text-slate-950 font-bold">₦50,050</span>
+                    <span>TIMELINE: Priority Rapid Setup</span>
+                    <span className="font-mono text-slate-950 font-bold">₦20,000</span>
                   </div>
                 )}
                 {monthlySupport && (
                   <div className="flex justify-between text-orange-600 font-semibold">
-                    <span>SECURITY: Quality Site Care Retention</span>
-                    <span className="font-mono text-slate-950 font-bold">₦30,050</span>
+                    <span>PROTECTION: Replacement Guard Insurance</span>
+                    <span className="font-mono text-slate-950 font-bold">₦15,000</span>
                   </div>
                 )}
 
                 {/* If nothing selected */}
-                {webDevTier === "none" && designTier === "none" && seoTier === "none" && gmbTier === "none" && aiTier === "none" && !fastTrack && !monthlySupport && (
+                {webTier === "none" && gmbTier === "none" && phoneTier === "none" && otpTier === "none" && socialTier === "none" && airtimeTier === "none" && !fastTrack && !monthlySupport && (
                   <p className="text-sm text-center text-slate-400 py-6 italic">No products added yet. Select options on the left to activate computation.</p>
                 )}
               </div>

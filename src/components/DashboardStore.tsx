@@ -288,7 +288,7 @@ export default function DashboardStore() {
   useEffect(() => {
     const fetchTemplates = async () => {
       try {
-        const res = await fetch("/api/admin/sms-templates");
+        const res = await fetch("/api/admin/templates");
         if (res.ok) {
           const data = await res.json();
           setDbSmsTemplates(data.smsTemplates || []);
@@ -1578,8 +1578,8 @@ export default function DashboardStore() {
                       >
                         <option value="">-- Choose a recurring bulk SMS template --</option>
                         {dbSmsTemplates.map((tpl) => (
-                          <option key={tpl.id} value={tpl.content}>
-                            [{tpl.title}] - {tpl.content.substring(0, 50)}...
+                          <option key={tpl.id} value={tpl.body}>
+                            [{tpl.title}] - {(tpl.body || tpl.content || "").substring(0, 50)}...
                           </option>
                         ))}
                       </select>

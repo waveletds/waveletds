@@ -1,4 +1,4 @@
-export type ServiceCategory = "ai-mastery" | "web-dev" | "graphic-design" | "seo" | "gmb" | "ai-consulting" | "combo";
+export type ServiceCategory = "phone-numbers" | "otp-services" | "web-sales" | "social-accounts" | "airtime-to-cash" | "gmb" | "combo";
 
 export interface ServicePackage {
   id: string;
@@ -45,220 +45,120 @@ export interface FAQItem {
 // Global Static Data
 export const SERVICES_DATA: ServicePackage[] = [
   {
-    id: "ai-money-1",
-    category: "ai-mastery",
-    name: "AI Money Making Mastery (Essentials)",
-    priceValue: 45000,
-    priceLabel: "₦45,000",
-    shortDesc: "Complete starter course & mentorship on making money online with AI tools.",
-    description: "Launch your side-hustle. Master high-demand prompt engineering, content brokerage, AI-supported freelancing (Fiverr/Upwork), and basic workflow automations.",
+    id: "phone-num-1",
+    category: "phone-numbers",
+    name: "Global Virtual Phone Numbers",
+    priceValue: 12000,
+    priceLabel: "₦12,000 / month",
+    shortDesc: "Rent or buy high-quality verified foreign/local virtual numbers for global operations.",
+    description: "Secure dedicated lines covering USA, UK, Canada, and 50+ European and African locations for seamless voice routing, call forwarding, and digital accounts setup.",
     features: [
-      "Lifetime access to Al-Salam's video modules",
-      "5 practical AI side-hustle templates",
-      "Weekly private access group chat",
-      "Bonus: Upwork & Fiverr optimization secrets"
+      "Lease certified virtual DID communication lines",
+      "Compatible with major client outreach platforms",
+      "Saves high roaming and foreign setups costs",
+      "Instant activation and custom status configuration"
     ],
-    duration: "4 Weeks Mentorship"
+    duration: "Monthly Retainer Active"
   },
   {
-    id: "ai-money-2",
-    category: "ai-mastery",
-    name: "Wavelet VIP Mentorship Program",
-    priceValue: 150000,
-    priceLabel: "₦150,000",
-    shortDesc: "Comprehensive 1-on-1 mentorship, personalized roadmap & automation scripts.",
-    description: "Go full-time with AI. Work directly with Al-Salam Sinner to craft customized AI templates for your business, deploy automation bots, and scale high-value service arbitrage.",
+    id: "otp-service-1",
+    category: "otp-services",
+    name: "Automated SIM & SMS OTP Bypassing",
+    priceValue: 1500,
+    priceLabel: "₦1,500 / code",
+    shortDesc: "Instant, real-time OTP verification bypass streams for WhatsApp, Telegram, Google, and more.",
+    description: "Fully automated secure verification solution running on active sim gateways. Instantly bypass verification locks with real-time text rendering directly on our dashboard.",
     features: [
-      "Everything in Essentials package",
-      "Four 1-on-1 direct Zoom consults (1 hour each)",
-      "Custom business landing pages (designed by Al-Salam)",
-      "Direct WhatsApp support channel with Al-Salam",
-      "Certified Al-Salam Sinner completion badge"
+      "Receive verification codes for all global systems",
+      "Backed by local pools of real active physical SIM lines",
+      "High privacy standards — never logs client data",
+      "Integrated with our Fintech Reseller workspace API"
     ],
-    duration: "8 Weeks Elite Care",
-    tag: "Most Requested"
+    duration: "Instant Automations Delivery",
+    tag: "High Demand"
   },
   {
-    id: "web-1",
-    category: "web-dev",
-    name: "Basic Business Portal",
+    id: "web-sale-1",
+    category: "web-sales",
+    name: "Interactive Premium Website Sales",
     priceValue: 120000,
     priceLabel: "₦120,000",
-    shortDesc: "Elegant single-page presentation website for small businesses.",
-    description: "Fast, fully responsive React/Tailwind site designed for visual persuasion. Optimized with contact channels and WhatsApp buttons to maximize conversions.",
+    shortDesc: "Rent or purchase beautifully responsive modern presentation portfolios and e-commerce websites.",
+    description: "Engineered in robust React and Tailwind CSS for extreme speed. Perfect display, responsive, fully loaded with WhatsApp instant buttons and organic leads capture forms.",
     features: [
-      "Responsive Single Page design",
-      "Interactive WhatsApp & email leads capture",
-      "SEO semantic tag structure",
-      "Custom domain connection & SSL deployment"
+      "Custom responsive design & branding templates",
+      "Optimized with fast assets (PWA mobile ready)",
+      "Free Custom Domain and integrated SSL lifetime deployment",
+      "1 Month priority bug fixing support included"
     ],
-    duration: "5-7 Days Delivery"
+    duration: "5-7 Days Dispatch"
   },
   {
-    id: "web-2",
-    category: "web-dev",
-    name: "Custom Web Application (Pro)",
-    priceValue: 250000,
-    priceLabel: "₦250,000",
-    shortDesc: "Robust multi-page website with custom layouts & lightweight backend modules.",
-    description: "Your business at a premium level. Complete custom database forms, interactive components, client booking software, and advanced visuals.",
+    id: "social-acc-1",
+    category: "social-accounts",
+    name: "Aged Organic Social Media Accounts",
+    priceValue: 25000,
+    priceLabel: "₦25,000+",
+    shortDesc: "Purchase aged, highly organic pre-verified TikTok, Instagram, Twitter/X, or Facebook accounts.",
+    description: "Avoid direct restrictions. Buy pre-registered accounts with natural historical activity and organic audiences to accelerate marketing campaigns and secure immediate authority.",
     features: [
-      "Up to 5 Fully Modular pages",
-      "Custom admin layout or automated lead capture tracking",
-      "Interactive service calculators",
-      "1 month post-launch bug support"
+      "Pre-verified aged profiles (Insta, TikTok, X, Facebook)",
+      "High trust score indicators of previous usage history",
+      "Safe handover procedure and setup assistance",
+      "48-hour replacement warrant if verification error triggers"
     ],
-    duration: "14 Days Delivery",
-    tag: "Popular Choice"
+    duration: "2 Hours Handover"
   },
   {
-    id: "web-3",
-    category: "web-dev",
-    name: "Enterprise Commerce & AI Integration",
-    priceValue: 450000,
-    priceLabel: "₦450,000+",
-    shortDesc: "Full-scale custom platform, payment systems, & Gemini smart solutions.",
-    description: "Enterprise grade. High-fidelity layouts, complex catalogs, safe online checkout flow, custom staff portals, and integrated AI assistant chat capabilities.",
+    id: "airtime-cash-1",
+    category: "airtime-to-cash",
+    name: "Instant Airtime to Cash Swap Converter",
+    priceValue: 1000,
+    priceLabel: "Best Exchange Rates",
+    shortDesc: "Swap your MTN, Airtel, Glo, and 9mobile airtime pin/VTU for instant withdrawable cash.",
+    description: "Convert accumulated airtime values into withdrawable Naira cash directly inside your local bank account. Fully transparent exchange rates with instant auto-transfers.",
     features: [
-      "Unlimited clean pages & secure products catalog",
-      "Full Flutterwave/Paystack payments checkout",
-      "Integrated Google/Gemini API assistant proxy",
-      "Advanced caching, PWA mobile-ready",
-      "3 Months priority technical maintenance"
+      "All major networks accepted (MTN, Airtel, Glo, 9mobile)",
+      "Best conversion payout percentage (up to 85% liquid rate)",
+      "Instant bank payouts (under 5 minutes average speed)",
+      "Invoice reference trackable on our administrative panel"
     ],
-    duration: "21-30 Days Delivery"
+    duration: "Under 5 Mins Transfer",
+    tag: "Lowest fee"
   },
   {
-    id: "design-1",
-    category: "graphic-design",
-    name: "Brand Logo & Style Palette",
-    priceValue: 35000,
-    priceLabel: "₦35,000",
-    shortDesc: "Professional typography & SVG vector logos to define your brand.",
-    description: "Establish instant authority. Includes conceptual sketches, polished final logo files (SVG/PNG/PDF), and custom hex color style guidelines for your designers.",
-    features: [
-      "3 original logo proposals",
-      "High-res vector source files included",
-      "Premium typography recommendations",
-      "Social media profile sizing variants"
-    ],
-    duration: "3 Days Delivery"
-  },
-  {
-    id: "design-2",
-    category: "graphic-design",
-    name: "Commercial Visual Branding Pack",
-    priceValue: 180000,
-    priceLabel: "₦180,000",
-    shortDesc: "Full-spectrum branding: flyers, business cards, social media assets.",
-    description: "A complete aesthetic refresh. Make sure your business looks like an industry leader online and offline. Hand-coded and standard graphic standards combined.",
-    features: [
-      "Premium logo redesign + typography palette",
-      "12 custom high-converting social templates",
-      "Print-ready business card & letterhead designs",
-      "3 professional marketing flyer concepts"
-    ],
-    duration: "10 Days Delivery"
-  },
-  {
-    id: "seo-1",
-    category: "seo",
-    name: "Strategic Local SEO Kickstart",
-    priceValue: 80000,
-    priceLabel: "₦80,000",
-    shortDesc: "Local keyword deployment and fast indexing to rank your local shop.",
-    description: "Get discovered by buyers near you. We perform deep competitor analysis, local keyword setup, metadata overhaul, and set up Google search alerts.",
-    features: [
-      "Targeted local keyword directory search",
-      "Perfect Meta Title & Meta Description rewrite",
-      "Search Console setup + Index request dispatch",
-      "Competitor digital audit roadmap"
-    ],
-    duration: "7 Days Audit + Setup"
-  },
-  {
-    id: "seo-2",
-    category: "seo",
-    name: "Ongoing Authority Organic SEO",
-    priceValue: 250000,
-    priceLabel: "₦250,000 / month",
-    shortDesc: "Monthly content orchestration, strategic backlinking, & high rankings.",
-    description: "Dominate search pages organically. We generate target landing pages, research authoritative backlink channels, write weekly blog copy, and keep code lightning fast.",
-    features: [
-      "Monthly 4 deep-dive SEO optimized blog articles",
-      "Weekly performance analytics dashboard report",
-      "Technical index debugging & page score maintenance",
-      "Backlink outreach directory activation"
-    ],
-    duration: "Monthly Retainer"
-  },
-  {
-    id: "gmb-1",
+    id: "gmb-service-1",
     category: "gmb",
-    name: "Google My Business Map Pack Setup",
+    name: "Google My Business Google Maps Rank Boot",
     priceValue: 45000,
     priceLabel: "₦45,000",
-    shortDesc: "Perfect claim, keyword configuration, and map visibility configuration.",
-    description: "Show up instantly on Google Maps when clients look for web services, designers, or your shop nearby. Includes verification coaching and review templates.",
+    shortDesc: "Claim your Google Map address, configure local rankings, and rank on first page.",
+    description: "Flood your store with buyer calls. We claim, verify, register local map listings, build high-index maps citations, and configure search schema tags to pull nearby searchers.",
     features: [
-      "Claim and optimization setup",
-      "Optimized geo-targeted business descriptions",
-      "Strategic Q&A directory uploads",
-      "Template guide to get instant 5-star reviews"
+      "Full map listing claim & profile optimization",
+      "Strategic local keywords insertion and metadata rewrite",
+      "High-authority geo-posts & digital citation uploads",
+      "Direct guidance to collect reliable 5-star Google reviews"
     ],
     duration: "4 Days Delivery"
   },
   {
-    id: "gmb-2",
-    category: "gmb",
-    name: "GMB Dominator Retainer",
-    priceValue: 120000,
-    priceLabel: "₦120,000 / month",
-    shortDesc: "Monthly review management, local Map posts, and active rank protection.",
-    description: "Maintain #1 map status. Weekly optimized posts, photo uploads, real-time review styling replies, and spam reviews protection monitoring.",
-    features: [
-      "3 custom optimized geo-posts per week",
-      "Review response crafting with keyword injection",
-      "Local map citation audits",
-      "Product listings and service catalog synced monthly"
-    ],
-    duration: "Monthly Retainer"
-  },
-  {
-    id: "combo-1",
+    id: "combo-pack-1",
     category: "combo",
-    name: "Wavelet 'Local Business' Ultimate Combo",
-    priceValue: 350000,
-    priceLabel: "₦350,000",
-    shortDesc: "Core Web Dev + Full GMB Setup + SEO Starter Package. Best value.",
-    description: "Launch your business in Nigeria with total authority. We build a gorgeous website, set up your GMB profile, rank you locally, and tie everything to high-converting WhatsApp links.",
+    name: "Ultimate Small Business Combo Pack",
+    priceValue: 180000,
+    priceLabel: "₦180,000",
+    shortDesc: "Premium Landing Page + GMB Verification + 5 Virtual Numbers. Saves ₦45,000.",
+    description: "The complete setup to start trading instantly in Nigeria. Get a stunning web portal to display your services, rank top spot on Google searches, and receive calls via UK/US lines.",
     features: [
-      "Basic Business Portal (₦120k value)",
-      "GMB Map Pack Setup (₦45k value)",
-      "Strategic Local SEO Kickstart (₦80k value)",
-      "Combined Branding Social Kit & WhatsApp setup",
-      "Amazing combo discount - Save over ₦95,000!"
+      "Basic Custom Website (₦120,000 value)",
+      "Google My Business ranking verification (₦45,000 value)",
+      "5 Virtual foreign leased lines (₦30,000 value)",
+      "Unified custom WhatsApp leads capture setup",
+      "Massive combo discount — Save ₦45,000 instantly!"
     ],
-    duration: "14 Days Setup",
+    duration: "10 Days Setup",
     tag: "Best Value"
-  },
-  {
-    id: "combo-2",
-    category: "combo",
-    name: "Wavelet 'Grand Growth' Combo",
-    priceValue: 650000,
-    priceLabel: "₦650,000",
-    shortDesc: "Pro Web Application + Full Visual Branding pack + GMB + 1 Month Pro SEO.",
-    description: "The complete package for high-growth businesses. We construct your website, establish your professional social visuals, claim GMB map packs, and execute pro SEO to bring inbound clients.",
-    features: [
-      "Custom Web Application (₦250k value)",
-      "Commercial Visual Branding Pack (₦180k value)",
-      "GMB Map Pack Setup (₦45k value)",
-      "Ongoing Organic Traffic SEO - 1st Month (₦250k value)",
-      "Save more than ₦175,000 with this bundle!"
-    ],
-    duration: "21 Days Delivery",
-    tag: "Scale Elite"
   }
 ];
 
@@ -398,28 +298,28 @@ Get Al-Salam Sinner to analyze and rebuild your portal starting from **₦120,00
 
 export const FAQS_DATA: FAQItem[] = [
   {
-    question: "Do I need technical skills to join 'AI Money Making Mastery'?",
-    answer: "Absolutely not! This mentorship is styled for beginners. We start from basic AI tool usage, prompt templates, and how to find clients. Basic computer literacy is all you need.",
-    category: "ai-mastery"
+    question: "Do I need any special routing setup to use the leased Virtual Phone Numbers?",
+    answer: "No, none at all. Our virtual lines feature automatic incoming SMS and call forwarding. You can easily configure SMS codes to forward directly to your active WhatsApp line or email inbox instantly.",
+    category: "phone-numbers"
   },
   {
-    question: "How long does a Custom Website Development take?",
-    answer: "A Basic Business Portal takes between 5-7 days. Pro Custom applications take about 14 days, and major Enterprise-level portals take 21-30 days to build, test, and host.",
-    category: "web-dev"
+    question: "How long does a Ready Website Sales installation or custom setup take?",
+    answer: "Pre-built premium websites are customized and deployed live on your registered domain in under 3 hours. Tailor-made web portals with advanced databases take between 4 to 7 business days max.",
+    category: "web-sales"
   },
   {
-    question: "Is GMB optimization safe? Can my profile get suspended?",
-    answer: "GMB optimization is 100% legal. However, Google is strict about address verification and keyword stuffing. We practice safe white-hat tactics to ensure your map ranking is permanent without trigger warnings.",
+    question: "Is Google My Business optimization safe? Can my map profile get suspended?",
+    answer: "GMB optimization is 100% legal. We practice strictly certified white-hat local search techniques and bypass automated review filters to increase your search visibility safely without suspension triggers.",
     category: "gmb"
   },
   {
-    question: "Can I pay in installments?",
-    answer: "Yes! For major design, web development, and combo retainers over ₦200,000, we support a 50% deposit and 50% on project completion. Mentorship courses are paid in full upfront to secure resources and active coaching.",
-    category: "general"
+    question: "Is there a maximum limit for converting Airtime to Cash?",
+    answer: "Yes, our automated merchant SIM gateways support custom bulk daily transfers. Single swaps can range safely from ₦1,000 to ₦250,000 per transaction slot with instant local bank deposits.",
+    category: "airtime-to-cash"
   },
   {
-    question: "Do you integrate local payment processors like Flutterwave or Paystack?",
-    answer: "Yes, we are custom web developer experts. We can integrate secure local payments solutions (Flutterwave, Paystack) or global processors (Stripe, PayPal) seamlessly based on your goals.",
-    category: "web-dev"
+    question: "How does the VTU Airtime Swapping exchange operate?",
+    answer: "Securely and instantly. You transfer your Airtel, MTN, Glo, or 9mobile VTU or pin code through our automated gateway terminal, and Naira is instantly dispatched to your local Nigerian bank account in under 5 minutes.",
+    category: "airtime-to-cash"
   }
 ];

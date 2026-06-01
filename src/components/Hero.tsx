@@ -1,4 +1,4 @@
-import { ArrowRight, Sparkles, Code, Palette, Search, GraduationCap, MapPin, CheckCircle } from "lucide-react";
+import { ArrowRight, Sparkles, Code, Palette, Search, GraduationCap, MapPin, CheckCircle, Phone, Share2, Smartphone } from "lucide-react";
 import { motion } from "motion/react";
 
 interface HeroProps {
@@ -8,10 +8,10 @@ interface HeroProps {
 
 export default function Hero({ setActiveView, openBookingModal }: HeroProps) {
   const expertSpecs = [
-    { icon: Code, label: "Web Dev", desc: "React, Next.js, Node, Custom Portals", borderClr: "border-gray-200" },
-    { icon: Palette, label: "Graphic Design", desc: "Logos, Flyers, Brand Identities", borderClr: "border-gray-200" },
-    { icon: Search, label: "SEO Guru", desc: "Local Map Booster & Google Rankings", borderClr: "border-gray-200" },
-    { icon: GraduationCap, label: "AI Specialist", desc: "Prompt Mastery & Workflow Automation", borderClr: "border-gray-200" },
+    { icon: Phone, label: "Virtual Phone Numbers & OTP", desc: "Rent UK, US, and global numbers with instant automatic OTP verification forwarding.", borderClr: "border-gray-200" },
+    { icon: Code, label: "Website Sales", desc: "Purchase or rent high-speed presentation pages, e-commerce storefronts, and web portals.", borderClr: "border-gray-200" },
+    { icon: Share2, label: "Social Media Accounts Store", desc: "Acquire organic, aged pre-verified TikTok, Instagram, Twitter/X, and marketing profiles.", borderClr: "border-gray-200" },
+    { icon: Smartphone, label: "Airtime Cash Out & GMB", desc: "Convert airtime credit to instantaneous withdrawable Naira; optimize and verify GMB maps.", borderClr: "border-gray-200" },
   ];
 
   return (
@@ -57,16 +57,16 @@ export default function Hero({ setActiveView, openBookingModal }: HeroProps) {
             transition={{ delay: 0.2 }}
             className="mt-6 text-4xl font-extrabold tracking-tight text-slate-950 sm:text-5xl md:text-6xl lg:text-7xl leading-[1.12] font-display"
           >
-            I Help You{" "}
+            Buy{" "}
             <span className="bg-gradient-to-r from-orange-600 to-amber-500 bg-clip-text text-transparent">
-              Build, Design, Rank
+              Numbers, Websites & Accounts
             </span>{" "}
             &{" "}
             <span className="relative inline-block text-slate-950">
-              <span className="relative z-10">Automate</span>
+              <span className="relative z-10">Convert Airtime</span>
               <span className="absolute bottom-1 left-0 h-3 w-full bg-orange-200 -z-10 skew-x-3"></span>
             </span>{" "}
-            With Ease
+            Instantly
           </motion.h1>
 
           <motion.p 
@@ -75,7 +75,7 @@ export default function Hero({ setActiveView, openBookingModal }: HeroProps) {
             transition={{ delay: 0.3 }}
             className="mt-6 text-sm text-slate-600 sm:text-base md:text-lg leading-relaxed max-w-2xl mx-auto"
           >
-            Meet <strong>Al-Salam Sinner</strong>: Web Architect, Graphic Visualizer, SEO Strategist, and AI Automation expert. We build custom platforms, deploy high-ticket scripts, and power business-critical systems.
+            Welcome to **Wavelet Systems**: Your secure terminal to purchase global virtual phone numbers, lease instant OTP bypass SIMs, buy responsive high-converting websites, acquire organic social media accounts, swap VTU airtime to cash, and optimize Google My Business map rankings.
           </motion.p>
         </div>
 

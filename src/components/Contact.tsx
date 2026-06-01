@@ -9,7 +9,7 @@ export default function Contact({ onSuccessLead }: ContactProps) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [service, setService] = useState("ai-mastery");
+  const [service, setService] = useState("phone-numbers");
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
@@ -184,12 +184,13 @@ export default function Contact({ onSuccessLead }: ContactProps) {
                   onChange={(e) => setService(e.target.value)}
                   className="w-full text-xs rounded-xl border border-gray-200 bg-slate-50 px-3 py-3.5 text-slate-900 focus:border-orange-500 focus:outline-none"
                 >
-                  <option value="ai-mastery">AI Money Making Mastery Course (₦45k – ₦150k)</option>
-                  <option value="web-dev">Custom Web Development (₦120k – ₦450k+)</option>
-                  <option value="graphic-design">Graphic Design and Branding (₦35k – ₦180k)</option>
-                  <option value="seo">SEO and Search Optimizations (₦80k – ₦250k)</option>
-                  <option value="gmb">Google My Business Map Packs (₦45k – ₦120k)</option>
-                  <option value="combo">Combo Business Expansion Pack (₦350k – ₦650k)</option>
+                  <option value="phone-numbers">Virtual Phone Number Leasing (₦12k – ₦30k)</option>
+                  <option value="otp-services">SIM OTP Verification Gateway (₦1.5k – ₦5k)</option>
+                  <option value="web-sales">Premium Ready-to-use Website Sales (₦120k – ₦450k+)</option>
+                  <option value="social-accounts">Aged Organic Social Accounts (₦25k – ₦90k)</option>
+                  <option value="airtime-to-cash">VTU Airtime Swapping to Instant Cash (Naira swaps)</option>
+                  <option value="gmb">Google My Business Map Packs & GMB (₦45k – ₦120k)</option>
+                  <option value="combo">VIP Combination Package (₦150k+)</option>
                 </select>
               </div>
 

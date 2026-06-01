@@ -14,10 +14,11 @@ export default function Services({ onSelectPackage, setActiveView }: ServicesPro
 
   const categories: { id: "all" | ServiceCategory; label: string }[] = [
     { id: "all", label: "All Services" },
-    { id: "ai-mastery", label: "AI Money Making Mastery" },
-    { id: "web-dev", label: "Custom Web Dev" },
-    { id: "graphic-design", label: "Graphic Design" },
-    { id: "seo", label: "SEO Optimization" },
+    { id: "phone-numbers", label: "Virtual Phone Numbers" },
+    { id: "otp-services", label: "OTP Verification" },
+    { id: "web-sales", label: "Website Sales" },
+    { id: "social-accounts", label: "Social Accounts" },
+    { id: "airtime-to-cash", label: "Airtime to Cash" },
     { id: "gmb", label: "Google My Business" },
     { id: "combo", label: "Combo Packs" },
   ];
@@ -28,20 +29,20 @@ export default function Services({ onSelectPackage, setActiveView }: ServicesPro
 
   const faqs = [
     {
-      q: "What makes your style different from standard Nigerian agencies?",
-      a: "No fluff, no delays. As an individual builder who teaches AI, I leverage high-speed AI tools to research and develop your web architecture, design assets, and local GMB mappings. You get premium global quality in half the time and at a fraction of standard budget scopes."
+      q: "Where do you source your social media accounts?",
+      a: "All social media accounts (TikTok, Instagram, Twitter/X, and Facebook) are aged, organic profiles with a history of natural activity. This guarantees high trust scores and helps prevent immediate span flags upon handover."
     },
     {
-      q: "Can I bundle more than one service?",
-      a: "Yes! Bundling is highly recommended. Our 'Ultimate Combo Packs' combine Custom Web Development with Map Optimization & Local SEO, saving you up to ₦175,000 immediately."
+      q: "How fast is the Airtime to Cash swap?",
+      a: "It is exceptionally fast. Once your Airtel, MTN, Glo, or 9mobile VTU or pin is verified under our custom reseller terminal gateway, withdrawable Naira is dispatched directly to your local Nigerian bank account in under 5 minutes."
     },
     {
-      q: "How does the 'AI Money Making Mastery' course work?",
-      a: "Once enrolled, you join a close cohort. Al-Salam teaches you practical recipes to trade AI output for real income (copywriting, design, basic web portals). It's focused entirely on results, not theoretical jargon."
+      q: "Do you offer physical or virtual phone lines?",
+      a: "We lease high-fidelity virtual phone lines (DID configurations) representing USA, UK, Canada, and 50+ locations. These lines are fully optimized for incoming SMS forwarding, call routing, and client outreach programs."
     },
     {
-      q: "Can I pay in local Nigerian channels (Naira transfer)?",
-      a: "Yes! We accept simple local bank transfers, or card payments via Flutterwave / Paystack. For projects over ₦200k, we accept a 50% deposit and 50% balance upon final staging."
+      q: "Can I receive OTPs for messaging apps?",
+      a: "Absolutely. Our automated SIM gateways are connected to active, physical cellular endpoints, allowing you to instantly bypass OTP verification gates for WhatsApp, Telegram, Google, and more."
     }
   ];
 

@@ -3,10 +3,10 @@ import { motion } from "motion/react";
 
 export default function About() {
   const skillsMatrix = [
-    { title: "Custom Web Architectures", percentage: 95, icon: Laptop, color: "bg-orange-600" },
-    { title: "AI Prompt Engineering & Automation", percentage: 98, icon: Sparkles, color: "bg-orange-550" },
-    { title: "SEO Strategics (Local Maps Boost)", percentage: 90, icon: Search, color: "bg-amber-500" },
-    { title: "SVG Visual Branding & Layouts", percentage: 88, icon: Grid, color: "bg-orange-400" },
+    { title: "Website Sales & Delivery", percentage: 95, icon: Laptop, color: "bg-orange-600" },
+    { title: "Virtual Number & OTP Bypassing", percentage: 98, icon: Sparkles, color: "bg-orange-550" },
+    { title: "Google My Business SEO Maps", percentage: 90, icon: Search, color: "bg-amber-500" },
+    { title: "Airtime to Cash VTU Swapping", percentage: 92, icon: Grid, color: "bg-orange-400" },
   ];
 
   return (
@@ -44,7 +44,7 @@ export default function About() {
                 
                 <div className="absolute bottom-5 left-5 right-5 z-10">
                   <h3 className="text-xl font-extrabold text-white">Al-Salam Sinner</h3>
-                  <p className="text-xs text-orange-450 font-mono mt-1 font-bold uppercase tracking-wider">The AI Profit Strategist</p>
+                  <p className="text-xs text-orange-450 font-mono mt-1 font-bold uppercase tracking-wider">Virtual Telecomm & Web Exec</p>
                 </div>
               </div>
 
@@ -53,8 +53,8 @@ export default function About() {
             {/* Quick trust metrics panel offset */}
             <div className="absolute -bottom-6 -right-6 hidden sm:flex flex-col items-center justify-center p-4.5 rounded-2xl bg-white border border-orange-200 shadow-xl max-w-[170px] text-center select-none" id="trust-badge">
               <Award className="h-7 w-7 text-orange-600 animate-pulse" />
-              <p className="text-xs font-bold text-slate-900 mt-1.5 leading-tight">Elite Mentor Certification</p>
-              <p className="text-[9px] text-slate-500 mt-1 uppercase">AI-Money Certified</p>
+              <p className="text-xs font-bold text-slate-900 mt-1.5 leading-tight">DID Connection Specialist</p>
+              <p className="text-[9px] text-slate-500 mt-1 uppercase">SIM Gateways Certified</p>
             </div>
           </div>
 
@@ -71,12 +71,11 @@ export default function About() {
             </h2>
 
             <p className="text-xs text-slate-650 leading-relaxed md:text-sm">
-              Hello! I am <strong>Al-Salam Sinner</strong>, a senior web architect, professional branding designer, search engine optimization expert, and AI cohort leader based in Nigeria. 
+              Hello! I am <strong>Al-Salam Sinner</strong>, senior systems architect of **Wavelet Systems** based in Nigeria. We specialize in provisioning secure high-trust virtual communications, direct website transactions, pre-verified organic accounts, and VTU airtime liquidity.
             </p>
 
             <p className="text-xs text-slate-650 leading-relaxed md:text-sm">
-              Many business owners today complain that hiring full marketing agencies gets too expensive, while hiring casual freelancers results in broken codes and templates. 
-              My operation resolves this core compromise. I combine multi-disciplinary execution tools with high-speed, customized AI prompt systems to deliver fully loaded business installations (including custom web portals, GMB ranking verifications, graphic assets, and Google visibility audits) at unprecedented speeds.
+              In a crowded digital market, obtaining reliable telecom channels, bypassing strict cellular OTP codes, securing high-converting responsive sites, and claiming authentic social handles shouldn't be a tedious hassle. My operations leverage fully automated cellular SIM arrays, instant validation terminals, and responsive web builds to dispatch secure configurations directly to your business in record time under 5 minutes average speed.
             </p>
 
             <div className="pt-4 border-t border-gray-150" id="about-skills">
@@ -118,8 +117,8 @@ export default function About() {
               <div className="rounded-xl bg-slate-50 border border-gray-250 p-4 flex items-start space-x-3 hover:bg-white transition-colors duration-150">
                 <GraduationCap className="h-5 w-5 text-orange-600 mt-1 shrink-0" />
                 <div>
-                  <h4 className="text-xs font-bold text-slate-950 leading-tight">400+ Mentored Students</h4>
-                  <p className="text-[10px] text-slate-500 mt-1">Actively guiding Nigerian youths on creating side-hustles with AI.</p>
+                  <h4 className="text-xs font-bold text-slate-950 leading-tight">4,500+ Swaps Completed</h4>
+                  <p className="text-[10px] text-slate-500 mt-1">Providing instant, audited VTU cashouts to local bank accounts.</p>
                 </div>
               </div>
             </div>
