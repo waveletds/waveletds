@@ -15,6 +15,7 @@ import Blog from "./components/Blog";
 import Contact from "./components/Contact";
 import WhatsAppButton from "./components/WhatsAppButton";
 import LeadCaptureModal from "./components/LeadCaptureModal";
+import DashboardStore from "./components/DashboardStore";
 import { SERVICES_DATA, PORTFOLIO_DATA, BLOG_DATA, ServicePackage, PortfolioItem } from "./types";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -236,6 +237,13 @@ export default function App() {
 
           </div>
         )}
+        
+        {/* SAAS & API HUB SHOPPING DASHBOARD VIEW */}
+        {activeView === "dashboard" && (
+          <div id="view-dashboard-container" className="animate-fade-in">
+            <DashboardStore />
+          </div>
+        )}
 
         {/* SERVICES AND DETAILED PRICING VIEW */}
         {activeView === "services" && (
@@ -316,6 +324,7 @@ export default function App() {
             <div>
               <h5 className="text-white font-bold mb-3.5 text-xs text-gray-200">Interactive Tools</h5>
               <ul className="space-y-2 text-[11px]">
+                <li className="hover:text-white transition-colors cursor-pointer" onClick={() => setActiveView("dashboard")}>SaaS & Scripts Shop</li>
                 <li className="hover:text-white transition-colors cursor-pointer" onClick={() => setActiveView("ai-advisor")}>AI Side-Hustle Advisor</li>
                 <li className="hover:text-white transition-colors cursor-pointer" onClick={() => setActiveView("services")}>Instant Naira Calculator</li>
                 <li className="hover:text-white transition-colors cursor-pointer" onClick={() => setActiveView("blog")}>Secret Conversion Hub</li>

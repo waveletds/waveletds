@@ -13,6 +13,7 @@ export default function Navbar({ activeView, setActiveView, openBookingModal }: 
 
   const navItems = [
     { id: "home", label: "Home" },
+    { id: "dashboard", label: "SaaS Dashboard & Store" },
     { id: "services", label: "Services & Pricing" },
     { id: "ai-advisor", label: "AI Money Advisor" },
     { id: "portfolio", label: "Portfolio" },
