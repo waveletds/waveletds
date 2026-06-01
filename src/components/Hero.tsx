@@ -118,6 +118,95 @@ export default function Hero({ setActiveView, openBookingModal }: HeroProps) {
       {/* Decorative Matrix Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#f1f5f9_1px,transparent_1px),linear-gradient(to_bottom,#f1f5f9_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_30%,#000_70%,transparent_100%)] opacity-35"></div>
 
+      {/* 3D Motion Graphics Floating Accent Panels - Tells more about services visually */}
+      <div className="absolute left-[3%] top-[15%] hidden xl:block pointer-events-none z-20">
+        <motion.div 
+          animate={{ 
+            y: [0, -15, 0],
+            rotateY: [10, 15, 10], 
+            rotateX: [5, 12, 5]
+          }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+          className="rounded-2xl border border-orange-200/60 bg-white/95 p-4 shadow-xl flex items-center space-x-3.5 backdrop-blur-md"
+          style={{ transformStyle: "preserve-3d", perspective: 800 }}
+        >
+          <div className="h-10 w-10 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center shadow-inner">
+            <Phone className="h-5 w-5 text-orange-600 animate-pulse" />
+          </div>
+          <div>
+            <span className="text-[9px] font-mono font-bold text-orange-600 uppercase tracking-widest block">TELECOM SIM BANK</span>
+            <p className="text-xs font-extrabold text-slate-900 leading-none">Instant OTP Bypass Slots</p>
+            <span className="text-[9px] text-[#22c55e] bg-emerald-500/10 px-1 rounded font-mono font-bold mt-1 inline-block">Active • 10.2 ms Routing</span>
+          </div>
+        </motion.div>
+      </div>
+
+      <div className="absolute right-[3%] top-[18%] hidden xl:block pointer-events-none z-20">
+        <motion.div 
+          animate={{ 
+            y: [0, 18, 0],
+            rotateY: [-10, -15, -10], 
+            rotateX: [8, 15, 8]
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="rounded-2xl border border-teal-200/50 bg-slate-950 p-4 shadow-2xl flex items-center space-x-3.5 backdrop-blur-sm text-white"
+          style={{ transformStyle: "preserve-3d", perspective: 800 }}
+        >
+          <div className="h-10 w-10 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center shadow-inner">
+            <Laptop className="h-5 w-5 text-teal-400" />
+          </div>
+          <div>
+            <span className="text-[9px] font-mono font-bold text-teal-400 uppercase tracking-widest block">E-COMMERCE & WEB</span>
+            <p className="text-xs font-extrabold text-slate-100 leading-none">High-Speed Presentation Pages</p>
+            <span className="text-[9px] text-[#22c55e] bg-emerald-500/10 px-1 rounded font-mono font-bold mt-1 inline-block">₦120k Setup Locked</span>
+          </div>
+        </motion.div>
+      </div>
+
+      <div className="absolute left-[5%] bottom-[20%] hidden xl:block pointer-events-none z-20">
+        <motion.div 
+          animate={{ 
+            y: [0, -12, 0],
+            rotateY: [15, 8, 15], 
+            rotateX: [-5, -10, -5]
+          }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+          className="rounded-2xl border border-[#a855f7]/30 bg-white/95 p-4 shadow-xl flex items-center space-x-3.5 backdrop-blur-md"
+          style={{ transformStyle: "preserve-3d", perspective: 800 }}
+        >
+          <div className="h-10 w-10 rounded-xl bg-purple-50 border border-purple-150 flex items-center justify-center shadow-inner">
+            <Share2 className="h-5 w-5 text-[#a855f7]" />
+          </div>
+          <div>
+            <span className="text-[9px] font-mono font-bold text-purple-600 uppercase tracking-widest block">SOCIAL PROFILES</span>
+            <p className="text-xs font-extrabold text-slate-900 leading-none">Organic Pre-Verified Account Pools</p>
+            <span className="text-[9px] text-purple-600 bg-purple-500/10 px-1 rounded font-mono font-bold mt-1 inline-block">Aged • Safe Delivery</span>
+          </div>
+        </motion.div>
+      </div>
+
+      <div className="absolute right-[5%] bottom-[15%] hidden xl:block pointer-events-none z-20">
+        <motion.div 
+          animate={{ 
+            y: [0, 16, 0],
+            rotateY: [-8, -12, -8], 
+            rotateX: [-3, -12, -3]
+          }}
+          transition={{ duration: 7.5, repeat: Infinity, ease: "easeInOut", delay: 2.2 }}
+          className="rounded-2xl border border-yellow-250/30 bg-[#0d0a07] p-4 shadow-2xl flex items-center space-x-3.5 backdrop-blur-sm text-white"
+          style={{ transformStyle: "preserve-3d", perspective: 800 }}
+        >
+          <div className="h-10 w-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shadow-inner">
+            <Smartphone className="h-5 w-5 text-amber-500 animate-pulse" />
+          </div>
+          <div>
+            <span className="text-[9px] font-mono font-bold text-amber-400 uppercase tracking-widest block">NIGERIAN VTU SWAP</span>
+            <p className="text-xs font-extrabold text-slate-100 leading-none">Airtime Exchange to direct Cash</p>
+            <span className="text-[9px] text-amber-400 bg-amber-500/15 px-1 rounded font-mono font-bold mt-1 inline-block">85% Return Payout Rate</span>
+          </div>
+        </motion.div>
+      </div>
+
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Top Location Badge */}
@@ -241,7 +330,17 @@ export default function Hero({ setActiveView, openBookingModal }: HeroProps) {
 
           {/* Interactive Live Service Motion Lab */}
           <div className="lg:col-span-7 flex flex-col">
-            <div className="relative rounded-2xl border border-gray-200 bg-slate-950 p-5 md:p-6 shadow-2xl flex flex-col h-full text-white">
+            <motion.div 
+              whileHover={{ 
+                rotateX: 2.5, 
+                rotateY: -2.5, 
+                scale: 1.01,
+                translateZ: 15
+              }}
+              transition={{ type: "spring", stiffness: 180, damping: 20 }}
+              className="relative rounded-2xl border-2 border-slate-800 bg-slate-950 p-5 md:p-6 shadow-2xl flex flex-col h-full text-white transform-gpu"
+              style={{ transformStyle: "preserve-3d", perspective: 1000 }}
+            >
               
               {/* Decorative Glow elements */}
               <div className="absolute top-1/4 -right-10 h-32 w-32 rounded-full bg-orange-500/10 blur-2xl pointer-events-none"></div>
@@ -671,7 +770,7 @@ export default function Hero({ setActiveView, openBookingModal }: HeroProps) {
                 </button>
               </div>
 
-            </div>
+            </motion.div>
           </div>
 
         </div>

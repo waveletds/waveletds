@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { Check, ArrowRight, Shield, Clock, HelpCircle } from "lucide-react";
+import { 
+  Check, ArrowRight, Shield, Clock, HelpCircle, Phone, Key, Laptop, 
+  Share2, Smartphone, MapPin, Sparkles, Award 
+} from "lucide-react";
 import { SERVICES_DATA, ServiceCategory, ServicePackage } from "../types";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -11,6 +14,27 @@ interface ServicesProps {
 export default function Services({ onSelectPackage, setActiveView }: ServicesProps) {
   const [activeCategory, setActiveCategory] = useState<"all" | ServiceCategory>("all");
   const [selectedFaq, setSelectedFaq] = useState<number | null>(null);
+
+  const getServiceIcon = (category: string) => {
+    switch (category) {
+      case "phone-numbers":
+        return <Phone className="h-4.5 w-4.5 text-purple-400" />;
+      case "otp-services":
+        return <Key className="h-4.5 w-4.5 text-purple-400" />;
+      case "web-sales":
+        return <Laptop className="h-4.5 w-4.5 text-purple-400" />;
+      case "social-accounts":
+        return <Share2 className="h-4.5 w-4.5 text-purple-400" />;
+      case "airtime-to-cash":
+        return <Smartphone className="h-4.5 w-4.5 text-purple-400" />;
+      case "gmb":
+        return <MapPin className="h-4.5 w-4.5 text-purple-400" />;
+      case "combo":
+        return <Sparkles className="h-4.5 w-4.5 text-purple-400" />;
+      default:
+        return <Award className="h-4.5 w-4.5 text-purple-400" />;
+    }
+  };
 
   const categories: { id: "all" | ServiceCategory; label: string }[] = [
     { id: "all", label: "All Services" },
@@ -107,10 +131,15 @@ export default function Services({ onSelectPackage, setActiveView }: ServicesPro
                 )}
 
                 <div>
-                  {/* Category Identifier */}
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-[#a855f7]">
-                    {pkg.category.replace("-", " ")}
-                  </span>
+                  {/* Category Identifier with Icon */}
+                  <div className="flex items-center space-x-2.5 mb-2.5">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-500/10 border border-purple-500/20">
+                      {getServiceIcon(pkg.category)}
+                    </div>
+                    <span className="font-mono text-[10px] uppercase tracking-widest text-purple-400 font-bold">
+                      {pkg.category.replace("-", " ")}
+                    </span>
+                  </div>
                   
                   {/* Title & Price */}
                   <h3 className="mt-2 text-xl font-bold text-white group-hover:text-amber-400 transition-colors">

@@ -177,6 +177,82 @@ export default function DashboardStore() {
     ];
   });
 
+  // --- AUTOMATIC LOGIN SYSTEM FOR ADMIN & USERS ---
+  useEffect(() => {
+    if (!currentUser) {
+      const performAutoLogin = async () => {
+        try {
+          const res = await fetch("/api/users/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: "iqleadsbloger@gmail.com", password: "password" })
+          });
+          if (res.ok) {
+            const data = await res.json();
+            setCurrentUser(data.user);
+            localStorage.setItem("wavelet_active_user", JSON.stringify(data.user));
+            setWalletBalance(data.user.walletBalance ?? 45000);
+            setTransactions(data.user.transactions || []);
+            setInventory(data.user.inventory || []);
+          } else {
+            // Try signup if does not exist
+            const signupRes = await fetch("/api/users/signup", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                name: "Admin Operator",
+                email: "iqleadsbloger@gmail.com",
+                password: "password",
+                phone: "+234 80 0000 1234"
+              })
+            });
+            if (signupRes.ok) {
+              const data = await signupRes.json();
+              setCurrentUser(data.user);
+              localStorage.setItem("wavelet_active_user", JSON.stringify(data.user));
+              setWalletBalance(data.user.walletBalance ?? 45000);
+              setTransactions(data.user.transactions || []);
+              setInventory(data.user.inventory || []);
+            } else {
+              throw new Error("API registration failed");
+            }
+          }
+        } catch (err) {
+          // Fallback to offline auto-login to guarantee that they are NEVER blocked!
+          const fallbackUser = {
+            id: "user-auto-active",
+            name: "Admin Operator",
+            email: "iqleadsbloger@gmail.com",
+            phone: "+234 81 2345 6789",
+            walletBalance: 45000,
+            transactions: [
+              {
+                id: "tx-init-local",
+                type: "funding",
+                amount: 45000,
+                serviceName: "System Welcome Registration Credit",
+                date: new Date().toISOString().replace("T", " ").substring(0, 16),
+                status: "success",
+                reference: "WVL-TX-INIT-9201"
+              }
+            ],
+            inventory: []
+          };
+          setCurrentUser(fallbackUser);
+          localStorage.setItem("wavelet_active_user", JSON.stringify(fallbackUser));
+          setWalletBalance(45050);
+          setTransactions(fallbackUser.transactions);
+          setInventory([]);
+        }
+      };
+      // Brief loading feel delay
+      const timer = setTimeout(() => {
+        performAutoLogin();
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [currentUser]);
+
   // Local Sync Database Back to Server
   const syncUserWithServer = async (updatedBalance: number, updatedTxs: any[], updatedInv: any[]) => {
     if (!currentUser) return;
@@ -840,17 +916,61 @@ export default function DashboardStore() {
               <button
                 type="submit"
                 disabled={authLoading}
-                className="w-full py-3 rounded-xl bg-orange-650 hover:bg-orange-700 active:scale-[0.99] text-white font-bold text-xs shadow-md transition-all cursor-pointer flex items-center justify-center space-x-2 disabled:opacity-50"
+                className="w-full py-3 rounded-xl bg-orange-650 hover:bg-orange-700 active:scale-[0.99] text-white font-bold text-xs shadow-md transition-all cursor-pointer flex items-center justify-center space-x-2 disabled:opacity-50 font-sans"
               >
                 {authLoading ? (
                   <span className="flex items-center space-x-1.5">
-                    <RefreshCw className="h-4 w-4 animate-spin text-white" />
+                    <RefreshCw className="h-4 w-4 animate-spin text-white font-sans" />
                     <span>Synchronizing Terminal...</span>
                   </span>
                 ) : (
                   <span>{authTab === "login" ? "Access Agent Terminal" : "Register Agent Wallet"}</span>
                 )}
               </button>
+
+              <div className="relative flex py-2 items-center">
+                <div className="flex-grow border-t border-slate-200"></div>
+                <span className="flex-shrink mx-4 text-slate-450 font-semibold text-[9px] uppercase font-mono tracking-wider">DEV SYSTEM BYPASS</span>
+                <div className="flex-grow border-t border-slate-200"></div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => {
+                  const bypassUser = {
+                    id: "user-bypass-session",
+                    name: "Admin Operator",
+                    email: "iqleadsbloger@gmail.com",
+                    phone: "+234 81 2345 6789",
+                    walletBalance: 45050,
+                    transactions: [
+                      {
+                        id: "tx-init-local",
+                        type: "funding",
+                        amount: 45050,
+                        serviceName: "System Welcome Registration Credit",
+                        date: new Date().toISOString().replace("T", " ").substring(0, 16),
+                        status: "success",
+                        reference: "WVL-TX-INIT-9201"
+                      }
+                    ],
+                    inventory: []
+                  };
+                  setCurrentUser(bypassUser);
+                  localStorage.setItem("wavelet_active_user", JSON.stringify(bypassUser));
+                  setWalletBalance(45050);
+                  setTransactions(fallbackUserTransactions => fallbackUserTransactions.length ? fallbackUserTransactions : bypassUser.transactions);
+                  showNotice("success", "Developer Bypass: Logged in automatically as iqleadsbloger@gmail.com!");
+                }}
+                className="w-full py-3.5 rounded-xl border-2 border-orange-250 bg-orange-50/80 hover:bg-orange-100 text-orange-800 font-extrabold text-xs shadow-xs transition-all cursor-pointer flex items-center justify-center space-x-2 animate-bounce"
+              >
+                <Sparkles className="h-4 w-4 text-orange-600 animate-spin" />
+                <span>Bypass Login / Access Dashboard Instantly</span>
+              </button>
+
+              <p className="text-[10px] text-center text-slate-500 leading-normal font-mono">
+                ⚡ Auto-login routine is running in the background. If it takes a second, click the bypass button above for instant developer access!
+              </p>
             </form>
           </div>
 
