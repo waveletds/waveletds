@@ -824,7 +824,9 @@ export default function DashboardStore() {
               )}
 
               <div className="space-y-1">
-                <label className="font-bold text-slate-700 block uppercase tracking-wider text-[10px]">Choose Password</label>
+                <label className="font-bold text-slate-700 block uppercase tracking-wider text-[10px]">
+                  {authTab === "signup" ? "Choose Password" : "Enter Password"}
+                </label>
                 <input
                   type="password"
                   required
@@ -846,7 +848,7 @@ export default function DashboardStore() {
                     <span>Synchronizing Terminal...</span>
                   </span>
                 ) : (
-                  <span>{authTab === "login" ? "Open Reseller Account" : "Deploy Wallet Credentials"}</span>
+                  <span>{authTab === "login" ? "Access Agent Terminal" : "Register Agent Wallet"}</span>
                 )}
               </button>
             </form>

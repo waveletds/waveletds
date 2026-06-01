@@ -419,7 +419,35 @@ app.post("/api/users/signup", (req, res) => {
 
   const existing = db.users.find(u => u.email.toLowerCase() === email.toLowerCase());
   if (existing) {
-    return res.status(400).json({ error: "An account with this email address already exists." });
+    if (existing.password) {
+      return res.status(400).json({ error: "An account with this email address already exists. Please Sign In instead." });
+    } else {
+      // Profile exists but does not have a passport/password set (e.g., from default seeds like iqleadsbloger@gmail.com, or automatic lead captures)
+      existing.name = name;
+      existing.password = password;
+      if (phone) existing.phone = phone;
+      
+      // Load standard starter pack if balance is zero or missing
+      if (!existing.walletBalance) {
+        existing.walletBalance = 45000;
+      }
+      
+      if (!existing.transactions || existing.transactions.length === 0) {
+        existing.transactions = [
+          {
+            id: "tx-init-" + Date.now(),
+            type: "funding" as const,
+            amount: 45000,
+            serviceName: "System Welcome Registration Credit",
+            date: new Date().toISOString().replace("T", " ").substring(0, 16),
+            status: "success" as const,
+            reference: "WVL-TX-INIT-" + Math.floor(1000 + Math.random() * 9000)
+          }
+        ];
+      }
+      saveDb(db);
+      return res.json({ success: true, user: existing });
+    }
   }
 
   const newUser = {
