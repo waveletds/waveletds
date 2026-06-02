@@ -4,7 +4,8 @@ import {
   RefreshCw, Server, Send, Sparkles, FileCode2, PhoneCall, History, 
   ShieldCheck, ArrowUpRight, Code2, AlertCircle, Laptop, Landmark, Clipboard,
   KeyRound, HelpCircle, Database, Phone, MessageSquareReply, ExternalLink,
-  Globe, User, Moon, Sun, Plus
+  Globe, User, Moon, Sun, Plus, Headphones, Bell, Smartphone, Wifi, Tv, 
+  Gamepad2, Plug, Grid, Star, Eye, EyeOff, Copy, Gift, ShoppingBag, Check, Share2
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -116,6 +117,8 @@ export default function DashboardStore() {
   const [authLoading, setAuthLoading] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isBalanceVisible, setIsBalanceVisible] = useState(true);
+  const [isAccountCopied, setIsAccountCopied] = useState(false);
 
   // --- STATE PERSISTENCE IN LOCALSTORAGE ---
   const [walletBalance, setWalletBalance] = useState<number>(() => {
@@ -1047,12 +1050,12 @@ export default function DashboardStore() {
   }
 
   return (
-    <section className={`border-t border-gray-150 py-10 md:py-16 relative overflow-hidden transition-colors duration-300 ${isDarkMode ? "bg-[#0d0a07] text-white" : "bg-slate-50 text-slate-900"}`} id="dashboard-system-hub">
+    <section className={`border-t border-gray-150 py-6 md:py-10 relative overflow-hidden min-h-screen transition-colors duration-300 ${isDarkMode ? "bg-[#060814] text-white" : "bg-[#F4F6FC] text-slate-900"}`} id="dashboard-system-hub">
       
-      {/* Decorative Matrix Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#f1f5f9_1px,transparent_1px),linear-gradient(to_bottom,#f1f5f9_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-35 pointer-events-none" />
+      {/* Soft background glow accents */}
+      <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-blue-500/5 to-transparent pointer-events-none" />
 
-      <div className="mx-auto max-w-xl md:max-w-4xl lg:max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10 font-sans">
+      <div className="mx-auto max-w-md md:max-w-4xl lg:max-w-7xl px-4 sm:px-6 relative z-10 font-sans">
         
         {/* Floating Global Micro-Notification */}
         <AnimatePresence>
@@ -1063,7 +1066,7 @@ export default function DashboardStore() {
               exit={{ opacity: 0, scale: 0.95 }}
               className={`fixed top-24 left-1/2 -translate-x-1/2 z-50 p-4 rounded-xl border shadow-lg flex items-center space-x-3 text-xs w-[90%] max-w-md ${
                 globalNotice.type === "success" 
-                  ? "bg-emerald-50 border-emerald-200 text-emerald-800"
+                  ? "bg-emerald-50 border-emerald-200 text-emerald-800 animate-fade-in"
                   : globalNotice.type === "error" 
                   ? "bg-rose-50 border-rose-200 text-rose-800"
                   : "bg-blue-50 border-blue-200 text-blue-800"
@@ -1075,208 +1078,367 @@ export default function DashboardStore() {
           )}
         </AnimatePresence>
 
-        {/* --- HEADER: Welcome back, user + Theme Moon Toggle --- */}
-        <div className="flex items-center justify-between pb-6 mb-4">
-          <div className="flex items-center space-x-3.5">
-            {/* Dynamic visual Profile initial inside Orange/Black circular gradient */}
-            <div className="h-14 w-14 rounded-full bg-gradient-to-tr from-[#FF5C00] via-orange-600 to-black border border-orange-500/20 flex items-center justify-center font-black text-white text-xl uppercase shadow-md animate-pulse">
-              {(currentUser?.name || "Test").substring(0, 1)}
+        {/* --- DANIEL BRANDED HEADER BLOCK (Exact Image Replica) --- */}
+        <div className="flex items-center justify-between pb-5 pt-2 mb-4">
+          <div className="flex items-center space-x-3">
+            {/* Elegant Round Brand 'B' Logo */}
+            <div className="h-12 w-12 rounded-full bg-[#2E3DFD] flex items-center justify-center font-sans relative shrink-0 shadow-md shadow-blue-500/20">
+              <span className="text-xl font-black text-white italic tracking-tighter">B</span>
+              <div className="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 bg-emerald-500 rounded-full border-2 border-white" />
             </div>
-            <div>
-              <span className="text-[11px] text-slate-500 tracking-wide block uppercase font-mono font-bold">Welcome back,</span>
-              <h3 className="text-xl font-black tracking-tight text-slate-900 mt-0.5 font-display flex items-center space-x-1">
-                <span>{currentUser?.name || "Test"}</span>
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" title="Active developer simulation session" />
-              </h3>
-            </div>
-          </div>
-
-          {/* Half moon dark mode button with active indicator */}
-          <button
-            onClick={() => {
-              setIsDarkMode(!isDarkMode);
-              showNotice("info", isDarkMode ? "Light UI active." : "Dark accent active.");
-            }}
-            className={`h-11 w-11 rounded-full border flex items-center justify-center transition-all cursor-pointer shadow-xs ${
-              isDarkMode 
-                ? "bg-orange-500 border-orange-405 text-white shadow-orange-500/10" 
-                : "bg-white border-slate-200 text-slate-700 hover:bg-slate-50"
-            }`}
-            title="Toggle theme atmosphere"
-          >
-            {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-          </button>
-        </div>
-
-        {/* --- DYNAMIC BALANCES DISPLAY CARD: Exactly like the image but with Orange & Black --- */}
-        <div 
-          className="relative rounded-[2.5rem] bg-gradient-to-br from-[#FF5C00] via-orange-600 to-[#0c0805] text-white p-6 md:p-8 shadow-2xl overflow-hidden mb-8 border border-orange-500/20"
-        >
-          {/* Decorative Glowing Radial element */}
-          <div className="absolute -bottom-10 -right-10 h-32 w-32 rounded-full bg-orange-400/25 blur-2xl pointer-events-none"></div>
-          <div className="absolute top-0 right-1/4 h-24 w-24 bg-white/5 rounded-full blur-xl pointer-events-none"></div>
-
-          <div className="flex items-center justify-between relative z-10">
-            <div>
-              <span className="text-sm md:text-base font-semibold text-orange-100 tracking-wide">Total Balance</span>
-              <div className="text-4xl md:text-5xl font-black text-white mt-1 font-mono tracking-tight">
-                ₦{walletBalance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-              </div>
-            </div>
-
-            <div className="text-right">
-              <span className="text-[10px] uppercase font-mono tracking-widest bg-black/45 px-2.5 py-1 rounded-full text-orange-300 font-bold border border-white/5 inline-block">
-                STANDBY SECURE BANKING
+            
+            <div className="flex flex-col">
+              <span className="text-sm font-black text-slate-900 tracking-tight leading-none block">
+                Hi {currentUser?.name?.split(" ")[0] || "Daniel"}
               </span>
-              <p className="text-[10px] text-orange-50 font-mono mt-1.5">Wema Bank • 8228819570</p>
+              <span className="text-[11px] text-slate-450 font-bold mt-1 block">Tier 3</span>
             </div>
           </div>
 
-          {/* "+ GENERATE VIRTUAL ACCOUNT" black capsule style button */}
-          <div className="relative z-10 mt-6.5">
+          <div className="flex items-center space-x-2.5">
+            {/* Headphones Help Support Pill */}
             <button
               onClick={() => {
-                setActiveTab("wallet");
-                showNotice("success", "Loaded instant balance simulation gateway.");
+                showNotice("info", "Deploying customer helpline dispatch...");
+                const el = document.getElementById("dashboard-active-workspace-panel");
+                el?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="w-full py-4 bg-black hover:bg-neutral-900 text-white text-[11px] md:text-xs font-black tracking-widest rounded-full flex items-center justify-center space-x-2 transition-all cursor-pointer border border-neutral-800 shadow-md transform active:scale-[0.98] uppercase font-sans"
+              className="bg-red-50 hover:bg-red-100 border border-red-100 text-red-500 px-3 py-1.5 rounded-full flex items-center space-x-1 cursor-pointer transition-colors"
             >
-              <Plus className="h-4 w-4 text-orange-500 shrink-0" />
-              <span>+ GENERATE VIRTUAL ACCOUNT / FUND WALLET</span>
+              <Headphones className="h-3.5 w-3.5" />
+              <span className="text-[10.5px] font-black tracking-tight help-label">Help</span>
+            </button>
+
+            {/* Notification Bell Badge */}
+            <button
+              onClick={() => {
+                showNotice("success", "No unread simulated alerts.");
+              }}
+              className="relative bg-white border border-slate-150 p-2 rounded-full cursor-pointer hover:bg-slate-50 transition-colors shrink-0"
+            >
+              <Bell className="h-4.5 w-4.5 text-slate-700" />
+              <div className="absolute -top-1 -right-1 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-red-600 text-[8px] font-black text-white">
+                1
+              </div>
+            </button>
+
+            {/* Dark mode Atmosphere Toggle */}
+            <button
+              onClick={() => {
+                setIsDarkMode(!isDarkMode);
+                showNotice("info", isDarkMode ? "Light UI active." : "Dark accent active.");
+              }}
+              className="h-9 w-9 rounded-full border border-slate-200 flex items-center justify-center bg-white text-slate-700 hover:bg-slate-50 transition-all cursor-pointer shadow-xs"
+              title="Toggle theme mode"
+            >
+              {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </button>
           </div>
         </div>
 
-        {/* --- MAIN SERVICES HEADER SECTION: With colorful underline --- */}
-        <div className="mt-8 mb-6">
-          <h2 className="text-lg md:text-xl font-black tracking-tight text-slate-900 font-display uppercase">
-            Main Services
-          </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-[#FF5C00] via-orange-500 to-black rounded-full mt-1.5" />
+        {/* --- DYNAMIC TOTAL BALANCE BLUE CARD (Exact Image Replica) --- */}
+        <div 
+          className="relative rounded-[2.2rem] bg-gradient-to-br from-[#2E3DFD] via-[#1F2BEA] to-[#121AC3] text-white p-6 md:p-8 shadow-xl shadow-blue-500/10 overflow-hidden mb-6.5 border border-blue-400/25"
+        >
+          {/* Subtle decoration elements */}
+          <div className="absolute -bottom-10 -right-10 h-32 w-32 rounded-full bg-blue-400/20 blur-2xl pointer-events-none" />
+          <div className="absolute -top-10 -left-10 h-32 w-32 rounded-full bg-indigo-500/20 blur-2xl pointer-events-none" />
+
+          {/* Top Line: Total Balance indicator + Bank branding */}
+          <div className="flex items-center justify-between relative z-10 font-sans">
+            <div className="flex items-center space-x-2 cursor-pointer" onClick={() => setIsBalanceVisible(!isBalanceVisible)}>
+              <span className="text-xs font-semibold text-blue-100 tracking-wide">Total Balance</span>
+              {isBalanceVisible ? (
+                <Eye className="h-3.5 w-3.5 text-blue-200" />
+              ) : (
+                <EyeOff className="h-3.5 w-3.5 text-blue-200" />
+              )}
+            </div>
+
+            <div className="text-right">
+              <span className="text-[11px] font-black text-white/95 uppercase tracking-wide font-sans">
+                Paga Bank
+              </span>
+            </div>
+          </div>
+
+          {/* Main Line: Balance digits + static clickable copy number */}
+          <div className="flex items-end justify-between mt-1.5 relative z-10 font-sans">
+            <div>
+              <div className="text-3xl md:text-4xl font-black text-white tracking-tight font-sans">
+                {isBalanceVisible ? (
+                  `NGN ${walletBalance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+                ) : (
+                  "NGN ••••••••"
+                )}
+              </div>
+            </div>
+
+            <div className="bg-white/10 backdrop-blur-xs border border-white/5 rounded-xl px-2.5 py-1.5 flex items-center space-x-1.5 text-right shrink-0">
+              <span className="text-[11px] font-mono text-white tracking-wide font-black">
+                1925038721
+              </span>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText("1925038721");
+                  setIsAccountCopied(true);
+                  showNotice("success", "Bank account number copied!");
+                  setTimeout(() => setIsAccountCopied(false), 2000);
+                }}
+                className="hover:scale-105 active:scale-95 transition-all text-white/90"
+                title="Copy virtual account number"
+              >
+                {isAccountCopied ? (
+                  <Check className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+                ) : (
+                  <Copy className="h-3.5 w-3.5 shrink-0" />
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* 3 Pill buttons in a row inside the card */}
+          <div className="grid grid-cols-3 gap-3.5 mt-6 relative z-10 font-sans">
+            <button
+              onClick={() => {
+                setActiveTab("wallet");
+                showNotice("success", "Secure Peer-To-Peer transaction console selected.");
+                const el = document.getElementById("dashboard-active-workspace-panel");
+                el?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="bg-white hover:bg-slate-50 text-slate-900 rounded-full py-2.5 px-3 flex items-center justify-center space-x-1 font-bold text-[11px] tracking-tight hover:shadow-md transition-all active:scale-95 cursor-pointer shadow-xs leading-none"
+            >
+              <User className="h-3 w-3 text-[#2E3DFD] shrink-0" />
+              <span>To User</span>
+            </button>
+
+            <button
+              onClick={() => {
+                setActiveTab("wallet");
+                showNotice("success", "Deploying Local bank deposit routing...");
+                const el = document.getElementById("dashboard-active-workspace-panel");
+                el?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="bg-white hover:bg-slate-50 text-slate-900 rounded-full py-2.5 px-3 flex items-center justify-center space-x-1 font-bold text-[11px] tracking-tight hover:shadow-md transition-all active:scale-95 cursor-pointer shadow-xs leading-none"
+            >
+              <Landmark className="h-3 w-3 text-[#2E3DFD] shrink-0" />
+              <span>To Bank</span>
+            </button>
+
+            <button
+              onClick={() => {
+                showNotice("info", "Buypoint Virtual Agent portal unlocked.");
+                setActiveTab("virtual");
+                const el = document.getElementById("dashboard-active-workspace-panel");
+                el?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="bg-white hover:bg-slate-50 text-slate-900 rounded-full py-2.5 px-3 flex items-center justify-center space-x-1 font-bold text-[11px] tracking-tight hover:shadow-md transition-all active:scale-95 cursor-pointer shadow-xs leading-none"
+            >
+              <Star className="h-3 w-3 text-[#2E3DFD] shrink-0" />
+              <span>Agent</span>
+            </button>
+          </div>
         </div>
 
-        {/* --- SERVICES GRID: Bento Box styled 6 Grid Cards mapping to the actual apps workflows --- */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-10" id="main-services-grid-block">
+        {/* --- GRID ROW 1: PRIMARY SERVICES (Airtime, Recharge, Data, CableTV) --- */}
+        <div className="bg-white rounded-[1.8rem] border border-slate-150 p-3 shadow-xs mb-4">
+          <div className="grid grid-cols-4 gap-2">
+            
+            {/* TILE 1: AIRTIME */}
+            <div
+              onClick={() => {
+                setActiveTab("otp");
+                showNotice("info", "Airtime top-up SIM simulator selected");
+                const el = document.getElementById("dashboard-active-workspace-panel");
+                el?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="bg-[#EDF2FE] hover:bg-[#E2EBFE] transition-colors rounded-2xl p-3.5 flex flex-col items-center justify-center text-center cursor-pointer border border-blue-50/50 hover:scale-[1.01] active:scale-95"
+            >
+              <Smartphone className="h-6.5 w-6.5 text-[#2E3DFD] mb-1.5" />
+              <span className="text-[10.5px] font-black text-[#1A255B] font-sans">Airtime</span>
+            </div>
+
+            {/* TILE 2: RECHARGE */}
+            <div
+              onClick={() => {
+                setActiveTab("otp");
+                showNotice("info", "Recharge scratch card & PIN options");
+                const el = document.getElementById("dashboard-active-workspace-panel");
+                el?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="bg-[#EDF2FE] hover:bg-[#E2EBFE] transition-colors rounded-2xl p-3.5 flex flex-col items-center justify-center text-center cursor-pointer border border-blue-50/50 hover:scale-[1.01] active:scale-95"
+            >
+              <RefreshCw className="h-6.5 w-6.5 text-[#2E3DFD] mb-1.5" />
+              <span className="text-[10.5px] font-black text-[#1A255B] font-sans">Recharge</span>
+            </div>
+
+            {/* TILE 3: DATA */}
+            <div
+              onClick={() => {
+                setActiveTab("virtual");
+                showNotice("info", "Rent Foreign lines or Bundle High-speed LTE Data");
+                const el = document.getElementById("dashboard-active-workspace-panel");
+                el?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="bg-[#EDF2FE] hover:bg-[#E2EBFE] transition-colors rounded-2xl p-3.5 flex flex-col items-center justify-center text-center cursor-pointer border border-blue-50/50 hover:scale-[1.01] active:scale-95"
+            >
+              <Wifi className="h-6.5 w-6.5 text-[#2E3DFD] mb-1.5" />
+              <span className="text-[10.5px] font-black text-[#1A255B] font-sans">Data</span>
+            </div>
+
+            {/* TILE 4: CABLE TV */}
+            <div
+              onClick={() => {
+                setActiveTab("sms");
+                showNotice("info", "Smart TV & DSTV carrier routing unlocked");
+                const el = document.getElementById("dashboard-active-workspace-panel");
+                el?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="bg-[#EDF2FE] hover:bg-[#E2EBFE] transition-colors rounded-2xl p-3.5 flex flex-col items-center justify-center text-center cursor-pointer border border-blue-50/50 hover:scale-[1.01] active:scale-95"
+            >
+              <Tv className="h-6.5 w-6.5 text-[#2E3DFD] mb-1.5" />
+              <span className="text-[10.5px] font-black text-[#1A255B] font-sans">CableTV</span>
+            </div>
+
+          </div>
+        </div>
+
+        {/* --- GRID ROW 2: ADVANCED SERVICES (Bulk SMS, Betting, Electricity, More) --- */}
+        <div className="bg-white rounded-[1.8rem] border border-slate-150 p-3 shadow-xs mb-6">
+          <div className="grid grid-cols-4 gap-2">
+            
+            {/* TILE 5: BULK SMS */}
+            <div
+              onClick={() => {
+                setActiveTab("sms");
+                showNotice("info", "SMS Dispatch system loaded");
+                const el = document.getElementById("dashboard-active-workspace-panel");
+                el?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="bg-[#EDF2FE] hover:bg-[#E2EBFE] transition-colors rounded-2xl p-3.5 flex flex-col items-center justify-center text-center cursor-pointer border border-blue-50/50 hover:scale-[1.01] active:scale-95"
+            >
+              <MessageSquareReply className="h-6.5 w-6.5 text-[#2E3DFD] mb-1.5" />
+              <span className="text-[10.5px] font-black text-[#1A255B] font-sans">BulkSms</span>
+            </div>
+
+            {/* TILE 6: BETTING */}
+            <div
+              onClick={() => {
+                setActiveTab("wallet");
+                showNotice("info", "Quick betting site wallet deposit dispatch...");
+                const el = document.getElementById("dashboard-active-workspace-panel");
+                el?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="bg-[#EDF2FE] hover:bg-[#E2EBFE] transition-colors rounded-2xl p-3.5 flex flex-col items-center justify-center text-center cursor-pointer border border-blue-50/50 hover:scale-[1.01] active:scale-95"
+            >
+              <Gamepad2 className="h-6.5 w-6.5 text-[#2E3DFD] mb-1.5" />
+              <span className="text-[10.5px] font-black text-[#1A255B] font-sans">Betting</span>
+            </div>
+
+            {/* TILE 7: ELECTRICITY */}
+            <div
+              onClick={() => {
+                setActiveTab("sms");
+                showNotice("info", "Utility token generator standby module");
+                const el = document.getElementById("dashboard-active-workspace-panel");
+                el?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="bg-[#EDF2FE] hover:bg-[#E2EBFE] transition-colors rounded-2xl p-3.5 flex flex-col items-center justify-center text-center cursor-pointer border border-blue-50/50 hover:scale-[1.01] active:scale-95"
+            >
+              <Plug className="h-6.5 w-6.5 text-[#2E3DFD] mb-1.5" />
+              <span className="text-[10.5px] font-black text-[#1A255B] font-sans">Electricity</span>
+            </div>
+
+            {/* TILE 8: MORE */}
+            <div
+              onClick={() => {
+                showNotice("info", "Swipe down to access advanced virtual server utilities");
+                const el = document.getElementById("dashboard-active-workspace-panel");
+                el?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="bg-[#EDF2FE] hover:bg-[#E2EBFE] transition-colors rounded-2xl p-3.5 flex flex-col items-center justify-center text-center cursor-pointer border border-blue-50/50 hover:scale-[1.01] active:scale-95"
+            >
+              <Grid className="h-6.5 w-6.5 text-[#2E3DFD] mb-1.5" />
+              <span className="text-[10.5px] font-black text-[#1A255B] font-sans">More</span>
+            </div>
+
+          </div>
+        </div>
+
+        {/* --- PREMIUM BETTING BANNER SECTION (Exact Image Replica) --- */}
+        <div className="relative rounded-[2rem] bg-[#2E3DFD] text-white p-6 shadow-lg overflow-hidden mb-8">
           
-          {/* CARD 1: USA Numbers (Virtual Lines Lease) */}
-          <div
-            onClick={() => {
-              setActiveTab("virtual");
-              const el = document.getElementById("dashboard-active-workspace-panel");
-              el?.scrollIntoView({ behavior: "smooth" });
-              showNotice("info", "Foreign Private DIDs selected.");
-            }}
-            className={`rounded-2xl border p-5 transition-all scroll-smooth hover:scale-[1.02] active:scale-[0.99] cursor-pointer shadow-xs flex flex-col items-center justify-center text-center ${
-              activeTab === "virtual" 
-                ? "bg-orange-50/50 border-orange-500 ring-2 ring-orange-500/20" 
-                : "bg-white border-slate-150 hover:border-orange-200"
-            }`}
-          >
-            <div className="h-12 w-12 rounded-2xl bg-gradient-to-tr from-orange-400 to-[#FF5C00] flex items-center justify-center text-white shadow-md mb-3.5">
-              <Globe className="h-6 w-6" />
+          {/* Subtle decoration dots / background blobs */}
+          <div className="absolute top-0 right-0 h-40 w-44 bg-white/5 rounded-full blur-xl pointer-events-none" />
+          <div className="absolute -bottom-10 left-1/3 h-24 w-24 bg-white/10 rounded-full blur-md pointer-events-none" />
+          
+          <div className="flex flex-col md:flex-row items-center justify-between relative z-10 gap-4">
+            {/* Left: Branding & Taglines */}
+            <div className="space-y-2 text-center md:text-left">
+              <h3 className="text-xl md:text-2xl font-black tracking-tight leading-tight max-w-[240px]">
+                Fund your betting Account
+              </h3>
+              <p className="text-[11px] text-white/80 leading-snug max-w-[215px] font-semibold">
+                A trusted platform for funding your betting site.
+              </p>
+              
+              <div className="pt-2.5 flex items-center justify-center md:justify-start space-x-2">
+                {/* Micro Buypoint App badge */}
+                <div className="flex items-center space-x-1 px-2.5 py-1 bg-black/40 border border-white/5 rounded-lg">
+                  <span className="text-[9px] font-black tracking-tighter italic text-white bg-blue-600 rounded-xs px-1">B</span>
+                  <span className="text-[8px] font-bold text-slate-100 font-mono">Buypoint.com.ng</span>
+                </div>
+                
+                {/* Google Play store decoration */}
+                <div className="flex items-center space-x-1 px-2.5 py-1 bg-black/45 border border-white/5 rounded-lg text-[8px] font-bold">
+                  <span className="text-emerald-400">▶</span>
+                  <span>Google Play</span>
+                </div>
+              </div>
             </div>
-            <span className="font-extrabold text-[12.5px] text-slate-900 tracking-tight leading-none block">USA Numbers</span>
-            <span className="text-[9px] text-slate-400 font-mono mt-1 uppercase font-bold tracking-wider">Foreign DIDs</span>
-          </div>
 
-          {/* CARD 2: Buy Numbers (Virtual OTP SIMs) */}
-          <div
-            onClick={() => {
-              setActiveTab("otp");
-              const el = document.getElementById("dashboard-active-workspace-panel");
-              el?.scrollIntoView({ behavior: "smooth" });
-              showNotice("info", "Virtual OTP Sim Stream selected.");
-            }}
-            className={`rounded-2xl border p-5 transition-all hover:scale-[1.02] active:scale-[0.99] cursor-pointer shadow-xs flex flex-col items-center justify-center text-center ${
-              activeTab === "otp" 
-                ? "bg-orange-50/50 border-orange-500 ring-2 ring-orange-500/20" 
-                : "bg-white border-slate-150 hover:border-orange-200"
-            }`}
-          >
-            <div className="h-12 w-12 rounded-2xl bg-gradient-to-tr from-slate-900 to-amber-600 flex items-center justify-center text-white shadow-md mb-3.5">
-              <Phone className="h-6 w-6" />
-            </div>
-            <span className="font-extrabold text-[12.5px] text-slate-900 tracking-tight leading-none block">Buy Numbers</span>
-            <span className="text-[9px] text-slate-400 font-mono mt-1 uppercase font-bold tracking-wider">OTP Sim Stream</span>
-          </div>
+            {/* Right: Custom vector design layout for smartphones and VR goggles */}
+            <div className="relative h-28 w-44 flex items-center justify-center mr-2 shrink-0 overflow-visible">
+              
+              {/* Back glowing sphere */}
+              <div className="absolute h-20 w-20 rounded-full bg-orange-500/30 blur-xl animate-pulse" />
 
-          {/* CARD 3: Boost Accounts (Scripts Store Catalogue) */}
-          <div
-            onClick={() => {
-              const el = document.getElementById("developer-scripts-store-column");
-              el?.scrollIntoView({ behavior: "smooth" });
-              showNotice("info", "Developer Scripts Catalog highlighted!");
-            }}
-            className="rounded-2xl border p-5 transition-all hover:scale-[1.02] active:scale-[0.99] cursor-pointer shadow-xs flex flex-col items-center justify-center text-center bg-white border-slate-150 hover:border-orange-200"
-          >
-            <div className="h-12 w-12 rounded-2xl bg-gradient-to-tr from-[#FF5C00] via-orange-600 to-black flex items-center justify-center text-white shadow-md mb-3.5">
-              <Sparkles className="h-6 w-6" />
-            </div>
-            <span className="font-extrabold text-[12.5px] text-slate-900 tracking-tight leading-none block">Boost Accounts</span>
-            <span className="text-[9px] text-slate-400 font-mono mt-1 uppercase font-bold tracking-wider">Laravel Shop</span>
-          </div>
+              {/* Vector Cell Phone mock (rotated left) */}
+              <div className="absolute left-1 bottom-1 h-20 w-11 rounded-lg border-2 border-white/45 bg-slate-900 shadow-xl overflow-hidden transform -rotate-12 flex flex-col justify-between p-1 z-10">
+                <div className="h-0.5 w-3 bg-white/50 mx-auto rounded-full" />
+                <div className="flex-grow flex items-center justify-center text-center">
+                  <span className="text-[5px] font-mono leading-none font-bold text-blue-300">Buypoint</span>
+                </div>
+                <div className="h-1.5 w-1.5 bg-white/40 rounded-full mx-auto" />
+              </div>
 
-          {/* CARD 4: Cheap Data (VTU & Bulk SMS Sender) */}
-          <div
-            onClick={() => {
-              setActiveTab("sms");
-              const el = document.getElementById("dashboard-active-workspace-panel");
-              el?.scrollIntoView({ behavior: "smooth" });
-              showNotice("info", "SMS & VTU carrier range selected.");
-            }}
-            className={`rounded-2xl border p-5 transition-all hover:scale-[1.02] active:scale-[0.99] cursor-pointer shadow-xs flex flex-col items-center justify-center text-center ${
-              activeTab === "sms" 
-                ? "bg-orange-50/50 border-orange-500 ring-2 ring-orange-500/20" 
-                : "bg-white border-slate-150 hover:border-orange-200"
-            }`}
-          >
-            <div className="h-12 w-12 rounded-2xl bg-gradient-to-tr from-amber-500 via-orange-600 to-neutral-900 flex items-center justify-center text-white shadow-md mb-3.5">
-              <Send className="h-6 w-6 animate-pulse" />
-            </div>
-            <span className="font-extrabold text-[12.5px] text-slate-900 tracking-tight leading-none block">Cheap Data</span>
-            <span className="text-[9px] text-slate-400 font-mono mt-1 uppercase font-bold tracking-wider">SMS Channels</span>
-          </div>
+              {/* VR Character Silhouette outline styled in rich CSS elements */}
+              <div className="absolute right-4 top-0 h-24 w-24 flex flex-col items-center justify-center z-12 animate-bounce duration-[3s]">
+                
+                {/* Stylized Goggles outline */}
+                <div className="relative h-11 w-20 bg-slate-900/90 border-2 border-orange-550 rounded-xl flex items-center justify-around p-1 shadow-md">
+                  <div className="h-3 w-3 rounded-full bg-blue-400 animate-ping absolute" />
+                  <div className="h-2.5 w-6 rounded bg-blue-500/80 border border-blue-300" />
+                  <div className="h-2.5 w-6 rounded bg-blue-500/80 border border-blue-300" />
+                </div>
+                
+                {/* Goggles headband */}
+                <div className="absolute top-4 left-0 right-0 h-1.5 bg-orange-500/80 -z-10" />
+                
+                {/* Action feedback circles */}
+                <div className="absolute top-1 right-1 h-2 w-2 rounded-full bg-orange-500 animate-pulse" />
+                <div className="absolute -bottom-1 left-2 h-2.5 w-2.5 rounded-full bg-[#2E3DFD] border border-white" />
+              </div>
 
-          {/* CARD 5: Log Accounts (Purchased Key Vault) */}
-          <div
-            onClick={() => {
-              setActiveTab("inventory");
-              const el = document.getElementById("dashboard-active-workspace-panel");
-              el?.scrollIntoView({ behavior: "smooth" });
-              showNotice("info", "Provisioned item drawer selected.");
-            }}
-            className={`rounded-2xl border p-5 transition-all hover:scale-[1.02] active:scale-[0.99] cursor-pointer shadow-xs flex flex-col items-center justify-center text-center ${
-              activeTab === "inventory" 
-                ? "bg-orange-50/50 border-orange-500 ring-2 ring-orange-500/20" 
-                : "bg-white border-slate-150 hover:border-orange-200"
-            }`}
-          >
-            <div className="h-12 w-12 rounded-2xl bg-gradient-to-tr from-[#120D0A] to-orange-650 flex items-center justify-center text-white shadow-md mb-3.5">
-              <Database className="h-6 w-6" />
-            </div>
-            <span className="font-extrabold text-[12.5px] text-slate-900 tracking-tight leading-none block">Log Accounts</span>
-            <span className="text-[9px] text-slate-400 font-mono mt-1 uppercase font-bold tracking-wider">Inventory Vault</span>
-          </div>
+              {/* Additional Foreground smartphone element (rotated right) */}
+              <div className="absolute right-1 bottom-0 h-22 w-12 rounded-lg border-2 border-white/60 bg-gradient-to-b from-[#121A99] to-[#2E3DFD] shadow-xl overflow-hidden transform rotate-6 flex flex-col justify-between p-1 z-15">
+                <div className="h-0.5 w-4 bg-white/60 mx-auto rounded-full" />
+                <div className="bg-[#EDF2FE] rounded p-0.5 flex-grow mt-1 items-center justify-center flex">
+                  <span className="text-[4px] font-black text-[#2E3DFD] scale-[0.9]">NGN 968.00</span>
+                </div>
+              </div>
 
-          {/* CARD 6: Transaction History */}
-          <div
-            onClick={() => {
-              setActiveTab("wallet");
-              const el = document.getElementById("dashboard-active-workspace-panel");
-              el?.scrollIntoView({ behavior: "smooth" });
-              showNotice("info", "Account ledger & funding selected.");
-            }}
-            className={`rounded-2xl border p-5 transition-all hover:scale-[1.02] active:scale-[0.99] cursor-pointer shadow-xs flex flex-col items-center justify-center text-center ${
-              activeTab === "wallet" 
-                ? "bg-orange-50/50 border-orange-500 ring-2 ring-orange-500/20" 
-                : "bg-white border-slate-150 hover:border-orange-200"
-            }`}
-          >
-            <div className="h-12 w-12 rounded-2xl bg-gradient-to-tr from-neutral-800 to-black flex items-center justify-center text-white shadow-md mb-3.5">
-              <History className="h-6 w-6" />
             </div>
-            <span className="font-extrabold text-[12.5px] text-slate-900 tracking-tight leading-none block">Transaction History</span>
-            <span className="text-[9px] text-slate-400 font-mono mt-1 uppercase font-bold tracking-wider">Ledger Log</span>
           </div>
 
         </div>
@@ -2243,75 +2405,104 @@ export default function DashboardStore() {
 
     </div> {/* closes dashboard-active-workspace-panel responsive grid */}
 
-      {/* --- APP BOTTOM NAVIGATION TAB BAR: Elegant floating bar styled in Orange, White & Black --- */}
-      <div className="max-w-md mx-auto my-8 px-4 relative z-25 animate-fade-in">
-        <div className="bg-black/95 backdrop-blur-md rounded-full shadow-2xl shadow-orange-500/10 border border-neutral-800 flex items-center justify-around py-3 px-6 text-white transition-all transform hover:scale-[1.01]">
+      {/* --- APP BOTTOM NAVIGATION TAB BAR: Pristine Light/Dark Bar replicating the 5 menu tabs from the image --- */}
+      <div className="max-w-md mx-auto my-8 px-4 relative z-25 animate-fade-in font-sans">
+        <div className={`rounded-3xl border flex items-center justify-around py-3 px-3 transition-all transform hover:scale-[1.01] shadow-xl ${
+          isDarkMode 
+            ? "bg-slate-950 border-slate-800 text-white shadow-blue-500/5" 
+            : "bg-white border-slate-200 text-slate-800 shadow-slate-200/50"
+        }`}>
           
-          {/* TAB ITEM 1: Home/Store */}
+          {/* TAB ITEM 1: Home */}
           <button
             onClick={() => {
               setActiveTab("store");
-              const el = document.getElementById("dashboard-active-workspace-panel");
+              const el = document.getElementById("dashboard-system-hub");
               el?.scrollIntoView({ behavior: "smooth" });
-              showNotice("success", "Browse our script and web collections!");
+              showNotice("success", "Welcome to Buypoint Home Services!");
             }}
-            className={`flex flex-col items-center space-y-1 transition-all cursor-pointer ${
-              activeTab === "store" ? "text-[#FF5C00]" : "text-slate-400 hover:text-white"
+            className={`flex flex-col items-center justify-center pb-1 cursor-pointer transition-all relative ${
+              activeTab === "store" 
+                ? "text-[#2E3DFD] font-extrabold scale-110" 
+                : "text-slate-400 hover:text-slate-700"
             }`}
           >
-            <Globe className="h-5 w-5 animate-pulse" />
-            <span className="text-[10px] font-bold font-sans">Home</span>
-          </button>
-
-          {/* TAB ITEM 2: Numbers */}
-          <button
-            onClick={() => {
-              setActiveTab("otp");
-              const el = document.getElementById("dashboard-active-workspace-panel");
-              el?.scrollIntoView({ behavior: "smooth" });
-              showNotice("success", "Rent Active Mobile SIM Numbers!");
-            }}
-            className={`flex flex-col items-center space-y-1 transition-all cursor-pointer ${
-              activeTab === "otp" || activeTab === "virtual" ? "text-[#FF5C00]" : "text-slate-400 hover:text-white"
-            }`}
-          >
-            <Phone className="h-5 w-5" />
-            <span className="text-[10px] font-bold font-sans">Numbers</span>
-          </button>
-
-          {/* TAB ITEM 3: Accounts */}
-          <button
-            onClick={() => {
-              setActiveTab("inventory");
-              const el = document.getElementById("dashboard-active-workspace-panel");
-              el?.scrollIntoView({ behavior: "smooth" });
-              showNotice("success", "Review your vault logs!");
-            }}
-            className={`flex flex-col items-center space-y-1 transition-all cursor-pointer relative ${
-              activeTab === "inventory" ? "text-[#FF5C00]" : "text-slate-400 hover:text-white"
-            }`}
-          >
-            <Database className="h-5 w-5" />
-            <span className="text-[10px] font-bold font-sans">Accounts</span>
-            {inventory.length > 0 && (
-              <span className="absolute -top-1 right-2 flex h-4 w-4 items-center justify-center rounded-full bg-orange-600 text-[8px] font-black text-white shrink-0 animate-bounce">
-                {inventory.length}
-              </span>
+            <Smartphone className="h-5 w-5 stroke-[2.5]" />
+            <span className="text-[10px] font-sans font-black mt-1">Home</span>
+            {activeTab === "store" && (
+              <span className="h-1 w-3 bg-[#2E3DFD] rounded-full absolute -bottom-1.5" />
             )}
           </button>
 
-          {/* TAB ITEM 4: Profile Dialog */}
+          {/* TAB ITEM 2: Reward */}
+          <button
+            onClick={() => {
+              showNotice("info", "🎁 Complete daily dispatches and unlock rewards! Initial Tier bonus activated.");
+            }}
+            className="flex flex-col items-center justify-center pb-1 cursor-pointer transition-all relative text-slate-400 hover:text-slate-700"
+          >
+            <Gift className="h-5 w-5" />
+            <span className="text-[10px] font-sans font-bold mt-1">Reward</span>
+          </button>
+
+          {/* TAB ITEM 3: Buybuket */}
+          <button
+            onClick={() => {
+              setActiveTab("store");
+              const el = document.getElementById("developer-scripts-store-column");
+              el?.scrollIntoView({ behavior: "smooth" });
+              showNotice("success", "Premium carrier bundles and software dispatches loaded.");
+            }}
+            className={`flex flex-col items-center justify-center pb-1 cursor-pointer transition-all relative ${
+              activeTab === "store"
+                ? "text-[#2E3DFD] font-extrabold" 
+                : "text-slate-400 hover:text-slate-700"
+            }`}
+          >
+            <ShoppingBag className="h-5 w-5" />
+            <span className="text-[10px] font-sans font-bold mt-1">Buybuket</span>
+          </button>
+
+          {/* TAB ITEM 4: Account */}
+          <button
+            onClick={() => {
+              setActiveTab("wallet");
+              const el = document.getElementById("dashboard-active-workspace-panel");
+              el?.scrollIntoView({ behavior: "smooth" });
+              showNotice("success", "Secure Account ledger & funding system!");
+            }}
+            className={`flex flex-col items-center justify-center pb-1 cursor-pointer transition-all relative ${
+              activeTab === "wallet" || activeTab === "otp" || activeTab === "virtual" || activeTab === "sms"
+                ? "text-[#2E3DFD] font-extrabold scale-110" 
+                : "text-slate-400 hover:text-slate-700"
+            }`}
+          >
+            <div className="relative">
+              <Database className="h-5 w-5" />
+              {inventory.length > 0 && (
+                <span className="absolute -top-1 right-2 flex h-4 w-4 items-center justify-center rounded-full bg-red-600 text-[8px] font-black text-white shrink-0">
+                  {inventory.length}
+                </span>
+              )}
+            </div>
+            <span className="text-[10px] font-sans font-bold mt-1">Account</span>
+            {(activeTab === "wallet" || activeTab === "otp" || activeTab === "virtual" || activeTab === "sms") && (
+              <span className="h-1 w-3 bg-[#2E3DFD] rounded-full absolute -bottom-1.5" />
+            )}
+          </button>
+
+          {/* TAB ITEM 5: Me */}
           <button
             onClick={() => {
               setIsProfileOpen(true);
-              showNotice("info", "Opening Profile console.");
+              showNotice("info", "Opening user configuration menu.");
             }}
-            className={`flex flex-col items-center space-y-1 transition-all cursor-pointer ${
-              isProfileOpen ? "text-[#FF5C00]" : "text-slate-400 hover:text-white"
+            className={`flex flex-col items-center justify-center pb-1 cursor-pointer transition-all relative ${
+              isProfileOpen ? "text-[#2E3DFD] font-bold" : "text-slate-400 hover:text-slate-700"
             }`}
           >
             <User className="h-5 w-5" />
-            <span className="text-[10px] font-bold font-sans">Profile</span>
+            <span className="text-[10px] font-sans font-bold mt-1">Me</span>
           </button>
 
         </div>
