@@ -7,18 +7,11 @@ import {
 } from "lucide-react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import Services from "./components/Services";
-import ServiceCalculator from "./components/ServiceCalculator";
-import AIMoneyGenerator from "./components/AIMoneyGenerator";
-import Portfolio from "./components/Portfolio";
-import About from "./components/About";
-import Blog from "./components/Blog";
-import Contact from "./components/Contact";
 import WhatsAppButton from "./components/WhatsAppButton";
 import LeadCaptureModal from "./components/LeadCaptureModal";
 import DashboardStore from "./components/DashboardStore";
 import AdminPanel from "./components/AdminPanel";
-import { SERVICES_DATA, PORTFOLIO_DATA, BLOG_DATA, ServicePackage, PortfolioItem } from "./types";
+import { SERVICES_DATA, ServicePackage } from "./types";
 import { motion, AnimatePresence } from "motion/react";
 
 export default function App() {
@@ -57,8 +50,7 @@ export default function App() {
   // State for success feedback cards
   const [successReceipt, setSuccessReceipt] = useState<{ msg: string; invoiceId: string } | null>(null);
 
-  // Detail Modal Portfolio States
-  const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(null);
+
 
   // Dynamic Trigger to open the Booking Funnel modal
   const handleOpenBookingWithPackage = (pkg: ServicePackage) => {
@@ -130,8 +122,8 @@ export default function App() {
       <div id="top-alert-banner" className="bg-orange-50 border-b border-orange-100 text-center py-2 px-3 text-[10px] md:text-xs text-orange-850 font-medium">
         <span className="inline-flex items-center space-x-1">
           <Sparkles className="h-3.5 w-3.5 text-orange-600 animate-pulse" />
-          <span className="text-slate-700 font-bold">Nigeria AI & Web Development Integration Specialist</span>
-          <span className="text-orange-600 underline pl-1 cursor-pointer font-bold" onClick={() => setActiveView("ai-advisor")}>Launch Dynamic Profit Advisor &rarr;</span>
+          <span className="text-slate-700 font-bold">Nigeria Carrier Integration & Web Development Specialist</span>
+          <span className="text-orange-600 underline pl-1 cursor-pointer font-bold" onClick={() => setActiveView("dashboard")}>Launch Dynamic SIM & Virtual DIDs Workspace &rarr;</span>
         </span>
       </div>
 
@@ -282,55 +274,6 @@ export default function App() {
           </div>
         )}
 
-        {/* SERVICES AND DETAILED PRICING VIEW */}
-        {activeView === "services" && (
-          <div id="view-services-container" className="animate-fade-in">
-            <Services 
-              onSelectPackage={handleOpenBookingWithPackage} 
-              setActiveView={setActiveView} 
-            />
-            {/* Embedded interactive Service pricing Calculator */}
-            <div id="app-service-calculator-wrapper">
-              <ServiceCalculator onSuccessLead={handleSuccessLeadReceived} />
-            </div>
-          </div>
-        )}
-
-        {/* INTERACTIVE AI MONEY ADVISOR SIDE-HUSTLE BLUEPRINT */}
-        {activeView === "ai-advisor" && (
-          <div id="view-advisor-container" className="animate-fade-in">
-            <AIMoneyGenerator />
-          </div>
-        )}
-
-        {/* PORTFOLIO GRID MULTIPAGE VIEW */}
-        {activeView === "portfolio" && (
-          <div id="view-portfolio-container" className="animate-fade-in">
-            <Portfolio onSelectProject={setSelectedProject} />
-          </div>
-        )}
-
-        {/* BIOGRAPHY HISTORY ABOUT ME VIEW */}
-        {activeView === "about" && (
-          <div id="view-about-container" className="animate-fade-in">
-            <About />
-          </div>
-        )}
-
-        {/* SEO BLOG CONTENT HUB VIEW */}
-        {activeView === "blog" && (
-          <div id="view-blog-container" className="animate-fade-in">
-            <Blog />
-          </div>
-        )}
-
-        {/* CONTACT GMB BOOKING FORM VIEW */}
-        {activeView === "contact" && (
-          <div id="view-contact-container" className="animate-fade-in">
-            <Contact onSuccessLead={handleSuccessLeadReceived} />
-          </div>
-        )}
-
         {/* SECURE ADMINISTRATIVE CONTROL HUB PANEL */}
         {activeView === "admin" && (
           <div id="view-admin-container" className="animate-fade-in">
@@ -356,22 +299,22 @@ export default function App() {
             </div>
             {/* C2 Services */}
             <div>
-              <h5 className="text-slate-900 font-bold mb-3.5 text-xs font-display">Our Services</h5>
+              <h5 className="text-slate-900 font-bold mb-3.5 text-xs font-display">Our Platforms</h5>
               <ul className="space-y-2 text-[11px] font-semibold text-slate-500">
-                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("services")}>AI Money Making Mastery</li>
-                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("services")}>Custom Websites Development</li>
-                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("services")}>Google My Business Boost</li>
-                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("services")}>Strategic Search Audits (SEO)</li>
+                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("dashboard")}>SaaS User Dashboard</li>
+                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("dashboard")}>OTP & Bypass SIMs Store</li>
+                <li className="hover:text-orange-650 transition-colors cursor-pointer" onClick={() => setActiveView("dashboard")}>Global Virtual Numbers DID</li>
+                <li className="hover:text-orange-650 transition-colors cursor-pointer" onClick={() => setActiveView("dashboard")}>Web Assets Collection</li>
               </ul>
             </div>
             {/* C3 Resources */}
             <div>
               <h5 className="text-slate-900 font-bold mb-3.5 text-xs font-display">Interactive Tools</h5>
               <ul className="space-y-2 text-[11px] font-semibold text-slate-500">
-                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("dashboard")}>SaaS & Scripts Shop</li>
-                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("ai-advisor")}>AI Side-Hustle Advisor</li>
-                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("services")}>Instant Naira Calculator</li>
-                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("blog")}>Secret Conversion Hub</li>
+                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("dashboard")}>SMS Verification Terminal</li>
+                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("dashboard")}>Accounts Storage Vault</li>
+                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("home")}>Interactive Carrier Console</li>
+                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("dashboard")}>Simulated Wallet States</li>
               </ul>
             </div>
             {/* C4 Local verification */}
@@ -570,95 +513,7 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* 2. Detailed Case Study/Project Modal */}
-      <AnimatePresence>
-        {selectedProject && (
-          <motion.div
-            id="project-backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4"
-            onClick={() => setSelectedProject(null)}
-          >
-            <motion.div
-              id="project-modal"
-              initial={{ scale: 0.95, y: 15 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.95, y: 15 }}
-              onClick={(e) => e.stopPropagation()}
-              className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-purple-900/30 bg-[#0a0a0f] p-6.5 shadow-2xl relative scrollbar-thin scrollbar-thumb-purple-905"
-            >
-              <button
-                id="close-project-btn"
-                onClick={() => setSelectedProject(null)}
-                className="absolute top-5 right-5 rounded-lg border border-purple-900/30 bg-purple-950/20 p-2 text-gray-400 hover:text-white transition-colors cursor-pointer animate-pulse"
-              >
-                <X className="h-5 w-5" />
-              </button>
 
-              <div className="aspect-video w-full rounded-xl overflow-hidden mb-5">
-                <img 
-                  referrerPolicy="no-referrer"
-                  src={selectedProject.image} alt={selectedProject.title} className="w-full h-full object-cover" />
-              </div>
-
-              <div className="flex items-center justify-between text-[11px] font-mono mb-2">
-                <span className="text-purple-400 uppercase tracking-widest font-bold">{selectedProject.client || "CONFIDENTIAL CLIENT"}</span>
-                {selectedProject.stats && (
-                  <span className="text-amber-400 font-bold uppercase tracking-wider">RESULT: {selectedProject.stats.label} {selectedProject.stats.value}</span>
-                )}
-              </div>
-
-              <h2 className="text-xl sm:text-2xl font-black text-white leading-snug">
-                {selectedProject.title}
-              </h2>
-
-              <p className="mt-4 text-xs text-gray-300 leading-relaxed">
-                {selectedProject.description}
-              </p>
-
-              <div className="mt-6 border-t border-purple-950/60 pt-5 space-y-4">
-                <div>
-                  <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-2">Technologies & Scope Deployed:</h4>
-                  <div className="flex flex-wrap gap-1.5">
-                    {selectedProject.technologies.map((tech, idx) => (
-                      <span key={idx} className="rounded-md bg-[#12121b] border border-purple-950 px-2.5 py-1 text-[10px] font-semibold text-gray-400">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="rounded-xl bg-purple-950/15 border border-purple-500/10 p-4 font-normal text-xs text-gray-400">
-                  <p className="font-bold text-white mb-1">Execution Metrics Breakdown:</p>
-                  We structured the asset rendering sequence, automated keyword alignments, deployed standard React components over fast server networks, and verified the address listings via proper maps parameters, hitting standard target conversions easily.
-                </div>
-              </div>
-
-              <div className="mt-8 pt-5 border-t border-purple-950/60 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="text-xs text-gray-500 font-mono">
-                  AL-SALAM SINNER • DESIGN EXPERTISE
-                </div>
-                
-                <button
-                  id="project-inquire-btn"
-                  onClick={() => {
-                    setSelectedProject(null);
-                    setActiveView("contact");
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                  }}
-                  className="flex items-center space-x-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-650 px-5 py-3 text-xs font-bold text-white hover:brightness-110 cursor-pointer"
-                >
-                  <span>Inquire About Similar setup</span>
-                  <ArrowRight className="h-4 w-4" />
-                </button>
-              </div>
-
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
     </div>
   );

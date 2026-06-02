@@ -13,13 +13,7 @@ export default function Navbar({ activeView, setActiveView, openBookingModal }: 
 
   const navItems = [
     { id: "home", label: "Home" },
-    { id: "dashboard", label: "SaaS Dashboard & Store" },
-    { id: "services", label: "Services & Pricing" },
-    { id: "ai-advisor", label: "AI Money Advisor" },
-    { id: "portfolio", label: "Portfolio" },
-    { id: "about", label: "About Me" },
-    { id: "blog", label: "SEO Blog" },
-    { id: "contact", label: "Contact & Book" },
+    { id: "dashboard", label: "User Dashboard / Store" },
   ];
 
   const handleNavClick = (viewId: string) => {
@@ -88,15 +82,15 @@ export default function Navbar({ activeView, setActiveView, openBookingModal }: 
         {/* Action Button & Trust elements */}
         <div className="hidden lg:flex items-center space-x-4">
           <div className="flex items-center space-x-1 text-xs text-slate-500 border-r border-gray-200 pr-4">
-            <ShieldCheck className="h-4 w-4 text-emerald-600" />
-            <span>Over 80+ Projects</span>
+            <ShieldCheck className="h-4 w-4 text-[#FF5C00]" />
+            <span>Secure Carrier Networks</span>
           </div>
           <button
             id="nav-book-btn"
-            onClick={openBookingModal}
-            className="group relative inline-flex items-center justify-center overflow-hidden rounded-lg bg-orange-600 hover:bg-orange-700 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-orange-100 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+            onClick={() => handleNavClick("dashboard")}
+            className="group relative inline-flex items-center justify-center overflow-hidden rounded-lg bg-black hover:bg-neutral-900 border border-neutral-800 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
           >
-            <span>Get Quote</span>
+            <span>Open Dashboard</span>
           </button>
         </div>
 
@@ -145,13 +139,10 @@ export default function Navbar({ activeView, setActiveView, openBookingModal }: 
               <div className="pt-4 border-t border-gray-150">
                 <button
                   id="mobile-nav-book-btn"
-                  onClick={() => {
-                    setIsOpen(false);
-                    openBookingModal();
-                  }}
-                  className="w-full flex items-center justify-center rounded-lg bg-orange-600 hover:bg-orange-700 py-3.5 text-center text-sm font-bold text-white shadow-lg transition-all"
+                  onClick={() => handleNavClick("dashboard")}
+                  className="w-full flex items-center justify-center rounded-lg bg-black hover:bg-neutral-900 border border-neutral-800 py-3.5 text-center text-sm font-bold text-white shadow-lg transition-all"
                 >
-                  Book Instant Consultancy
+                  Open Dashboard
                 </button>
               </div>
             </div>

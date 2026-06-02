@@ -266,30 +266,18 @@ export default function Hero({ setActiveView, openBookingModal }: HeroProps) {
         {/* Action Callouts */}
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4" id="hero-actions">
           <motion.button
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
             id="hero-book-btn"
-            onClick={openBookingModal}
-            className="w-full sm:w-auto flex items-center justify-center space-x-2 rounded-xl bg-orange-600 hover:bg-orange-700 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-orange-100 transition-all hover:scale-[1.03] active:scale-[0.97] cursor-pointer"
-          >
-            <span>Book a Strategy Call</span>
-            <ArrowRight className="h-4.5 w-4.5" />
-          </motion.button>
-
-          <motion.button
-            initial={{ opacity: 0, x: 10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4 }}
-            id="hero-advisor-btn"
             onClick={() => {
-              setActiveView("ai-advisor");
+              setActiveView("dashboard");
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
-            className="w-full sm:w-auto flex items-center justify-center space-x-2 rounded-xl border border-orange-200 bg-orange-50/60 px-8 py-4 text-sm font-bold text-orange-700 hover:bg-orange-50 transition-all cursor-pointer"
+            className="w-full sm:w-auto flex items-center justify-center space-x-2 rounded-xl bg-orange-600 hover:bg-orange-700 px-10 py-4 text-sm font-bold text-white shadow-lg shadow-orange-100 transition-all hover:scale-[1.03] active:scale-[0.97] cursor-pointer"
           >
-            <Sparkles className="h-4.5 w-4.5 text-orange-600 animate-pulse" />
-            <span>Try Free AI Side-Hustle Advisor</span>
+            <span>Open User Dashboard & Store</span>
+            <ArrowRight className="h-4.5 w-4.5" />
           </motion.button>
         </div>
 
@@ -762,10 +750,10 @@ export default function Hero({ setActiveView, openBookingModal }: HeroProps) {
               <div className="mt-5 pt-4.5 border-t border-slate-800 flex items-center justify-between text-xs" id="lab-quick-routing">
                 <span className="text-slate-500">Need immediate setup?</span>
                 <button
-                  onClick={() => setActiveView("services")}
+                  onClick={() => setActiveView("dashboard")}
                   className="inline-flex items-center space-x-1 text-orange-400 font-bold hover:text-orange-300"
                 >
-                  <span>Go to Checkout Store</span>
+                  <span>Go to SaaS Dashboard</span>
                   <ArrowRight className="h-3.5 w-3.5" />
                 </button>
               </div>
