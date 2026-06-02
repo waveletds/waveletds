@@ -1050,7 +1050,7 @@ export default function DashboardStore() {
   }
 
   return (
-    <section className={`border-t border-gray-150 py-6 md:py-10 relative overflow-hidden min-h-screen transition-colors duration-300 ${isDarkMode ? "bg-[#060814] text-white" : "bg-[#F4F6FC] text-slate-900"}`} id="dashboard-system-hub">
+    <section className={`border-t border-gray-150 pt-6 pb-28 md:py-10 relative overflow-hidden min-h-screen transition-colors duration-300 ${isDarkMode ? "bg-[#060814] text-white" : "bg-[#F4F6FC] text-slate-900"}`} id="dashboard-system-hub font-sans">
       
       {/* Soft background glow accents */}
       <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-blue-500/5 to-transparent pointer-events-none" />
@@ -2406,12 +2406,12 @@ export default function DashboardStore() {
     </div> {/* closes dashboard-active-workspace-panel responsive grid */}
 
       {/* --- APP BOTTOM NAVIGATION TAB BAR: Pristine Light/Dark Bar replicating the 5 menu tabs from the image --- */}
-      <div className="max-w-md mx-auto my-8 px-4 relative z-25 animate-fade-in font-sans">
-        <div className={`rounded-3xl border flex items-center justify-around py-3 px-3 transition-all transform hover:scale-[1.01] shadow-xl ${
+      <div className="fixed bottom-0 left-0 right-0 z-40 w-full animate-fade-in font-sans md:relative md:bottom-auto md:my-8 md:max-w-md md:mx-auto md:px-4">
+        <div className={`flex items-center justify-around py-2 px-1 pb-safe-bottom border-t shadow-2xl transition-all duration-300 md:rounded-3xl md:border md:shadow-lg ${
           isDarkMode 
-            ? "bg-slate-950 border-slate-800 text-white shadow-blue-500/5" 
-            : "bg-white border-slate-200 text-slate-800 shadow-slate-200/50"
-        }`}>
+            ? "bg-slate-950/95 border-slate-800/80 text-white shadow-blue-500/5" 
+            : "bg-white/95 border-slate-200/85 text-slate-800 shadow-[#2E3DFD]/5"
+        } backdrop-blur-md`}>
           
           {/* TAB ITEM 1: Home */}
           <button
@@ -2421,30 +2421,30 @@ export default function DashboardStore() {
               el?.scrollIntoView({ behavior: "smooth" });
               showNotice("success", "Welcome to Buypoint Home Services!");
             }}
-            className={`flex flex-col items-center justify-center pb-1 cursor-pointer transition-all relative ${
+            className={`flex-1 flex flex-col items-center justify-center py-1.5 cursor-pointer transition-all relative outline-none select-none active:scale-95 ${
               activeTab === "store" 
-                ? "text-[#2E3DFD] font-extrabold scale-110" 
-                : "text-slate-400 hover:text-slate-700"
+                ? "text-[#2E3DFD] font-black" 
+                : "text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
             }`}
           >
-            <Smartphone className="h-5 w-5 stroke-[2.5]" />
-            <span className="text-[10px] font-sans font-black mt-1">Home</span>
+            <Smartphone className="h-5 w-5 stroke-[2.2]" />
+            <span className="text-[10px] font-sans font-black mt-1 tracking-tight">Home</span>
             {activeTab === "store" && (
-              <span className="h-1 w-3 bg-[#2E3DFD] rounded-full absolute -bottom-1.5" />
+              <span className="h-1 w-4 bg-[#2E3DFD] rounded-full absolute bottom-0 shadow-xs shadow-blue-500/50" />
             )}
           </button>
-
+          
           {/* TAB ITEM 2: Reward */}
           <button
             onClick={() => {
               showNotice("info", "🎁 Complete daily dispatches and unlock rewards! Initial Tier bonus activated.");
             }}
-            className="flex flex-col items-center justify-center pb-1 cursor-pointer transition-all relative text-slate-400 hover:text-slate-700"
+            className="flex-1 flex flex-col items-center justify-center py-1.5 cursor-pointer transition-all relative outline-none select-none active:scale-95 text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
           >
-            <Gift className="h-5 w-5" />
-            <span className="text-[10px] font-sans font-bold mt-1">Reward</span>
+            <Gift className="h-5 w-5 stroke-[2.2]" />
+            <span className="text-[10px] font-sans font-bold mt-1 tracking-tight">Reward</span>
           </button>
-
+          
           {/* TAB ITEM 3: Buybuket */}
           <button
             onClick={() => {
@@ -2453,16 +2453,16 @@ export default function DashboardStore() {
               el?.scrollIntoView({ behavior: "smooth" });
               showNotice("success", "Premium carrier bundles and software dispatches loaded.");
             }}
-            className={`flex flex-col items-center justify-center pb-1 cursor-pointer transition-all relative ${
+            className={`flex-1 flex flex-col items-center justify-center py-1.5 cursor-pointer transition-all relative outline-none select-none active:scale-95 ${
               activeTab === "store"
-                ? "text-[#2E3DFD] font-extrabold" 
-                : "text-slate-400 hover:text-slate-700"
+                ? "text-[#2E3DFD] font-black" 
+                : "text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
             }`}
           >
-            <ShoppingBag className="h-5 w-5" />
-            <span className="text-[10px] font-sans font-bold mt-1">Buybuket</span>
+            <ShoppingBag className="h-5 w-5 stroke-[2.2]" />
+            <span className="text-[10px] font-sans font-bold mt-1 tracking-tight">Buybuket</span>
           </button>
-
+          
           {/* TAB ITEM 4: Account */}
           <button
             onClick={() => {
@@ -2471,40 +2471,40 @@ export default function DashboardStore() {
               el?.scrollIntoView({ behavior: "smooth" });
               showNotice("success", "Secure Account ledger & funding system!");
             }}
-            className={`flex flex-col items-center justify-center pb-1 cursor-pointer transition-all relative ${
+            className={`flex-1 flex flex-col items-center justify-center py-1.5 cursor-pointer transition-all relative outline-none select-none active:scale-95 ${
               activeTab === "wallet" || activeTab === "otp" || activeTab === "virtual" || activeTab === "sms"
-                ? "text-[#2E3DFD] font-extrabold scale-110" 
-                : "text-slate-400 hover:text-slate-700"
+                ? "text-[#2E3DFD] font-black" 
+                : "text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
             }`}
           >
             <div className="relative">
-              <Database className="h-5 w-5" />
+              <Database className="h-5 w-5 stroke-[2.2]" />
               {inventory.length > 0 && (
-                <span className="absolute -top-1 right-2 flex h-4 w-4 items-center justify-center rounded-full bg-red-600 text-[8px] font-black text-white shrink-0">
+                <span className="absolute -top-1.5 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-red-650 text-[8px] font-black text-white shrink-0">
                   {inventory.length}
                 </span>
               )}
             </div>
-            <span className="text-[10px] font-sans font-bold mt-1">Account</span>
+            <span className="text-[10px] font-sans font-bold mt-1 tracking-tight">Account</span>
             {(activeTab === "wallet" || activeTab === "otp" || activeTab === "virtual" || activeTab === "sms") && (
-              <span className="h-1 w-3 bg-[#2E3DFD] rounded-full absolute -bottom-1.5" />
+              <span className="h-1 w-4 bg-[#2E3DFD] rounded-full absolute bottom-0 shadow-xs shadow-blue-500/50" />
             )}
           </button>
-
+          
           {/* TAB ITEM 5: Me */}
           <button
             onClick={() => {
               setIsProfileOpen(true);
               showNotice("info", "Opening user configuration menu.");
             }}
-            className={`flex flex-col items-center justify-center pb-1 cursor-pointer transition-all relative ${
-              isProfileOpen ? "text-[#2E3DFD] font-bold" : "text-slate-400 hover:text-slate-700"
+            className={`flex-1 flex flex-col items-center justify-center py-1.5 cursor-pointer transition-all relative outline-none select-none active:scale-95 ${
+              isProfileOpen ? "text-[#2E3DFD] font-black" : "text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
             }`}
           >
-            <User className="h-5 w-5" />
-            <span className="text-[10px] font-sans font-bold mt-1">Me</span>
+            <User className="h-5 w-5 stroke-[2.2]" />
+            <span className="text-[10px] font-sans font-bold mt-1 tracking-tight">Me</span>
           </button>
-
+          
         </div>
       </div>
 
