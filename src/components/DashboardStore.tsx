@@ -407,7 +407,7 @@ export default function DashboardStore() {
   }, [inventory]);
 
   // --- DYNAMIC SELECTION UI STATES ---
-  const [activeTab, setActiveTab] = useState<"store" | "otp" | "virtual" | "sms" | "wallet" | "inventory">("store");
+  const [activeTab, setActiveTab] = useState<"store" | "otp" | "virtual" | "sms" | "wallet" | "inventory">("otp");
   const [storeFilter, setStoreFilter] = useState<"all" | "website" | "script" | "service">("all");
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -1203,16 +1203,11 @@ export default function DashboardStore() {
           {/* CARD 3: Boost Accounts (Scripts Store Catalogue) */}
           <div
             onClick={() => {
-              setActiveTab("store");
-              const el = document.getElementById("dashboard-active-workspace-panel");
+              const el = document.getElementById("developer-scripts-store-column");
               el?.scrollIntoView({ behavior: "smooth" });
-              showNotice("info", "Scripts & Service shop selected.");
+              showNotice("info", "Developer Scripts Catalog highlighted!");
             }}
-            className={`rounded-2xl border p-5 transition-all hover:scale-[1.02] active:scale-[0.99] cursor-pointer shadow-xs flex flex-col items-center justify-center text-center ${
-              activeTab === "store" 
-                ? "bg-orange-50/50 border-orange-500 ring-2 ring-orange-500/20" 
-                : "bg-white border-slate-150 hover:border-orange-200"
-            }`}
+            className="rounded-2xl border p-5 transition-all hover:scale-[1.02] active:scale-[0.99] cursor-pointer shadow-xs flex flex-col items-center justify-center text-center bg-white border-slate-150 hover:border-orange-200"
           >
             <div className="h-12 w-12 rounded-2xl bg-gradient-to-tr from-[#FF5C00] via-orange-600 to-black flex items-center justify-center text-white shadow-md mb-3.5">
               <Sparkles className="h-6 w-6" />
@@ -1286,169 +1281,37 @@ export default function DashboardStore() {
 
         </div>
 
-        {/* --- DYNAMIC WORKSPACE PANEL WRAPPER: Renders active panel content --- */}
-        <div id="dashboard-active-workspace-panel" className="scroll-mt-24 pt-6 pb-20">
+        {/* --- DYNAMIC WORKSPACE PANEL WRAPPER: 2-Column Responsive Layout --- */}
+        <div id="dashboard-active-workspace-panel" className="scroll-mt-24 pt-6 pb-20 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          <div className="flex items-center space-x-2.5 mb-6">
-            <div className="h-2 w-2 rounded-full bg-[#FF5C00]" />
-            <h3 className="text-xs font-black uppercase text-slate-500 tracking-widest font-mono">
-              Workspace Panel: {activeTab === "store" ? "Scripts Store" : activeTab === "otp" ? "OTP virtual sim" : activeTab === "virtual" ? "Foreign Line leases" : activeTab === "sms" ? "SMS Dispatches" : activeTab === "wallet" ? "Wallet Ledger" : "Vault item details"}
-            </h3>
-          </div>
+          {/* Left Column: Interactive Workspace Panels (OTP, Virtual Lease, SMS Dispatch, Wallet, Vault) */}
+          <div className="lg:col-span-8 flex flex-col space-y-6 w-full">
+            <div className="flex items-center space-x-2.5 mb-2">
+              <div className="h-2 w-2 rounded-full bg-[#FF5C00]" />
+              <h3 className="text-xs font-black uppercase text-slate-500 tracking-widest font-mono">
+                Workspace Panel: {activeTab === "otp" ? "OTP virtual sim" : activeTab === "virtual" ? "Foreign Line leases" : activeTab === "sms" ? "SMS Dispatches" : activeTab === "wallet" ? "Wallet Ledger" : "Vault item details"}
+              </h3>
+            </div>
 
-          <div id="dashboard-tab-content-renderer" className="rounded-3xl border border-slate-150 bg-white p-6 shadow-xs relative overflow-hidden">
+            <div id="dashboard-tab-content-renderer" className="rounded-3xl border border-slate-150 bg-white p-6 shadow-xs relative overflow-hidden flex-grow w-full">
           
           {/* TAB 1: SCRIPTS & READY-MADE WEBSITES */}
           {activeTab === "store" && (
-            <div className="space-y-6 animate-fade-in" id="dashboard-store-view-text">
-              
-              {/* Filter controls */}
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 py-2 border-b border-slate-150">
-                <div className="flex items-center space-x-2">
-                  <Laptop className="h-4.5 w-4.5 text-orange-600" />
-                  <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide">Developer Store & Scripts Catalog</h3>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
-                  {/* Search bar */}
-                  <div className="relative w-full md:w-48 shrink-0">
-                    <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-slate-400" />
-                    <input
-                      type="text"
-                      placeholder="Search asset catalog..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="w-full pl-8 pr-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-105 text-slate-900"
-                    />
-                  </div>
-
-                  <button
-                    onClick={() => setStoreFilter("all")}
-                    className={`px-3 py-1.5 rounded-lg text-[11px] font-bold cursor-pointer transition-all ${storeFilter === "all" ? "bg-orange-600 text-white shadow-xs" : "text-slate-600 bg-slate-50 hover:bg-slate-100 border border-slate-200"}`}
-                  >
-                    All Items
-                  </button>
-                  <button
-                    onClick={() => setStoreFilter("website")}
-                    className={`px-3 py-1.5 rounded-lg text-[11px] font-bold cursor-pointer transition-all ${storeFilter === "website" ? "bg-orange-600 text-white shadow-xs" : "text-slate-600 bg-slate-50 hover:bg-slate-100 border border-slate-200"}`}
-                  >
-                    Websites Deployed
-                  </button>
-                  <button
-                    onClick={() => setStoreFilter("script")}
-                    className={`px-3 py-1.5 rounded-lg text-[11px] font-bold cursor-pointer transition-all ${storeFilter === "script" ? "bg-orange-600 text-white shadow-xs" : "text-slate-600 bg-slate-50 hover:bg-slate-100 border border-slate-200"}`}
-                  >
-                    Laravel / React Scripts
-                  </button>
-                  <button
-                    onClick={() => setStoreFilter("service")}
-                    className={`px-3 py-1.5 rounded-lg text-[11px] font-bold cursor-pointer transition-all ${storeFilter === "service" ? "bg-orange-600 text-white shadow-xs" : "text-slate-600 bg-slate-50 hover:bg-slate-100 border border-slate-200"}`}
-                  >
-                    Expert Fixes
-                  </button>
-                </div>
-              </div>
-
-              {/* Grid of Store Assets */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredAssets.map(asset => {
-                  const hasPurchased = inventory.some(item => item.purchaseId === asset.id);
-
-                  return (
-                    <div 
-                      key={asset.id}
-                      className="rounded-2xl border border-slate-150 bg-white p-5 flex flex-col justify-between hover:border-orange-500/30 transition-all hover:scale-[1.01] relative overflow-hidden shadow-xs"
-                    >
-                      {/* Badge category */}
-                      <div className="flex items-center justify-between">
-                        <span className={`px-2 py-0.5 rounded text-[9px] font-bold font-mono tracking-widest uppercase ${
-                          asset.type === "website" 
-                            ? "bg-blue-50 text-blue-700 border border-blue-100"
-                            : asset.type === "script"
-                            ? "bg-amber-50 text-amber-700 border border-amber-100"
-                            : "bg-orange-50 text-orange-750 border border-orange-100"
-                        }`}>
-                          {asset.type}
-                        </span>
-                        
-                        {asset.approxSize && (
-                          <span className="text-[10px] text-slate-500 font-mono flex items-center space-x-1">
-                            <Server className="h-3 w-3 text-orange-600" />
-                            <span>{asset.approxSize}</span>
-                          </span>
-                        )}
-                      </div>
-
-                      <div className="mt-4">
-                        <p className="text-[10px] text-slate-400 font-mono tracking-wider font-bold uppercase">{asset.category}</p>
-                        <h4 className="text-base font-extrabold text-slate-900 mt-1 leading-snug lg:line-clamp-2 min-h-[44px] font-display">
-                          {asset.name}
-                        </h4>
-                        
-                        <p className="text-xs text-slate-500 mt-2 line-clamp-3 leading-relaxed min-h-[54px] font-medium">
-                          {asset.shortDesc}
-                        </p>
-
-                        {/* Core Features bullets */}
-                        <div className="mt-4 space-y-1.5">
-                          {asset.features.slice(0, 3).map((feat, i) => (
-                            <div key={i} className="flex items-start space-x-1.5 text-[11px] text-slate-650 font-medium">
-                              <CheckCircle2 className="h-3 w-3 text-emerald-650 shrink-0 mt-0.5" />
-                              <span>{feat}</span>
-                            </div>
-                          ))}
-                        </div>
-
-                        {/* Tech Stacks */}
-                        {asset.techStack && asset.techStack.length > 0 && (
-                          <div className="mt-4 flex flex-wrap gap-1">
-                            {asset.techStack.map((tech, i) => (
-                              <span key={i} className="text-[9px] font-mono px-1.5 py-0.5 bg-slate-50 text-slate-600 rounded border border-slate-100 font-bold">
-                                {tech}
-                              </span>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Pricing & Checkout interaction */}
-                      <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
-                        <div>
-                          <span className="text-[9.5px] font-mono text-slate-400 block font-bold">License Cost</span>
-                          <span className="text-lg font-black text-slate-950 font-mono">
-                            ₦{asset.price.toLocaleString()}
-                          </span>
-                        </div>
-
-                        {hasPurchased ? (
-                          <button
-                            disabled
-                            className="bg-emerald-50 border border-emerald-200 text-emerald-700 px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-1"
-                          >
-                            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
-                            <span>Purchased</span>
-                          </button>
-                        ) : (
-                          <button
-                            onClick={() => handlePurchaseAsset(asset)}
-                            className="bg-orange-600 hover:bg-orange-700 text-white px-4.5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm flex items-center space-x-1 cursor-pointer"
-                          >
-                            <span>Buy with Wallet</span>
-                            <ChevronRight className="h-3.5 w-3.5" />
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-
-                {filteredAssets.length === 0 && (
-                  <div className="col-span-full text-center py-12 rounded-2xl bg-slate-50 border border-slate-150">
-                    <AlertCircle className="h-8 w-8 text-amber-500 mx-auto mb-3" />
-                    <p className="text-slate-500 text-xs font-medium">No assets match your filter or term search.</p>
-                  </div>
-                )}
-              </div>
+            <div className="space-y-6 animate-fade-in text-center py-10" id="dashboard-store-hidden-info">
+              <Laptop className="h-8 w-8 text-orange-600 mx-auto mb-3 animate-pulse" />
+              <p className="text-sm font-extrabold text-slate-900 mb-1">Source Code Store</p>
+              <p className="text-xs text-slate-500 max-w-xs mx-auto mb-4 font-semibold">
+                The developer script store has been moved permanently to the column on the right side of the workspace dashboard.
+              </p>
+              <button
+                onClick={() => {
+                  const el = document.getElementById("developer-scripts-store-column");
+                  el?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="px-3 py-1.5 text-xs font-bold bg-[#FF5C00] text-white rounded-lg hover:bg-orange-700 transition-colors shadow-xs cursor-pointer"
+              >
+                Go to Catalog 👉
+              </button>
             </div>
           )}
 
@@ -2212,7 +2075,10 @@ export default function DashboardStore() {
                     <Database className="h-10 w-10 text-slate-400 mx-auto mb-3" />
                     <p className="text-slate-500 text-xs font-semibold">Your purchase inventory vault is empty.</p>
                     <button
-                      onClick={() => setActiveTab("store")}
+                      onClick={() => {
+                        const el = document.getElementById("developer-scripts-store-column");
+                        el?.scrollIntoView({ behavior: "smooth" });
+                      }}
                       className="mt-4 px-4 py-2 text-xs font-bold bg-orange-600 hover:bg-orange-700 text-white rounded-xl transition-all shadow-xs cursor-pointer"
                     >
                       Browse Digital Marketplace
@@ -2224,8 +2090,158 @@ export default function DashboardStore() {
           )}
 
         </div> {/* closes dashboard-tab-content-renderer */}
+      </div> {/* closes Left Column Container */}
 
-      </div> {/* closes dashboard-active-workspace-panel */}
+      {/* Right Column: Scripts Store Catalog */}
+      <div id="developer-scripts-store-column" className="lg:col-span-4 flex flex-col space-y-6 w-full">
+        <div className="flex items-center space-x-2.5 mb-2">
+          <div className="h-2 w-2 rounded-full bg-[#FF5C00]" />
+          <h3 className="text-xs font-black uppercase text-slate-500 tracking-widest font-mono">
+            Scripts Store Catalog
+          </h3>
+        </div>
+
+        <div className="rounded-3xl border border-slate-150 bg-white p-5 shadow-xs relative overflow-hidden flex-grow space-y-6 text-slate-900 w-full">
+          
+          {/* Header & Filters Section */}
+          <div className="space-y-3.5 pb-4 border-b border-slate-150">
+            <div className="flex items-center space-x-2">
+              <Sparkles className="h-4.5 w-4.5 text-orange-650 animate-pulse" />
+              <h4 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider font-sans">Premium Source Assets</h4>
+            </div>
+
+            {/* Custom Search Column Input */}
+            <div className="relative w-full">
+              <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-slate-400" />
+              <input
+                type="text"
+                placeholder="Search code catalog..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-8 pr-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-[11px] focus:outline-none focus:border-orange-500 text-slate-900 font-semibold"
+              />
+            </div>
+
+            {/* Pill Filters */}
+            <div className="flex flex-wrap gap-1">
+              {[
+                { label: "All", filter: "all" },
+                { label: "Web", filter: "website" },
+                { label: "Scripts", filter: "script" },
+                { label: "Fixes", filter: "service" }
+              ].map(pill => (
+                <button
+                  key={pill.filter}
+                  onClick={() => setStoreFilter(pill.filter as any)}
+                  className={`px-2 py-0.5 rounded text-[10px] font-black cursor-pointer transition-colors border ${
+                    storeFilter === pill.filter
+                      ? "bg-slate-900 text-white border-slate-900"
+                      : "bg-slate-50 text-slate-600 border-slate-150 hover:bg-slate-100"
+                  }`}
+                >
+                  {pill.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Core Assets Column Stack Container */}
+          <div className="space-y-4 max-h-[850px] overflow-y-auto pr-1">
+            {filteredAssets.map(asset => {
+              const hasPurchased = inventory.some(item => item.purchaseId === asset.id);
+
+              return (
+                <div 
+                  key={asset.id}
+                  className="rounded-2xl border border-slate-150 bg-[#fafafa] p-4 flex flex-col justify-between hover:border-orange-500/35 transition-all hover:scale-[1.01] relative overflow-hidden group shadow-xs"
+                >
+                  <div>
+                    {/* Upper badge indicator */}
+                    <div className="flex items-center justify-between">
+                      <span className={`px-1.5 py-0.5 rounded text-[8px] font-bold font-mono tracking-widest uppercase ${
+                        asset.type === "website" 
+                          ? "bg-blue-50 text-blue-700 border border-blue-105" 
+                          : asset.type === "script" 
+                          ? "bg-amber-50 text-amber-700 border border-amber-105" 
+                          : "bg-orange-50 text-orange-750 border border-orange-105"
+                      }`}>
+                        {asset.type}
+                      </span>
+                      
+                      {asset.approxSize && (
+                        <span className="text-[9px] text-slate-500 font-mono font-semibold flex items-center space-x-1">
+                          <Server className="h-3 w-3 text-orange-600" />
+                          <span>{asset.approxSize}</span>
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Title & info description */}
+                    <div className="mt-3">
+                      <span className="text-[8.5px] text-slate-400 font-mono tracking-wider font-extrabold uppercase">{asset.category}</span>
+                      <h4 className="text-xs font-black text-slate-900 mt-0.5 leading-snug font-display">
+                        {asset.name}
+                      </h4>
+                      
+                      <p className="text-[11px] text-slate-500 mt-1 leading-normal font-semibold">
+                        {asset.shortDesc}
+                      </p>
+
+                      {/* Tech stacks tags */}
+                      {asset.techStack && asset.techStack.length > 0 && (
+                        <div className="mt-3 flex flex-wrap gap-1">
+                          {asset.techStack.map((tech, i) => (
+                            <span key={i} className="text-[7.5px] font-mono font-bold px-1.5 py-0.5 bg-white text-slate-650 rounded border border-slate-150">
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Pricing block and buy trigger button */}
+                  <div className="mt-4 pt-3 border-t border-slate-155 flex items-center justify-between">
+                    <div>
+                      <span className="text-[8px] font-mono text-slate-450 block font-bold">License Cost</span>
+                      <span className="text-xs font-black text-slate-950 font-mono">
+                        ₦{asset.price.toLocaleString()}
+                      </span>
+                    </div>
+
+                    {hasPurchased ? (
+                      <button
+                        disabled
+                        className="bg-emerald-50 border border-emerald-250 text-emerald-700 px-2.5 py-1 rounded-xl text-[10px] font-bold flex items-center space-x-1 shrink-0"
+                      >
+                        <CheckCircle2 className="h-3 w-3 text-emerald-650" />
+                        <span>Acquired</span>
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => handlePurchaseAsset(asset)}
+                        className="bg-orange-600 hover:bg-orange-700 text-white px-2.5 py-1.5 rounded-lg text-[10px] font-bold transition-all shadow-xs flex items-center space-x-1 shrink-0 cursor-pointer"
+                      >
+                        <span>Buy Code</span>
+                        <ChevronRight className="h-3 w-3" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+
+            {filteredAssets.length === 0 && (
+              <div className="text-center py-10 rounded-2xl bg-slate-50 border border-slate-150">
+                <AlertCircle className="h-6 w-6 text-amber-500 mx-auto mb-1.5 animate-pulse" />
+                <p className="text-slate-500 text-[10px] font-medium font-semibold">No assets found matching filters.</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+    </div> {/* closes dashboard-active-workspace-panel responsive grid */}
 
       {/* --- APP BOTTOM NAVIGATION TAB BAR: Elegant floating bar styled in Orange, White & Black --- */}
       <div className="max-w-md mx-auto my-8 px-4 relative z-25 animate-fade-in">

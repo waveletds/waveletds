@@ -284,65 +284,67 @@ export default function App() {
       </main>
 
       {/* FOOTER METRICS AREA */}
-      <footer id="app-footer-bar" className="bg-slate-50 border-t border-gray-200 py-12 text-xs text-slate-500">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10 pb-10 border-b border-gray-200">
-            {/* C1 Brand */}
-            <div className="space-y-3">
-              <h4 className="text-slate-900 text-sm font-bold flex items-center space-x-1.5 font-sans">
-                <Rocket className="h-4.5 w-4.5 text-orange-600" />
-                <span>Wavelet Digital Solutions</span>
-              </h4>
-              <p className="text-[11px] leading-relaxed text-slate-500 font-medium">
-                A modern professional workshop connecting AI capabilities with client-centric web architecture, design assets, and organic maps search.
-              </p>
+      {activeView === "home" && (
+        <footer id="app-footer-bar" className="bg-slate-50 border-t border-gray-200 py-12 text-xs text-slate-500">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10 pb-10 border-b border-gray-200">
+              {/* C1 Brand */}
+              <div className="space-y-3">
+                <h4 className="text-slate-900 text-sm font-bold flex items-center space-x-1.5 font-sans">
+                  <Rocket className="h-4.5 w-4.5 text-orange-600" />
+                  <span>Wavelet Digital Solutions</span>
+                </h4>
+                <p className="text-[11px] leading-relaxed text-slate-500 font-medium">
+                  A modern professional workshop connecting AI capabilities with client-centric web architecture, design assets, and organic maps search.
+                </p>
+              </div>
+              {/* C2 Services */}
+              <div>
+                <h5 className="text-slate-900 font-bold mb-3.5 text-xs font-display">Our Platforms</h5>
+                <ul className="space-y-2 text-[11px] font-semibold text-slate-500">
+                  <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("dashboard")}>SaaS User Dashboard</li>
+                  <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("dashboard")}>OTP & Bypass SIMs Store</li>
+                  <li className="hover:text-orange-655 transition-colors cursor-pointer" onClick={() => setActiveView("dashboard")}>Global Virtual Numbers DID</li>
+                  <li className="hover:text-orange-655 transition-colors cursor-pointer" onClick={() => setActiveView("dashboard")}>Web Assets Collection</li>
+                </ul>
+              </div>
+              {/* C3 Resources */}
+              <div>
+                <h5 className="text-slate-900 font-bold mb-3.5 text-xs font-display">Interactive Tools</h5>
+                <ul className="space-y-2 text-[11px] font-semibold text-slate-500">
+                  <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("dashboard")}>SMS Verification Terminal</li>
+                  <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("dashboard")}>Accounts Storage Vault</li>
+                  <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("home")}>Interactive Carrier Console</li>
+                  <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("dashboard")}>Simulated Wallet States</li>
+                </ul>
+              </div>
+              {/* C4 Local verification */}
+              <div>
+                <h5 className="text-orange-600 font-bold mb-3.5 text-xs font-mono uppercase tracking-widest pl-1.5 border-l border-orange-500/30">Lagos Head Office</h5>
+                <p className="text-[11px] leading-relaxed text-slate-500 font-medium">
+                  Yaba, mainland district, LagosState, Nigeria. Support worldwide bookings via direct WhatsApp channels.
+                </p>
+              </div>
             </div>
-            {/* C2 Services */}
-            <div>
-              <h5 className="text-slate-900 font-bold mb-3.5 text-xs font-display">Our Platforms</h5>
-              <ul className="space-y-2 text-[11px] font-semibold text-slate-500">
-                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("dashboard")}>SaaS User Dashboard</li>
-                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("dashboard")}>OTP & Bypass SIMs Store</li>
-                <li className="hover:text-orange-650 transition-colors cursor-pointer" onClick={() => setActiveView("dashboard")}>Global Virtual Numbers DID</li>
-                <li className="hover:text-orange-650 transition-colors cursor-pointer" onClick={() => setActiveView("dashboard")}>Web Assets Collection</li>
-              </ul>
-            </div>
-            {/* C3 Resources */}
-            <div>
-              <h5 className="text-slate-900 font-bold mb-3.5 text-xs font-display">Interactive Tools</h5>
-              <ul className="space-y-2 text-[11px] font-semibold text-slate-500">
-                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("dashboard")}>SMS Verification Terminal</li>
-                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("dashboard")}>Accounts Storage Vault</li>
-                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("home")}>Interactive Carrier Console</li>
-                <li className="hover:text-orange-600 transition-colors cursor-pointer" onClick={() => setActiveView("dashboard")}>Simulated Wallet States</li>
-              </ul>
-            </div>
-            {/* C4 Local verification */}
-            <div>
-              <h5 className="text-orange-600 font-bold mb-3.5 text-xs font-mono uppercase tracking-widest pl-1.5 border-l border-orange-500/30">Lagos Head Office</h5>
-              <p className="text-[11px] leading-relaxed text-slate-500 font-medium">
-                Yaba, mainland district, LagosState, Nigeria. Support worldwide bookings via direct WhatsApp channels.
-              </p>
-            </div>
-          </div>
 
-          <div className="flex flex-col md:flex-row items-center justify-between text-[11px] text-slate-450 font-medium gap-4" id="compliance-text">
-            <span>&copy; {new Date().getFullYear()} Wavelet Digital Solutions. All Rights Reserved. Crafted by Al-Salam Sinner.</span>
-            <div className="flex items-center space-x-3 mt-3 md:mt-0">
-              <span className="flex items-center space-x-1 text-[10px] text-emerald-600 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded">
-                <ShieldCheck className="h-4 w-4 text-emerald-650" />
-                <span>SSL Active</span>
-              </span>
-              <button 
-                onClick={() => { setActiveView("admin"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-                className="flex items-center space-x-1 text-[10px] text-slate-600 bg-white border border-gray-200 px-2.5 py-1 rounded hover:text-orange-650 hover:border-orange-200 transition-colors cursor-pointer"
-              >
-                <span>Administrative Login</span>
-              </button>
+            <div className="flex flex-col md:flex-row items-center justify-between text-[11px] text-slate-450 font-medium gap-4" id="compliance-text">
+              <span>&copy; {new Date().getFullYear()} Wavelet Digital Solutions. All Rights Reserved. Crafted by Al-Salam Sinner.</span>
+              <div className="flex items-center space-x-3 mt-3 md:mt-0">
+                <span className="flex items-center space-x-1 text-[10px] text-emerald-600 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded">
+                  <ShieldCheck className="h-4 w-4 text-emerald-650" />
+                  <span>SSL Active</span>
+                </span>
+                <button 
+                  onClick={() => { setActiveView("admin"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                  className="flex items-center space-x-1 text-[10px] text-slate-600 bg-white border border-gray-200 px-2.5 py-1 rounded hover:text-orange-655 hover:border-orange-200 transition-colors cursor-pointer"
+                >
+                  <span>Administrative Login</span>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+      )}
 
       {/* Floating conversational trigger links */}
       <WhatsAppButton />
