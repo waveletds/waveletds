@@ -119,20 +119,24 @@ export default function App() {
     <div id="app-root-shell" className="min-h-screen bg-white text-slate-900 font-sans selection:bg-orange-600/10 selection:text-orange-600">
       
       {/* Top Banner Global Trust */}
-      <div id="top-alert-banner" className="bg-orange-50 border-b border-orange-100 text-center py-2 px-3 text-[10px] md:text-xs text-orange-850 font-medium">
-        <span className="inline-flex items-center space-x-1">
-          <Sparkles className="h-3.5 w-3.5 text-orange-600 animate-pulse" />
-          <span className="text-slate-700 font-bold">Nigeria Carrier Integration & Web Development Specialist</span>
-          <span className="text-orange-600 underline pl-1 cursor-pointer font-bold" onClick={() => setActiveView("dashboard")}>Launch Dynamic SIM & Virtual DIDs Workspace &rarr;</span>
-        </span>
-      </div>
+      {activeView !== "dashboard" && (
+        <div id="top-alert-banner" className="bg-orange-50 border-b border-orange-100 text-center py-2 px-3 text-[10px] md:text-xs text-orange-850 font-medium">
+          <span className="inline-flex items-center space-x-1">
+            <Sparkles className="h-3.5 w-3.5 text-orange-600 animate-pulse" />
+            <span className="text-slate-700 font-bold">Nigeria Carrier Integration & Web Development Specialist</span>
+            <span className="text-orange-600 underline pl-1 cursor-pointer font-bold" onClick={() => setActiveView("dashboard")}>Launch Dynamic SIM & Virtual DIDs Workspace &rarr;</span>
+          </span>
+        </div>
+      )}
 
       {/* Global Navigation Component */}
-      <Navbar 
-        activeView={activeView} 
-        setActiveView={setActiveView} 
-        openBookingModal={handleOpenGeneralQuote} 
-      />
+      {activeView !== "dashboard" && (
+        <Navbar 
+          activeView={activeView} 
+          setActiveView={setActiveView} 
+          openBookingModal={handleOpenGeneralQuote} 
+        />
+      )}
 
       {/* Main Page View Engine */}
       <main id="app-viewport" className="relative">
@@ -270,7 +274,7 @@ export default function App() {
         {/* SAAS & API HUB SHOPPING DASHBOARD VIEW */}
         {activeView === "dashboard" && (
           <div id="view-dashboard-container" className="animate-fade-in">
-            <DashboardStore />
+            <DashboardStore onBackToHome={() => setActiveView("home")} />
           </div>
         )}
 

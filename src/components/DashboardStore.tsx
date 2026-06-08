@@ -60,7 +60,11 @@ interface VirtualCard {
   balance: number; // in USD
 }
 
-export default function DashboardStore() {
+interface DashboardStoreProps {
+  onBackToHome?: () => void;
+}
+
+export default function DashboardStore({ onBackToHome }: DashboardStoreProps) {
   // --- STATE PERSISTENCE IN LOCALSTORAGE ---
   const [walletBalance, setWalletBalance] = useState<number>(() => {
     const saved = localStorage.getItem("buypoint_wallet_balance");
@@ -560,37 +564,11 @@ export default function DashboardStore() {
         )}
       </AnimatePresence>
 
-      {/* Modernized Header Welcome Row with Website Colors */}
-      <div className="bg-[#11131E] text-white pt-8 pb-20 px-4 border-b border-slate-800 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(249,115,22,0.12),transparent_50%)]" />
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
-          <div className="flex items-center space-x-3.5">
-            <div className="h-12 w-12 rounded-2xl bg-orange-600 flex items-center justify-center shadow-lg shadow-orange-950/20">
-              <Rocket className="h-6 w-6 text-white" />
-            </div>
-            <div>
-              <p className="text-orange-500 text-[10px] tracking-widest uppercase font-bold font-mono">Wavelet Digital Portal</p>
-              <h2 className="text-xl md:text-2xl font-extrabold tracking-tight flex items-center gap-2 mt-0.5">
-                <span>Hi, Daniel</span>
-                <span className="text-[9px] bg-orange-500/10 text-orange-400 border border-orange-500/20 px-2.5 py-0.5 rounded-full uppercase font-mono tracking-widest font-bold">Tier 3 VIP</span>
-              </h2>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <span className="text-[10px] bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono font-bold px-3 py-1.5 rounded-full uppercase tracking-wider animate-pulse inline-flex items-center space-x-1.5">
-              <span className="h-1.5 w-1.5 bg-emerald-400 rounded-full" />
-              <span>Wavelet Node Online</span>
-            </span>
-          </div>
-        </div>
-      </div>
-
       {/* Main Grid View */}
-      <div className="max-w-6xl mx-auto px-4 -mt-12 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 pb-12">
+      <div className="max-w-6xl mx-auto px-4 pt-8 md:pt-12 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 pb-12">
         
-        {/* LEFT COLUMN: Main Account, Wallet Control cards (Cols 1-4) */}
-        <div className="lg:col-span-4 space-y-6">
+        {/* LEFT COLUMN: Main Account, Wallet Control cards (Cols 1-4) - Sticky/Stagnant navigation menu */}
+        <div className="lg:col-span-4 space-y-6 lg:sticky lg:top-8 self-start">
           
           {/* Obsidian Sleek Wallet Card */}
           <div className="bg-[#151824] text-white rounded-[2rem] p-6.5 shadow-xl relative overflow-hidden border border-slate-800/80">
@@ -737,6 +715,19 @@ export default function DashboardStore() {
               </div>
               <span className="text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-bold font-mono">Aged</span>
             </button>
+
+            {onBackToHome && (
+              <button
+                onClick={onBackToHome}
+                className="w-full text-left px-3.5 py-2.5 rounded-xl flex items-center justify-between text-xs font-bold transition-all cursor-pointer text-slate-605 bg-slate-50 hover:bg-orange-50 hover:text-orange-650 border border-slate-100 hover:border-orange-200/50"
+              >
+                <div className="flex items-center space-x-2.5">
+                  <ArrowRight className="h-4 w-4 rotate-180 text-orange-600" />
+                  <span>Main Landing Page</span>
+                </div>
+                <span className="text-[10px] bg-slate-205 text-slate-600 px-2 py-0.5 rounded font-bold font-mono">Exit</span>
+              </button>
+            )}
           </div>
 
           {/* Simple active stats card */}
