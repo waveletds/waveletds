@@ -3,7 +3,8 @@ import {
   Plus, ArrowUpRight, ArrowDownLeft, Wallet, Smartphone, Database, Key, 
   Tv, Plug, Copy, Check, Eye, EyeOff, TrendingUp, History, User, Phone, 
   Share2, ShoppingBag, Laptop, CreditCard, Sparkles, Lock, RefreshCw, 
-  Search, Sliders, Info, Server, Layers, BarChart3, AppWindow, Flame, CheckCircle, Gift, ShieldAlert
+  Search, Sliders, Info, Server, Layers, BarChart3, AppWindow, Flame, CheckCircle, Gift, ShieldAlert,
+  ArrowRight, ShieldCheck, Mail, Globe, Star, Rocket
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -170,7 +171,7 @@ export default function DashboardStore() {
     setTimeout(() => setNotice(null), 4000);
   };
 
-  // --- TRANS ACTION SYSTEMS ---
+  // --- TRANSACTION SYSTEMS ---
   const handleDepositSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const amount = parseFloat(fundAmount);
@@ -282,7 +283,7 @@ export default function DashboardStore() {
             id: `OTP-${Math.floor(100000 + Math.random() * 900000)}`,
             sender: randomSender,
             code: freshOtp,
-            text: `Use verification code ${freshOtp} to authorized secure signup session of your ${num.service} profile setup. Do not share key credentials.`,
+            text: `Use verification code ${freshOtp} to authorize secure signup session of your ${num.service} profile setup. Do not share key credentials.`,
             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
           };
           return {
@@ -309,7 +310,7 @@ export default function DashboardStore() {
     const cost = Math.floor(qty * multiplier);
 
     if (walletBalance < cost) {
-      showNotice("error", `Order rejects. Cost is ₦${cost.toLocaleString()} but your balance is low.`);
+      showNotice("error", `Order rejected. Cost is ₦${cost.toLocaleString()} but your balance is low.`);
       return;
     }
 
@@ -418,7 +419,7 @@ export default function DashboardStore() {
 
       setTransactions(prev => [newTx, ...prev]);
       setIsCreatingCard(false);
-      showNotice("success", `Dollar Visa virtual card generated! Standard promo $10.00 credited.`);
+      showNotice("success", `Dollar virtual card generated! Standard promo $10.00 credited.`);
     }, 1500);
   };
 
@@ -537,7 +538,7 @@ export default function DashboardStore() {
   };
 
   return (
-    <section className="bg-[#FAFBFD] min-h-screen text-slate-900 pb-24 md:pb-12" id="fintech-dashboard-panel">
+    <section className="bg-slate-50 min-h-screen text-slate-900 pb-24 md:pb-12" id="fintech-dashboard-panel">
       {/* Visual global notifications */}
       <AnimatePresence>
         {notice && (
@@ -550,204 +551,208 @@ export default function DashboardStore() {
                 ? "bg-emerald-50 border-emerald-200 text-emerald-800"
                 : notice.type === "error" 
                 ? "bg-rose-50 border-rose-200 text-rose-800"
-                : "bg-blue-50 border-blue-200 text-blue-800"
+                : "bg-orange-50 border-orange-200 text-orange-850"
             }`}
           >
-            <div className={`h-2.5 w-2.5 rounded-full shrink-0 ${notice.type === "success" ? "bg-emerald-500" : notice.type === "error" ? "bg-rose-500" : "bg-blue-500"}`} />
+            <div className={`h-2.5 w-2.5 rounded-full shrink-0 ${notice.type === "success" ? "bg-emerald-500" : notice.type === "error" ? "bg-rose-500" : "bg-orange-500"}`} />
             <span className="font-bold flex-grow">{notice.msg}</span>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Hero Welcome Row */}
-      <div className="bg-gradient-to-b from-blue-550 via-[#2E3DFD] to-[#121AC3] text-white pt-8 pb-16 px-4 rounded-b-[2.5rem] shadow-lg shadow-blue-900/10">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center space-x-3">
-            <div className="h-12 w-12 rounded-2xl bg-white flex items-center justify-center font-black italic shadow-md">
-              <span className="text-[#2E3DFD] text-2xl">B</span>
+      {/* Modernized Header Welcome Row with Website Colors */}
+      <div className="bg-[#11131E] text-white pt-8 pb-20 px-4 border-b border-slate-800 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(249,115,22,0.12),transparent_50%)]" />
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+          <div className="flex items-center space-x-3.5">
+            <div className="h-12 w-12 rounded-2xl bg-orange-600 flex items-center justify-center shadow-lg shadow-orange-950/20">
+              <Rocket className="h-6 w-6 text-white" />
             </div>
             <div>
-              <p className="text-white/70 text-xs tracking-wider uppercase font-bold font-mono">Welcome Back to Buypoint</p>
-              <h2 className="text-2xl font-black tracking-tight flex items-center gap-1.5 leading-none">
+              <p className="text-orange-500 text-[10px] tracking-widest uppercase font-bold font-mono">Wavelet Digital Portal</p>
+              <h2 className="text-xl md:text-2xl font-extrabold tracking-tight flex items-center gap-2 mt-0.5">
                 <span>Hi, Daniel</span>
-                <span className="text-[11px] bg-white/20 px-2.5 py-1 rounded-full uppercase font-mono tracking-widest font-bold">Tier 3</span>
+                <span className="text-[9px] bg-orange-500/10 text-orange-400 border border-orange-500/20 px-2.5 py-0.5 rounded-full uppercase font-mono tracking-widest font-bold">Tier 3 VIP</span>
               </h2>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-xs bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-full uppercase tracking-wider animate-pulse inline-flex items-center space-x-1">
-              <span className="h-1.5 w-1.5 bg-white rounded-full" />
-              <span>FinHub Terminal Active</span>
+            <span className="text-[10px] bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono font-bold px-3 py-1.5 rounded-full uppercase tracking-wider animate-pulse inline-flex items-center space-x-1.5">
+              <span className="h-1.5 w-1.5 bg-emerald-400 rounded-full" />
+              <span>Wavelet Node Online</span>
             </span>
           </div>
         </div>
       </div>
 
       {/* Main Grid View */}
-      <div className="max-w-6xl mx-auto px-4 -mt-10 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="max-w-6xl mx-auto px-4 -mt-12 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 pb-12">
         
         {/* LEFT COLUMN: Main Account, Wallet Control cards (Cols 1-4) */}
         <div className="lg:col-span-4 space-y-6">
           
-          {/* Replica Blue Premium Card */}
-          <div className="bg-gradient-to-br from-[#2E3DFD] via-[#1F2BEA] to-[#121AC3] text-white rounded-[2.2rem] p-6 shadow-xl relative overflow-hidden border border-blue-400/25">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl pointer-events-none" />
-            <div className="absolute -bottom-10 -left-10 w-28 h-28 bg-blue-300/10 rounded-full blur-xl pointer-events-none" />
+          {/* Obsidian Sleek Wallet Card */}
+          <div className="bg-[#151824] text-white rounded-[2rem] p-6.5 shadow-xl relative overflow-hidden border border-slate-800/80">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-orange-600/5 rounded-full blur-2xl pointer-events-none" />
+            <div className="absolute -bottom-10 -left-10 w-28 h-28 bg-orange-600/5 rounded-full blur-xl pointer-events-none" />
 
             <div className="flex items-center justify-between font-sans">
               <div 
-                className="flex items-center space-x-1.5 cursor-pointer hover:bg-white/10 px-2 py-0.5 rounded-lg transition-colors"
+                className="flex items-center space-x-1.5 cursor-pointer hover:bg-white/5 px-2 py-1 rounded-lg transition-colors text-slate-400 hover:text-white"
                 onClick={() => setIsBalanceVisible(!isBalanceVisible)}
               >
-                <span className="text-xs font-semibold text-blue-100 tracking-wide uppercase">TOTAL WALLET BALANCE</span>
-                {isBalanceVisible ? <Eye className="h-3.5 w-3.5 text-blue-200" /> : <EyeOff className="h-3.5 w-3.5 text-blue-200" />}
+                <span className="text-[10px] font-bold tracking-wider uppercase">WALLET BALANCE</span>
+                {isBalanceVisible ? <Eye className="h-3.5 w-3.5" /> : <EyeOff className="h-3.5 w-3.5" />}
               </div>
-              <span className="text-xs uppercase font-sans font-black text-white/95 tracking-wide">Paga Bank</span>
+              <span className="text-[10px] bg-orange-500/10 border border-orange-500/20 text-orange-400 px-2 py-0.5 rounded font-mono font-bold uppercase tracking-wider">Providus</span>
             </div>
 
-            <div className="mt-3">
-              <h3 className="text-3xl font-black font-sans tracking-tight">
+            <div className="mt-3.5">
+              <h3 className="text-3xl font-extrabold tracking-tight text-white font-mono">
                 {isBalanceVisible ? `₦${walletBalance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "₦ ••••••••"}
               </h3>
             </div>
 
-            <div className="mt-4 pt-4 border-t border-white/15 flex items-center justify-between text-xs">
+            <div className="mt-5 pt-4.5 border-t border-slate-800/80 flex items-center justify-between text-xs">
               <div>
-                <span className="text-[10px] text-blue-200 block uppercase font-bold tracking-wider leading-none">Virtual Account</span>
-                <span className="font-mono text-sm font-bold tracking-wider mt-1 block">1925038721</span>
+                <span className="text-[9px] text-slate-500 block uppercase font-bold tracking-wider leading-none">Virtual Inflow Account</span>
+                <span className="font-mono text-sm font-extrabold text-slate-200 tracking-wider mt-1 block">1925038721</span>
               </div>
               
               <button
                 onClick={() => {
                   navigator.clipboard.writeText("1925038721");
                   setIsCopied(true);
-                  showNotice("success", "Fintech Payment Account Reference copied!");
+                  showNotice("success", "Bank Account Number copied!");
                   setTimeout(() => setIsCopied(false), 2000);
                 }}
-                className="p-2 bg-white/10 hover:bg-white/25 rounded-xl transition-all cursor-pointer text-white/90"
-                title="Copy virtual reference account number"
+                className="p-2.5 bg-slate-800/80 hover:bg-slate-750 border border-slate-700/50 rounded-xl transition-all cursor-pointer text-slate-300 hover:text-white"
+                title="Copy account reference number"
               >
                 {isCopied ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
               </button>
             </div>
 
-            {/* Micro Quick actions inside card */}
-            <div className="grid grid-cols-2 gap-3.5 mt-5 font-sans">
+            {/* Quick action triggers */}
+            <div className="grid grid-cols-2 gap-3.5 mt-5">
               <button
                 onClick={() => setShowFundModal(true)}
-                className="bg-white text-[#2E3DFD] font-bold rounded-2xl py-2.5 px-3 flex items-center justify-center space-x-1 hover:bg-blue-50 active:scale-95 transition-all text-[11px] leading-none cursor-pointer"
+                className="bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-xl py-3 px-3 flex items-center justify-center space-x-1.5 active:scale-95 transition-all text-xs cursor-pointer shadow-md shadow-orange-950/20"
               >
-                <Plus className="h-3.5 w-3.5" />
-                <span>Deposit Money</span>
+                <Plus className="h-4 w-4" />
+                <span>Top Up Wallet</span>
               </button>
 
               <button
                 onClick={() => setShowWithdrawModal(true)}
-                className="bg-blue-650 text-white font-bold rounded-2xl py-2.5 px-3 flex items-center justify-center space-x-1 hover:bg-blue-750 active:scale-95 transition-all text-[11px] leading-none cursor-pointer border border-blue-400/30"
+                className="bg-slate-800 hover:bg-slate-750 text-slate-200 font-bold rounded-xl py-3 px-3 flex items-center justify-center space-x-1.5 active:scale-95 transition-all text-xs cursor-pointer border border-slate-700/30"
               >
-                <ArrowUpRight className="h-3.5 w-3.5 text-blue-200" />
+                <ArrowUpRight className="h-4 w-4 text-slate-400" />
                 <span>Withdraw Cash</span>
               </button>
             </div>
           </div>
 
-          {/* Quick Segment Selector Sidebar (Tablet/Desk) */}
-          <div className="bg-white rounded-3xl p-4 border border-slate-150 shadow-xs space-y-1.5 font-sans">
-            <span className="text-[10px] uppercase font-bold text-slate-400 tracking-widest block px-3.5 mb-2">SERVICE DIRECTORIES</span>
+          {/* Simple and Modern Sidebar directories (Tablet/Desk) */}
+          <div className="bg-white rounded-2xl p-4 border border-slate-150 shadow-xs space-y-1">
+            <span className="text-[9px] uppercase font-bold text-slate-400 tracking-widest block px-3 py-1.5">SERVICE DIRECTORIES</span>
             
             <button
               onClick={() => setActiveSegment("services")}
-              className={`w-full text-left px-3.5 py-3 rounded-2xl flex items-center justify-between text-xs font-black transition-all cursor-pointer ${
-                activeSegment === "services" ? "bg-blue-50 text-[#2E3DFD]" : "text-slate-650 hover:bg-slate-50"
+              className={`w-full text-left px-3.5 py-2.5 rounded-xl flex items-center justify-between text-xs font-bold transition-all cursor-pointer ${
+                activeSegment === "services" ? "bg-orange-50 text-orange-600 border-l-2 border-orange-500 pl-3.5" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
               }`}
             >
               <div className="flex items-center space-x-2.5">
-                <Layers className="h-4.5 w-4.5" />
-                <span>Dashboard Overview</span>
+                <Layers className="h-4 w-4" />
+                <span>Finance Dashboard</span>
               </div>
-              <span className="text-[10px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded font-mono font-bold">Fast</span>
+              <span className="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono font-bold">Main</span>
             </button>
 
             <button
               onClick={() => setActiveSegment("numbers")}
-              className={`w-full text-left px-3.5 py-3 rounded-2xl flex items-center justify-between text-xs font-black transition-all cursor-pointer ${
-                activeSegment === "numbers" ? "bg-blue-50 text-[#2E3DFD]" : "text-slate-650 hover:bg-slate-50"
+              className={`w-full text-left px-3.5 py-2.5 rounded-xl flex items-center justify-between text-xs font-bold transition-all cursor-pointer ${
+                activeSegment === "numbers" ? "bg-orange-50 text-orange-600 border-l-2 border-orange-500 pl-3.5" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
               }`}
             >
               <div className="flex items-center space-x-2.5">
-                <Phone className="h-4.5 w-4.5" />
-                <span>Buy SIM Numbers & OTP</span>
+                <Phone className="h-4 w-4" />
+                <span>Buy Number / Get OTP</span>
               </div>
               {leasedNumbers.length > 0 && (
-                <span className="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold font-mono">{leasedNumbers.length}</span>
+                <span className="text-[10px] bg-orange-600 text-white px-2 py-0.5 rounded-full font-bold font-mono">{leasedNumbers.length}</span>
               )}
             </button>
 
             <button
               onClick={() => setActiveSegment("card")}
-              className={`w-full text-left px-3.5 py-3 rounded-2xl flex items-center justify-between text-xs font-black transition-all cursor-pointer ${
-                activeSegment === "card" ? "bg-blue-50 text-[#2E3DFD]" : "text-slate-650 hover:bg-slate-50"
+              className={`w-full text-left px-3.5 py-2.5 rounded-xl flex items-center justify-between text-xs font-bold transition-all cursor-pointer ${
+                activeSegment === "card" ? "bg-orange-50 text-orange-600 border-l-2 border-orange-500 pl-3.5" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
               }`}
             >
               <div className="flex items-center space-x-2.5">
-                <CreditCard className="h-4.5 w-4.5" />
-                <span>Dollar Virtual Card</span>
+                <CreditCard className="h-4 w-4" />
+                <span>USD Virtual Card</span>
               </div>
-              <span className="text-[10px] bg-indigo-100 text-[#2E3DFD] px-2 py-0.5 rounded font-mono font-bold">USD</span>
+              <span className="text-[9px] bg-orange-500/10 text-orange-600 px-1.5 py-0.5 rounded font-mono font-bold">USD</span>
             </button>
 
             <button
               onClick={() => setActiveSegment("vtu")}
-              className={`w-full text-left px-3.5 py-3 rounded-2xl flex items-center justify-between text-xs font-black transition-all cursor-pointer ${
-                activeSegment === "vtu" ? "bg-blue-50 text-[#2E3DFD]" : "text-slate-650 hover:bg-slate-50"
+              className={`w-full text-left px-3.5 py-2.5 rounded-xl flex items-center justify-between text-xs font-bold transition-all cursor-pointer ${
+                activeSegment === "vtu" ? "bg-orange-50 text-orange-600 border-l-2 border-orange-500 pl-3.5" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
               }`}
             >
               <div className="flex items-center space-x-2.5">
-                <Smartphone className="h-4.5 w-4.5" />
-                <span>VTU Telecom Bundles</span>
+                <Smartphone className="h-4 w-4" />
+                <span>Telecom VTU Services</span>
               </div>
-              <span className="text-[9px] text-[#2E3DFD] uppercase font-black tracking-widest font-mono">ALL NET</span>
+              <span className="text-[9px] text-slate-400 font-mono">Naija</span>
             </button>
 
             <button
               onClick={() => setActiveSegment("smm")}
-              className={`w-full text-left px-3.5 py-3 rounded-2xl flex items-center justify-between text-xs font-black transition-all cursor-pointer ${
-                activeSegment === "smm" ? "bg-blue-50 text-[#2E3DFD]" : "text-slate-650 hover:bg-slate-50"
+              className={`w-full text-left px-3.5 py-2.5 rounded-xl flex items-center justify-between text-xs font-bold transition-all cursor-pointer ${
+                activeSegment === "smm" ? "bg-orange-50 text-orange-600 border-l-2 border-orange-500 pl-3.5" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
               }`}
             >
               <div className="flex items-center space-x-2.5">
-                <Share2 className="h-4.5 w-4.5" />
-                <span>Boost SMM Panel & Accounts</span>
+                <Share2 className="h-4 w-4" />
+                <span>Boost Social Media</span>
               </div>
-              <span className="text-[9px] hover:text-[#2E3DFD] text-slate-400 font-bold uppercase tracking-wider font-mono">GROWTH</span>
+              <span className="text-[9px] text-slate-400 font-mono">SMM</span>
             </button>
 
             <button
               onClick={() => setActiveSegment("websites")}
-              className={`w-full text-left px-3.5 py-3 rounded-2xl flex items-center justify-between text-xs font-black transition-all cursor-pointer ${
-                activeSegment === "websites" ? "bg-blue-50 text-[#2E3DFD]" : "text-slate-650 hover:bg-slate-50"
+              className={`w-full text-left px-3.5 py-2.5 rounded-xl flex items-center justify-between text-xs font-bold transition-all cursor-pointer ${
+                activeSegment === "websites" ? "bg-orange-50 text-orange-600 border-l-2 border-orange-500 pl-3.5" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
               }`}
             >
               <div className="flex items-center space-x-2.5">
-                <Laptop className="h-4.5 w-4.5" />
-                <span>Premade Website Mall</span>
+                <Laptop className="h-4 w-4" />
+                <span>Buy Websites Store</span>
               </div>
-              <span className="text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-bold">99% Ready</span>
+              <span className="text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-bold font-mono">Aged</span>
             </button>
           </div>
 
-          {/* Quick Metrics */}
-          <div className="bg-gradient-to-r from-emerald-500/5 to-teal-500/5 rounded-3xl p-5 border border-emerald-500/10 text-slate-800 font-sans space-y-4">
-            <h4 className="text-xs font-extrabold text-emerald-800 uppercase tracking-widest">Active System Pipeline</h4>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <span className="text-[10px] text-slate-450 block uppercase font-bold">API Gateways</span>
-                <span className="text-lg font-black text-slate-900 block mt-0.5">MTN, Airtel, Wema</span>
+          {/* Simple active stats card */}
+          <div className="bg-slate-100 rounded-2xl p-5 border border-slate-200/60 font-sans">
+            <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-wider mb-2.5">Live Integration Pipeline</h4>
+            <div className="space-y-2 text-xs">
+              <div className="flex justify-between">
+                <span className="text-slate-500">Carrier Gateways:</span>
+                <span className="font-bold text-slate-800">MTN, Airtel, Wema</span>
               </div>
-              <div>
-                <span className="text-[10px] text-slate-450 block uppercase font-bold">SIM Pools</span>
-                <span className="text-lg font-black text-slate-900 block mt-0.5">14,240 Online</span>
+              <div className="flex justify-between">
+                <span className="text-slate-500">Virtual SIM Pool:</span>
+                <span className="font-bold text-emerald-600 flex items-center gap-1">
+                  <span className="h-1.5 w-1.5 bg-emerald-500 rounded-full animate-ping" />
+                  <span>14,240 Online</span>
+                </span>
               </div>
             </div>
           </div>
@@ -761,119 +766,94 @@ export default function DashboardStore() {
           {activeSegment === "services" && (
             <div className="space-y-6 animate-fade-in" id="services-grid-hub">
               
-              {/* Quick interactive shortcuts layout */}
-              <div className="bg-[#EDF2FE] border border-blue-105 rounded-[1.8rem] p-5">
-                <div className="flex justify-between items-center mb-3">
-                  <h4 className="text-xs font-black text-blue-900 tracking-widest uppercase">Fintech Hub Integrations</h4>
-                  <span className="text-[10px] font-mono font-bold text-blue-600 uppercase tracking-wider">Nigeria Direct Channels</span>
-                </div>
+              {/* Quick shortcut grid */}
+              <div className="bg-orange-50 border border-orange-100/80 rounded-2xl p-5">
+                <h4 className="text-[10px] font-black text-orange-800 tracking-wider uppercase mb-3.5">DIRECT FINANCIAL SERVICE PIPELINES</h4>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
                   <div 
                     onClick={() => setActiveSegment("numbers")}
-                    className="bg-white p-3.5 rounded-2xl flex flex-col items-center justify-center cursor-pointer border hover:border-blue-400 hover:scale-[1.02] shadow-xs transition-all active:scale-95"
+                    className="bg-white p-4 rounded-xl flex flex-col items-center justify-center cursor-pointer border border-slate-150 hover:border-orange-200 shadow-xs transition-all active:scale-95"
                   >
-                    <Smartphone className="h-6.5 w-6.5 text-[#2E3DFD] mb-1" />
-                    <span className="text-[11px] font-black tracking-tight text-[#1A255B]">Buy Numbers</span>
+                    <Smartphone className="h-6 w-6 text-orange-600 mb-1.5" />
+                    <span className="text-[11px] font-bold text-slate-800">Buy Number</span>
                   </div>
                   <div 
                     onClick={() => setActiveSegment("vtu")}
-                    className="bg-white p-3.5 rounded-2xl flex flex-col items-center justify-center cursor-pointer border hover:border-blue-400 hover:scale-[1.02] shadow-xs transition-all active:scale-95"
+                    className="bg-white p-4 rounded-xl flex flex-col items-center justify-center cursor-pointer border border-slate-150 hover:border-orange-200 shadow-xs transition-all active:scale-95"
                   >
-                    <RefreshCw className="h-6.5 w-6.5 text-[#2E3DFD] mb-1" />
-                    <span className="text-[11px] font-black tracking-tight text-[#1A255B]">VTU Services</span>
+                    <RefreshCw className="h-6 w-6 text-orange-600 mb-1.5" />
+                    <span className="text-[11px] font-bold text-slate-800">VTU Topup</span>
                   </div>
                   <div 
                     onClick={() => setActiveSegment("card")}
-                    className="bg-white p-3.5 rounded-2xl flex flex-col items-center justify-center cursor-pointer border hover:border-blue-400 hover:scale-[1.02] shadow-xs transition-all active:scale-95"
+                    className="bg-white p-4 rounded-xl flex flex-col items-center justify-center cursor-pointer border border-slate-150 hover:border-orange-200 shadow-xs transition-all active:scale-95"
                   >
-                    <CreditCard className="h-6.5 w-6.5 text-[#2E3DFD] mb-1" />
-                    <span className="text-[11px] font-black tracking-tight text-[#1A255B]">USD Card</span>
+                    <CreditCard className="h-6 w-6 text-orange-600 mb-1.5" />
+                    <span className="text-[11px] font-bold text-slate-800">Dollar Card</span>
                   </div>
                   <div 
                     onClick={() => setActiveSegment("smm")}
-                    className="bg-white p-3.5 rounded-2xl flex flex-col items-center justify-center cursor-pointer border hover:border-blue-400 hover:scale-[1.02] shadow-xs transition-all active:scale-95"
+                    className="bg-white p-4 rounded-xl flex flex-col items-center justify-center cursor-pointer border border-slate-150 hover:border-orange-200 shadow-xs transition-all active:scale-95"
                   >
-                    <Share2 className="h-6.5 w-6.5 text-[#2E3DFD] mb-1" />
-                    <span className="text-[11px] font-black tracking-tight text-[#1A255B]">Boost SMM</span>
+                    <Share2 className="h-6 w-6 text-orange-600 mb-1.5" />
+                    <span className="text-[11px] font-bold text-slate-800">Social Boost</span>
                   </div>
                 </div>
               </div>
 
-              {/* Promotional Display Banner replicating VR goggles elements */}
-              <div className="bg-[#2E3DFD] rounded-[2rem] text-white p-6 shadow-md overflow-hidden relative">
-                <div className="absolute top-0 right-0 w-36 h-36 bg-white/5 rounded-full blur-xl pointer-events-none" />
-                <div className="flex flex-col md:flex-row items-center justify-between gap-5 relative z-10">
-                  <div className="space-y-2 text-center md:text-left">
-                    <h3 className="text-xl font-black max-w-[280px] tracking-tight leading-tight">Fund your betting or shopping Account</h3>
-                    <p className="text-[11px] font-medium text-white/85 max-w-[250px]">Instant deposit and funding of major local and global entertainment platforms.</p>
-                    <div className="pt-2 flex items-center justify-center md:justify-start gap-2 text-[10px] font-bold">
-                      <span className="bg-black/30 border border-white/10 p-1.5 rounded-lg flex items-center gap-1.5">
-                        <span className="text-[9px] italic text-white bg-blue-600 px-1 rounded">B</span>
-                        <span>Buypoint.com.ng</span>
-                      </span>
-                      <span className="bg-black/30 border border-white/10 p-1.5 rounded-lg flex items-center gap-1 text-emerald-400">
-                        <span>▶</span>
-                        <span>Google Play</span>
-                      </span>
-                    </div>
+              {/* Sophisticated helper banner matching brand */}
+              <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-2xl p-5 shadow-sm relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-xl pointer-events-none" />
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 relative z-10 text-center sm:text-left">
+                  <div>
+                    <h4 className="text-sm font-extrabold tracking-tight">Need custom integrations or bespoke scripts?</h4>
+                    <p className="text-[10px] text-white/80 mt-1 max-w-md">Connect directly with Wavelet Digital's developers to request specialized custom backends, APIs, or Google map optimization bundles.</p>
                   </div>
-
-                  <div className="relative w-44 h-24 flex items-center justify-center shrink-0">
-                    <div className="absolute w-20 h-20 rounded-full bg-orange-500/20 blur-xl animate-pulse" />
-                    <div className="absolute left-2 text-[5px] font-mono font-bold tracking-widest text-[#2E3DFD] h-18 w-10 bg-slate-950 border border-white/50 rounded-lg transform -rotate-12 flex flex-col justify-between p-1 shadow-md">
-                      <div className="h-0.5 w-3 bg-white/45 rounded mx-auto" />
-                      <div className="grow flex items-center justify-center text-center leading-none text-[6px]">BUY</div>
-                      <div className="h-1 w-1 bg-white/30 rounded-full mx-auto" />
-                    </div>
-
-                    {/* Fun silhouette VR simulator helmet */}
-                    <div className="grow absolute right-2 h-20 w-24 border border-indigo-400 rounded-xl bg-[#222EBF] shadow-lg flex flex-col justify-around p-2 text-center select-none transform rotate-3 scale-95">
-                      <div className="h-2 w-full flex justify-around gap-1">
-                        <span className="h-2 w-6 bg-blue-300 rounded-sm" />
-                        <span className="h-2 w-6 bg-blue-300 rounded-sm" />
-                      </div>
-                      <span className="text-[9px] font-extrabold uppercase tracking-wide">VR Goggles Terminal</span>
-                      <span className="text-[8px] font-mono text-white/70">Reflect virtual simulator active</span>
-                    </div>
-                  </div>
+                  <a
+                    href="https://wa.me/2348012345678"
+                    target="_blank"
+                    className="bg-white text-orange-600 text-xs font-bold px-4 py-2 rounded-xl shadow-xs shrink-0 cursor-pointer hover:bg-slate-50 transition-all inline-flex items-center gap-1.5"
+                  >
+                    <span>Developer Support</span>
+                    <ArrowRight className="h-3 w-3" />
+                  </a>
                 </div>
               </div>
 
               {/* TRANSACTIONS SECTION */}
-              <div className="bg-white rounded-3xl p-6 border border-slate-150 shadow-xs">
-                <div className="flex justify-between items-center mb-5 font-sans">
+              <div className="bg-white rounded-2xl p-5 border border-slate-150 shadow-xs">
+                <div className="flex justify-between items-center mb-4.5">
                   <div className="flex items-center space-x-2">
-                    <History className="h-4.5 w-4.5 text-[#2E3DFD]" />
-                    <h3 className="text-sm font-black text-slate-900 uppercase">Interactive Ledger Logs</h3>
+                    <History className="h-4.5 w-4.5 text-orange-600" />
+                    <h3 className="text-xs font-black text-slate-900 uppercase">Recent Transaction Accounts Ledger</h3>
                   </div>
-                  <span className="text-[10px] bg-slate-100 text-slate-800 font-bold px-2.5 py-1 rounded font-mono">Live Sync</span>
+                  <span className="text-[9px] bg-orange-50 text-orange-600 border border-orange-100 font-bold px-2 py-0.5 rounded uppercase font-mono">Verified Live</span>
                 </div>
 
-                <div className="max-h-[300px] overflow-y-auto space-y-3.5 pr-1.5 scrollbar-thin">
+                <div className="max-h-[300px] overflow-y-auto space-y-2.5 pr-1.5 scrollbar-thin">
                   {transactions.length === 0 ? (
                     <div className="text-center py-8 text-xs text-slate-400">No transactions recorded yet in this layout state.</div>
                   ) : (
                     transactions.map((tx) => (
-                      <div key={tx.id} className="flex justify-between items-center p-3.5 bg-slate-50 border border-slate-100 rounded-2xl relative overflow-hidden text-xs">
-                        {/* Soft visual type indicator bar on the left */}
-                        <div className={`absolute top-0 bottom-0 left-0 w-1 ${tx.type === 'deposit' ? 'bg-emerald-500' : tx.type === 'withdrawal' ? 'bg-amber-500' : 'bg-blue-600'}`} />
+                      <div key={tx.id} className="flex justify-between items-center p-3.5 bg-slate-50 border border-slate-100 rounded-xl relative overflow-hidden text-xs">
+                        <div className={`absolute top-0 bottom-0 left-0 w-1 ${tx.type === 'deposit' ? 'bg-emerald-500' : tx.type === 'withdrawal' ? 'bg-amber-500' : 'bg-orange-600'}`} />
                         
-                        <div className="flex items-center space-x-3 pl-1">
-                          <div className={`p-2 rounded-xl flex items-center justify-center shrink-0 ${tx.type === 'deposit' ? 'bg-emerald-50/80 text-emerald-600' : tx.type === 'withdrawal' ? 'bg-amber-50/80 text-amber-600' : 'bg-blue-50/80 text-blue-600'}`}>
-                            {tx.type === 'deposit' ? <ArrowDownLeft className="h-4.5 w-4.5" /> : tx.type === 'withdrawal' ? <ArrowUpRight className="h-4.5 w-4.5" /> : <CreditCard className="h-4.5 w-4.5" />}
+                        <div className="flex items-center space-x-3.5 pl-1.5">
+                          <div className={`p-2 rounded-xl flex items-center justify-center shrink-0 ${tx.type === 'deposit' ? 'bg-emerald-50 text-emerald-600' : tx.type === 'withdrawal' ? 'bg-amber-50 text-amber-650' : 'bg-orange-50 text-orange-600'}`}>
+                            {tx.type === 'deposit' ? <ArrowDownLeft className="h-4 w-4" /> : tx.type === 'withdrawal' ? <ArrowUpRight className="h-4 w-4" /> : <CreditCard className="h-4 w-4" />}
                           </div>
                           <div>
-                            <span className="font-bold text-slate-900 block leading-tight">{tx.label}</span>
-                            <span className="text-[10px] text-slate-400 block mt-0.5">{tx.date} • {tx.id}</span>
+                            <span className="font-bold text-slate-800 block leading-tight">{tx.label}</span>
+                            <span className="text-[10px] text-slate-400 block mt-0.5 font-mono">{tx.date} • {tx.id}</span>
                           </div>
                         </div>
 
                         <div className="text-right">
-                          <span className={`font-mono font-bold block ${tx.type === 'deposit' ? 'text-emerald-600' : 'text-slate-850'}`}>
+                          <span className={`font-mono font-bold block ${tx.type === 'deposit' ? 'text-emerald-600' : 'text-slate-800'}`}>
                             {tx.type === 'deposit' ? `+₦${tx.amount.toLocaleString()}` : `-₦${tx.amount.toLocaleString()}`}
                           </span>
-                          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-blue-50 text-blue-700 mt-1 uppercase tracking-wider">
-                            Verified
+                          <span className="inline-flex items-center px-1.5 rounded text-[8px] font-mono font-bold bg-emerald-50 text-emerald-700 mt-1 uppercase">
+                            Success
                           </span>
                         </div>
                       </div>
@@ -888,41 +868,41 @@ export default function DashboardStore() {
           {/* DYNAMIC SEGMENT: NUMBERS & OTP BYPASS */}
           {activeSegment === "numbers" && (
             <div className="space-y-6 animate-fade-in" id="numbers-gateway-panel">
-              <div className="bg-white rounded-3xl p-6 border border-slate-150 shadow-xs">
-                <div className="flex items-center space-x-2.5 mb-2.5 border-b border-slate-100 pb-3">
-                  <Phone className="h-5 w-5 text-[#2E3DFD]" />
+              <div className="bg-white rounded-2xl p-5 border border-slate-150 shadow-xs">
+                <div className="flex items-center space-x-2 border-b border-slate-100 pb-3 mb-4.5">
+                  <Phone className="h-4.5 w-4.5 text-orange-600" />
                   <div>
-                    <h3 className="text-sm font-black text-slate-900 uppercase">Lease Global Virtual Lines & Receive OTP</h3>
-                    <p className="text-[11px] text-slate-450 mt-0.5">Rent fresh, private foreign-sim verification pipelines with fully simulated text displays.</p>
+                    <h3 className="text-xs font-black text-slate-900 uppercase">Lease Global Virtual Lines & Receive OTP</h3>
+                    <p className="text-[10px] text-slate-400 mt-0.5">Rent private USA, UK, or Canada carrier lines to capture registration OTP validation codes instantly.</p>
                   </div>
                 </div>
 
-                <form onSubmit={handleRentNumber} className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-slate-50 p-4.5 rounded-2xl relative border border-slate-100">
+                <form onSubmit={handleRentNumber} className="grid grid-cols-1 md:grid-cols-3 gap-4.5 bg-slate-50 p-4.5 rounded-xl border border-slate-150/60">
                   <div className="space-y-1">
-                    <label className="text-[10px] uppercase font-bold text-slate-500 block">Target SIM Host Country</label>
+                    <label className="text-[9px] uppercase font-bold text-slate-450 block">Target SIM Host Country</label>
                     <select
                       value={numCountry}
                       onChange={(e) => setNumCountry(e.target.value)}
-                      className="w-full text-xs rounded-xl border border-slate-200 bg-white p-3 text-slate-800 font-bold focus:border-blue-500 focus:outline-none"
+                      className="w-full text-xs rounded-lg border border-slate-200 bg-white p-2.5 text-slate-700 font-bold focus:border-orange-500 focus:ring-1 focus:ring-orange-500/20 focus:outline-none"
                     >
-                      <option value="USA">USA Pool (₦1,800/month)</option>
+                      <option value="USA">USA Sim Pools (₦1,800/month)</option>
                       <option value="UK">United Kingdom (₦2,200/month)</option>
-                      <option value="Canada">Canada Gate (₦3,500/month)</option>
+                      <option value="Canada">Canada DIDs (₦3,500/month)</option>
                     </select>
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[10px] uppercase font-bold text-slate-500 block">Intended Services</label>
+                    <label className="text-[9px] uppercase font-bold text-slate-455 block">Intended Verification Service</label>
                     <select
                       value={numService}
                       onChange={(e) => setNumService(e.target.value)}
-                      className="w-full text-xs rounded-xl border border-slate-200 bg-white p-3 text-slate-800 font-bold focus:border-blue-500 focus:outline-none"
+                      className="w-full text-xs rounded-lg border border-slate-200 bg-white p-2.5 text-slate-700 font-bold focus:border-orange-500 focus:ring-1 focus:ring-orange-500/20 focus:outline-none"
                     >
-                      <option value="WhatsApp">WhatsApp OTP Bypasser</option>
-                      <option value="Telegram">Telegram Carrier Auth</option>
-                      <option value="Google Hub">Google My Business Verify</option>
-                      <option value="Facebook">Meta/Facebook Account</option>
-                      <option value="TikTok">TikTok Creator Hub</option>
+                      <option value="WhatsApp">WhatsApp OTP Verification</option>
+                      <option value="Telegram">Telegram Login Code</option>
+                      <option value="Google Hub">Google Business Profile</option>
+                      <option value="Facebook">Meta FaceBook Auth</option>
+                      <option value="TikTok">TikTok Creator Portal</option>
                     </select>
                   </div>
 
@@ -930,43 +910,42 @@ export default function DashboardStore() {
                     <button
                       type="submit"
                       disabled={isGeneratingNumber}
-                      className="w-full bg-[#2E3DFD] hover:bg-blue-700 text-white font-bold rounded-xl py-3 text-xs shadow-md shadow-blue-500/10 cursor-pointer hover:scale-[1.01] transition-all disabled:opacity-50"
+                      className="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg py-3 text-xs shadow-md shadow-orange-950/10 cursor-pointer hover:scale-[1.01] transition-all disabled:opacity-50"
                     >
-                      {isGeneratingNumber ? "Contacting Pool SIM..." : "Lease Instantly"}
+                      {isGeneratingNumber ? "Contacting Pool SIM..." : "Lease Line Instantly"}
                     </button>
                   </div>
                 </form>
               </div>
 
               {/* Sub-block: Active Numbers Display & Logs */}
-              <div className="bg-white rounded-3xl p-6 border border-slate-150 shadow-xs space-y-4">
-                <h4 className="text-xs font-extrabold text-slate-900 uppercase tracking-widest border-l-2 border-[#2E3DFD] pl-2 leading-none">Your Private Active Leases</h4>
+              <div className="bg-white rounded-2xl p-5 border border-slate-150 shadow-xs space-y-4">
+                <h4 className="text-[10px] font-black text-slate-900 uppercase tracking-widest border-l-2 border-orange-500 pl-2 leading-none">Your Active Sim Lines</h4>
                 
                 {leasedNumbers.length === 0 ? (
-                  <div className="text-center py-10 bg-slate-50/50 rounded-2xl border border-dashed border-slate-205 text-xs text-slate-500 space-y-2">
-                    <Info className="h-8 w-8 text-[#2E3DFD]/30 mx-auto" />
+                  <div className="text-center py-10 bg-slate-50 rounded-xl border border-dashed border-slate-200 text-xs text-slate-500 space-y-2">
+                    <Info className="h-7 w-7 text-orange-500/30 mx-auto" />
                     <p className="font-bold">No leased active DIDs found.</p>
-                    <p className="text-[11px] text-slate-400">Lease a line above to simulate target OTP text deliveries live!</p>
+                    <p className="text-[10px] text-slate-400">Rent a line above to simulate target OTP text deliveries live!</p>
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {leasedNumbers.map((num) => (
-                      <div key={num.id} className="bg-slate-50 border border-slate-150 rounded-2xl p-4 flex flex-col justify-between">
-                        
+                      <div key={num.id} className="bg-slate-50 border border-slate-150 rounded-xl p-4 flex flex-col justify-between">
                         <div>
-                          <div className="flex justify-between items-center bg-slate-200/50 p-2 rounded-xl mb-3">
-                            <span className="text-[11px] font-black text-[#1A255B]">{num.country} • {num.service}</span>
-                            <span className="text-[9px] bg-emerald-100 text-emerald-800 font-mono font-bold px-2 py-0.5 rounded uppercase">ACTIVE</span>
+                          <div className="flex justify-between items-center bg-slate-200/40 p-2 rounded-xl mb-3">
+                            <span className="text-[10px] font-bold text-slate-700">{num.country} • {num.service}</span>
+                            <span className="text-[8px] bg-emerald-100 text-emerald-800 font-mono font-bold px-1.5 py-0.5 rounded uppercase">ACTIVE</span>
                           </div>
                           
-                          <div className="flex justify-between items-center mb-4">
-                            <span className="font-mono text-sm font-black text-slate-800 select-all">{num.phone}</span>
+                          <div className="flex justify-between items-center mb-3">
+                            <span className="font-mono text-sm font-extrabold text-slate-800 select-all">{num.phone}</span>
                             <button
                               onClick={() => {
                                 navigator.clipboard.writeText(num.phone);
-                                showNotice("success", "Active phone lease copied to clipboard.");
+                                showNotice("success", "Active phone lease copied!");
                               }}
-                              className="text-slate-400 hover:text-slate-700 p-1 bg-white border rounded"
+                              className="text-slate-400 hover:text-slate-700 p-1 bg-white border border-slate-200 rounded cursor-pointer"
                               title="Copy Line"
                             >
                               <Copy className="h-3.5 w-3.5" />
@@ -977,29 +956,29 @@ export default function DashboardStore() {
                         <div className="space-y-2 text-xs">
                           <button
                             onClick={() => triggerOtpRequest(num.id)}
-                            className="w-full bg-white border border-slate-200 text-[#2E3DFD] hover:bg-slate-50 hover:border-[#2E3DFD] font-extrabold py-2 rounded-lg text-[11px] transition-all flex items-center justify-center space-x-1"
+                            className="w-full bg-white border border-slate-200 text-orange-600 hover:bg-orange-50 hover:border-orange-500 font-bold py-2 rounded-lg text-[11px] transition-all flex items-center justify-center space-x-1"
                           >
                             <Key className="h-3 w-3" />
-                            <span>Request New Code Log</span>
+                            <span>Trigger OTP Test Code</span>
                           </button>
 
-                          {/* Render Dynamic logs */}
-                          <div className="mt-3.5 pt-3.5 border-t border-slate-150 space-y-2">
-                            <span className="text-[9px] uppercase tracking-wider text-slate-450 font-bold block mb-1">Carrier Logs</span>
+                          {/* Render Logs */}
+                          <div className="mt-3.5 pt-3.5 border-t border-slate-200 space-y-2">
+                            <span className="text-[8px] uppercase tracking-wider text-slate-400 font-bold block">Live Carrier SMS Log</span>
                             {num.otpLogs.length === 0 ? (
-                              <span className="text-[11px] text-slate-400 italic block">Awaiting SMS code triggers from server...</span>
+                              <span className="text-[10px] text-slate-400 italic block">Awaiting SMS code triggers... Use trigger button above to test.</span>
                             ) : (
                               <div className="space-y-1.5 max-h-[140px] overflow-y-auto">
                                 {num.otpLogs.map(log => (
-                                  <div key={log.id} className="bg-white border rounded-xl p-2.5 relative">
-                                    <div className="flex justify-between text-[10px] font-bold text-slate-900 border-b pb-1 mb-1">
-                                      <span className="text-blue-700 font-mono">{log.sender}</span>
-                                      <span className="text-slate-400 font-mono">{log.time}</span>
+                                  <div key={log.id} className="bg-white border border-slate-150 rounded-xl p-2.5 relative">
+                                    <div className="flex justify-between text-[9px] font-bold text-slate-500 border-b pb-1 mb-1">
+                                      <span className="text-orange-650 font-mono">{log.sender}</span>
+                                      <span className="font-mono text-slate-400">{log.time}</span>
                                     </div>
-                                    <span className="text-[11px] text-slate-700 block leading-tight">{log.text}</span>
+                                    <span className="text-[10px] text-slate-600 block leading-snug">{log.text}</span>
                                     <div className="mt-1 flex items-center space-x-2">
-                                      <span className="text-xs font-black font-sans text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">
-                                        CODE: {log.code}
+                                      <span className="text-[10px] font-black font-sans text-emerald-600 bg-emerald-50 px-2   rounded border border-emerald-100">
+                                        OTP CODE: {log.code}
                                       </span>
                                     </div>
                                   </div>
@@ -1007,9 +986,7 @@ export default function DashboardStore() {
                               </div>
                             )}
                           </div>
-
                         </div>
-
                       </div>
                     ))}
                   </div>
@@ -1021,21 +998,19 @@ export default function DashboardStore() {
           {/* DYNAMIC SEGMENT: SMM BOOSTS & ORGANIC ACCOUNTS */}
           {activeSegment === "smm" && (
             <div className="space-y-6 animate-fade-in" id="smm-boosting-hub">
-              
-              {/* Form panel */}
-              <div className="bg-white rounded-3xl p-6 border border-slate-150 shadow-xs">
-                <div className="flex items-center space-x-2.5 mb-2.5 border-b border-slate-105 pb-3">
-                  <Share2 className="h-5 w-5 text-[#2E3DFD]" />
+              <div className="bg-white rounded-2xl p-5 border border-slate-150 shadow-xs">
+                <div className="flex items-center space-x-2 border-b border-slate-100 pb-3 mb-4.5">
+                  <Share2 className="h-4.5 w-4.5 text-orange-600" />
                   <div>
-                    <h3 className="text-sm font-black text-slate-900 uppercase">SMM Growth Panel Dispatch Center</h3>
-                    <p className="text-[11px] text-slate-450 mt-0.5 font-bold">Inject artificial traffic, active likes, shares, and automated real-looking metrics instantly.</p>
+                    <h3 className="text-xs font-black text-slate-900 uppercase">Social Media Growth Panel Dispatch</h3>
+                    <p className="text-[10px] text-slate-400 mt-0.5">Order high retention active audiences, targeted likes, post views, or comments instantly.</p>
                   </div>
                 </div>
 
                 <form onSubmit={handleSmmSubmit} className="space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="space-y-1">
-                      <label className="text-[10px] uppercase font-bold text-slate-500 block">Social Media Platform</label>
+                      <label className="text-[9px] uppercase font-bold text-slate-450 block">Platform Network</label>
                       <select
                         value={socialPlatform}
                         onChange={(e) => {
@@ -1045,21 +1020,21 @@ export default function DashboardStore() {
                           else if (e.target.value === "facebook") setSmmServiceType("Facebook Page Likes");
                           else setSmmServiceType("Twitter Retweets");
                         }}
-                        className="w-full text-xs rounded-xl border border-slate-200 bg-white p-3 text-slate-800 font-bold focus:outline-none"
+                        className="w-full text-xs rounded-lg border border-slate-200 bg-white p-2.5 text-slate-700 font-bold focus:outline-none focus:border-orange-500"
                       >
-                        <option value="instagram">Instagram Panel</option>
+                        <option value="instagram">Instagram</option>
                         <option value="tiktok">TikTok Network</option>
-                        <option value="facebook">Facebook Group</option>
-                        <option value="twitter">Twitter / X Hub</option>
+                        <option value="facebook">Facebook Network</option>
+                        <option value="twitter">X / Twitter Hub</option>
                       </select>
                     </div>
 
                     <div className="space-y-1">
-                      <label className="text-[10px] uppercase font-bold text-slate-500 block">Service Specifications</label>
+                      <label className="text-[9px] uppercase font-bold text-slate-450 block">Service Specifications</label>
                       <select
                         value={smmServiceType}
                         onChange={(e) => setSmmServiceType(e.target.value)}
-                        className="w-full text-xs rounded-xl border border-slate-200 bg-white p-3 text-slate-800 font-bold focus:outline-none"
+                        className="w-full text-xs rounded-lg border border-slate-200 bg-white p-2.5 text-slate-700 font-bold focus:outline-none focus:border-orange-500"
                       >
                         {socialPlatform === "instagram" && (
                           <>
@@ -1090,107 +1065,105 @@ export default function DashboardStore() {
                     </div>
 
                     <div className="space-y-1">
-                      <label className="text-[10px] uppercase font-bold text-slate-500 block">Dispatch Quantity</label>
+                      <label className="text-[9px] uppercase font-bold text-slate-450 block">Dispatch Quantity</label>
                       <input
                         type="number"
                         value={smmQty}
                         onChange={(e) => setSmmQty(e.target.value)}
                         placeholder="e.g. 500"
-                        className="w-full text-xs rounded-xl border border-slate-200 bg-white p-3 text-slate-850 font-bold focus:outline-none"
+                        className="w-full text-xs rounded-lg border border-slate-200 bg-white p-2.5 text-slate-800 font-bold focus:outline-none focus:border-orange-500"
                       />
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[10px] uppercase font-bold text-slate-500 block">Profile Target Endpoint Hyperlink (URL)</label>
+                    <label className="text-[9px] uppercase font-bold text-slate-450 block">Target Profile / Post URL Hyperlink</label>
                     <input
                       type="url"
                       value={smmTargetLink}
                       onChange={(e) => setSmmTargetLink(e.target.value)}
-                      placeholder="e.g. https://instagram.com/your_handle"
-                      className="w-full text-xs rounded-xl border border-slate-200 bg-white p-3 text-slate-855 focus:outline-none"
+                      placeholder="e.g. https://instagram.com/yourusername"
+                      className="w-full text-xs rounded-lg border border-slate-200 bg-white p-2.5 text-slate-800 focus:outline-none focus:border-orange-500"
                     />
                   </div>
 
-                  <div className="flex justify-between items-center pt-3 border-t border-slate-100">
-                    <div className="text-xs">
-                      <span className="text-slate-400">Calculated order price: </span>
-                      <strong className="text-[#2E3DFD] font-mono">
+                  <div className="flex justify-between items-center pt-3 border-t border-slate-100 flex-col sm:flex-row gap-3">
+                    <div className="text-xs text-slate-500 text-center sm:text-left">
+                      <span>Calculated order price: </span>
+                      <strong className="text-orange-600 font-mono font-bold">
                         ₦{Math.floor((parseInt(smmQty) || 500) * (smmServiceType.includes("Premium") || smmServiceType.includes("Aged") ? 4.5 : 2.2)).toLocaleString()}
                       </strong>
                     </div>
 
                     <button
                       type="submit"
-                      className="bg-[#2E3DFD] hover:bg-blue-750 text-white font-extrabold px-6 py-3 rounded-xl text-xs cursor-pointer shadow-md transition-all active:scale-95"
+                      className="bg-orange-600 hover:bg-orange-700 text-white font-bold px-6 py-2.5 rounded-lg text-xs cursor-pointer shadow-sm transition-all"
                     >
-                      Process Order Instant
+                      Process SMM Package
                     </button>
                   </div>
                 </form>
               </div>
 
-              {/* SMM Aged Accounts Shop */}
-              <div className="bg-white rounded-3xl p-6 border border-slate-150 shadow-xs space-y-4">
-                <div className="border-b pb-3 mb-1">
-                  <h4 className="text-xs font-black text-slate-900 uppercase">Aged & Pre-Verified Social Accounts Catalog</h4>
-                  <p className="text-[11px] text-slate-450 mt-0.5 leading-tight">Instant handover files with high authority scores to bypass shadowbans and limitations.</p>
+              {/* SMM Aged Accounts Catalog */}
+              <div className="bg-white rounded-2xl p-5 border border-slate-150 shadow-xs space-y-4">
+                <div className="border-b pb-3">
+                  <h4 className="text-xs font-black text-slate-900 uppercase">Pre-Registered Aged Accounts Catalog</h4>
+                  <p className="text-[10px] text-slate-400 mt-0.5">Bypass fresh accounts restriction. Instantly secure login credentials of organic pre-verified profiles.</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {socialAccounts.map((acc) => (
-                    <div key={acc.id} className="border border-slate-150 rounded-2xl p-4 bg-slate-50/50 flex flex-col justify-between text-xs relative overflow-hidden">
+                    <div key={acc.id} className="border border-slate-150 rounded-xl p-4 bg-slate-50 flex flex-col justify-between text-xs relative overflow-hidden">
                       {acc.isPurchased && (
-                        <div className="absolute top-2 right-2 bg-emerald-100 text-emerald-800 text-[8px] font-black uppercase px-2 py-0.5 rounded">
-                          PURCHASED
+                        <div className="absolute top-2.5 right-2.5 bg-emerald-100 text-emerald-800 text-[8px] font-bold uppercase px-1.5 py-0.5 rounded">
+                          BOUGHT
                         </div>
                       )}
 
-                      <div className="space-y-2">
-                        <div className="flex items-center space-x-1.5 font-bold mb-1">
-                          <span className="text-[#2E3DFD] shrink-0 font-black italic">B</span>
-                          <span className="text-slate-900 uppercase tracking-tight">{acc.platform} • {acc.followers}</span>
+                      <div className="space-y-1.5">
+                        <div className="flex items-center space-x-1.5 font-bold">
+                          <span className="text-orange-600 font-extrabold italic uppercase font-mono">{acc.platform}</span>
+                          <span className="text-[10px] text-slate-400 font-normal">({acc.followers} followers)</span>
                         </div>
-                        <p className="font-semibold text-[13px] text-slate-905 mt-1 block">{acc.username}</p>
-                        <p className="text-[10px] text-slate-500 leading-snug">{acc.description}</p>
+                        <p className="font-extrabold text-slate-800 text-[11px] select-all">{acc.username}</p>
+                        <p className="text-[10px] text-slate-400 leading-snug">{acc.description}</p>
                       </div>
 
-                      <div className="pt-4 border-t mt-4">
+                      <div className="pt-3 border-t border-slate-200 mt-4">
                         <div className="flex justify-between items-center mb-3">
-                          <span className="text-[10px] text-slate-400 font-bold block">Asset Price</span>
-                          <span className="font-mono text-sm font-black text-slate-900">₦{acc.price.toLocaleString()}</span>
+                          <span className="text-[9px] text-slate-450 font-bold">Cost</span>
+                          <span className="font-mono text-xs font-bold text-slate-800">₦{acc.price.toLocaleString()}</span>
                         </div>
 
                         {!acc.isPurchased ? (
                           <button
                             onClick={() => handleBuyAgedAccount(acc.id)}
-                            className="w-full bg-[#2E3DFD] text-white py-2 rounded-lg font-bold hover:bg-blue-700 cursor-pointer active:scale-95 transition-all text-[11px]"
+                            className="w-full bg-orange-600 text-white font-bold py-2 rounded-lg hover:bg-orange-700 cursor-pointer text-[10px] shadow-xs"
                           >
-                            Acquire Credentials
+                            Checkout Credentials
                           </button>
                         ) : (
-                          <div className="bg-emerald-50 border border-emerald-100 p-2.5 rounded-xl space-y-1 text-[10px] font-mono">
-                            <div className="flex justify-between">
-                              <span className="text-slate-400">User:</span>
-                              <span className="font-bold text-slate-900">{acc.credentials?.user}</span>
+                          <div className="bg-emerald-50/50 border border-emerald-100 p-2 rounded-lg space-y-1 text-[9px] font-mono leading-tight">
+                            <div className="flex justify-between text-slate-650">
+                              <span>User:</span>
+                              <span className="font-bold text-slate-805 select-all">{acc.credentials?.user}</span>
                             </div>
-                            <div className="flex justify-between">
-                              <span className="text-slate-400">Pass:</span>
-                              <span className="font-bold text-slate-900 select-all">{acc.credentials?.pass}</span>
+                            <div className="flex justify-between text-slate-650">
+                              <span>Pass:</span>
+                              <span className="font-bold text-slate-805 select-all">{acc.credentials?.pass}</span>
                             </div>
-                            <div className="flex justify-between">
-                              <span className="text-slate-400">Recovery:</span>
-                              <span className="font-bold text-slate-900 leading-none truncate max-w-[110px]">{acc.credentials?.email}</span>
+                            <div className="flex justify-between text-slate-650">
+                              <span>Recovery:</span>
+                              <span className="font-bold text-slate-805 truncate text-right max-w-[100px]">{acc.credentials?.email}</span>
                             </div>
                           </div>
                         )}
                       </div>
-
                     </div>
                   ))}
                 </div>
               </div>
-
             </div>
           )}
 
@@ -1200,36 +1173,36 @@ export default function DashboardStore() {
               
               {!virtualCard ? (
                 /* Card registration block */
-                <div className="bg-white rounded-3xl p-6 border border-slate-150 shadow-xs">
-                  <div className="flex items-center space-x-2.5 mb-2.5 border-b border-slate-105 pb-3">
-                    <CreditCard className="h-5 w-5 text-[#2E3DFD]" />
+                <div className="bg-white rounded-2xl p-5 border border-slate-150 shadow-xs">
+                  <div className="flex items-center space-x-2 border-b border-slate-100 pb-3 mb-4.5">
+                    <CreditCard className="h-4.5 w-4.5 text-orange-600" />
                     <div>
-                      <h3 className="text-sm font-black text-slate-900 uppercase">Apply for Virtual USD Dollar Cards</h3>
-                      <p className="text-[11px] text-slate-450 mt-0.5">Fund with Naira, convert inside system instantly, and checkout globally on Mastercard & Visa networks.</p>
+                      <h3 className="text-xs font-black text-slate-900 uppercase">Apply for Virtual USD Dollar Cards</h3>
+                      <p className="text-[10px] text-slate-400 mt-0.5">Generate customized virtual Mastercard/Visa debit cards for global online payouts without limits.</p>
                     </div>
                   </div>
 
                   <form onSubmit={handleCreateVirtualCard} className="space-y-4 max-w-md">
                     <div className="space-y-1">
-                      <label className="text-[10px] uppercase font-bold text-slate-500 block">Personalised Card Holder Label</label>
+                      <label className="text-[9px] uppercase font-bold text-slate-450 block">Personalised Card Holder Name</label>
                       <input
                         type="text"
                         required
                         value={cardHolder}
                         onChange={(e) => setCardHolder(e.target.value)}
-                        placeholder="DANIEL INEGBEDION"
-                        className="w-full text-xs rounded-xl border border-slate-200 bg-white p-3 text-slate-800 font-bold focus:outline-none"
+                        placeholder="e.g. DANIEL INEGBEDION"
+                        className="w-full text-xs rounded-lg border border-slate-200 bg-white p-2.5 text-slate-800 font-bold focus:outline-none focus:border-orange-500"
                       />
                     </div>
 
                     <div className="space-y-1">
-                      <label className="text-[10px] uppercase font-bold text-slate-500 block">Card Scheme brand</label>
-                      <div className="grid grid-cols-2 gap-3 font-sans">
+                      <label className="text-[9px] uppercase font-bold text-slate-450 block">Select Card Scheme Scheme Network</label>
+                      <div className="grid grid-cols-2 gap-3">
                         <button
                           type="button"
                           onClick={() => setCardBrand("visa")}
-                          className={`py-3.5 rounded-xl border text-xs font-black transition-all cursor-pointer ${
-                            cardBrand === "visa" ? "border-[#2E3DFD] bg-blue-50 text-[#2E3DFD]" : "border-slate-200 bg-white text-slate-650"
+                          className={`py-3 rounded-lg border text-xs font-bold transition-all cursor-pointer ${
+                            cardBrand === "visa" ? "border-orange-500 bg-orange-50 text-orange-600" : "border-slate-200 bg-white text-slate-600"
                           }`}
                         >
                           Visa Digital USD
@@ -1237,8 +1210,8 @@ export default function DashboardStore() {
                         <button
                           type="button"
                           onClick={() => setCardBrand("mastercard")}
-                          className={`py-3.5 rounded-xl border text-xs font-black transition-all cursor-pointer ${
-                            cardBrand === "mastercard" ? "border-[#2E3DFD] bg-blue-50 text-[#2E3DFD]" : "border-slate-200 bg-white text-slate-650"
+                          className={`py-3 rounded-lg border text-xs font-bold transition-all cursor-pointer ${
+                            cardBrand === "mastercard" ? "border-orange-500 bg-orange-50 text-orange-600" : "border-slate-200 bg-white text-slate-600"
                           }`}
                         >
                           Mastercard Prepaid
@@ -1246,18 +1219,18 @@ export default function DashboardStore() {
                       </div>
                     </div>
 
-                    <div className="pt-4 border-t flex justify-between items-center text-xs">
-                      <div>
-                        <span className="text-slate-400">Startup issuing config fee: </span>
-                        <strong className="text-[#2E3DFD] block font-mono font-black text-sm mt-0.5">₦3,500 Once-off</strong>
+                    <div className="pt-4 border-t border-slate-100 flex justify-between items-center text-xs flex-col sm:flex-row gap-3">
+                      <div className="text-center sm:text-left">
+                        <span className="text-slate-400">Startup issuing fee: </span>
+                        <strong className="text-orange-600 block font-mono font-bold mt-0.5">₦3,500 Once-off</strong>
                       </div>
 
                       <button
                         type="submit"
                         disabled={isCreatingCard}
-                        className="bg-[#2E3DFD] text-white hover:bg-blue-750 font-bold px-6 py-3 rounded-xl cursor-pointer shadow-md transition-all active:scale-95 text-xs inline-flex items-center space-x-1.5"
+                        className="bg-orange-600 text-white hover:bg-orange-700 font-bold px-6 py-2.5 rounded-lg cursor-pointer shadow-sm text-xs"
                       >
-                        {isCreatingCard ? <span>Issuing Card...</span> : <span>Generate Prepaid Visa Card</span>}
+                        {isCreatingCard ? "Issuing Card..." : "Generate USD Card"}
                       </button>
                     </div>
                   </form>
@@ -1267,72 +1240,69 @@ export default function DashboardStore() {
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-6 font-sans">
                   
                   {/* Visually stunning debit card mock */}
-                  <div className="md:col-span-7 bg-white rounded-3xl p-6 border border-slate-150 shadow-xs space-y-4 flex flex-col justify-between">
-                    
+                  <div className="md:col-span-7 bg-white rounded-2xl p-5 border border-slate-150 shadow-xs space-y-4 flex flex-col justify-between">
                     <div>
-                      <h4 className="text-xs font-black text-slate-900 uppercase">My Credit Card Interface</h4>
-                      <p className="text-[11px] text-slate-400 mt-0.5 leading-none"> प्री-ऑथराइज्ड Active simulation card details.</p>
+                      <h4 className="text-[10px] font-black text-slate-900 uppercase">My Credit Card Interface</h4>
+                      <p className="text-[10px] text-slate-400 mt-0.5">Prepaid virtual asset card settings.</p>
                     </div>
 
-                    <div className="relative h-44 rounded-2xl bg-gradient-to-tr from-slate-900 via-purple-950 to-[#2E3DFD] p-5 text-white flex flex-col justify-between shadow-lg relative overflow-hidden">
-                      <div className="absolute top-0 right-0 w-28 h-28 bg-white/5 rounded-full blur-xl pointer-events-none" />
+                    {/* Obsidian-Gold themed debit card layout */}
+                    <div className="relative h-44 rounded-2xl bg-[#11131E] p-5 text-white flex flex-col justify-between shadow-lg relative overflow-hidden border border-slate-800">
+                      <div className="absolute top-0 right-0 w-28 h-28 bg-orange-500/5 rounded-full blur-xl pointer-events-none" />
                       
                       <div className="flex justify-between items-center">
-                        <span className="text-xs font-black tracking-widest text-[#2E3DFD] italic bg-white px-2 py-0.5 rounded">PREPAID</span>
-                        <span className="text-sm font-extrabold uppercase font-mono tracking-wider">{virtualCard.type}</span>
+                        <span className="text-[9px] font-bold tracking-widest text-[#FF5C00] bg-orange-550/10 border border-orange-500/25 px-2 py-0.5 rounded">PREPAID</span>
+                        <span className="text-xs font-mono font-extrabold uppercase tracking-wider">{virtualCard.type.toUpperCase()}</span>
                       </div>
 
                       <div>
-                        {/* Dynamic copy logic card numbers */}
-                        <span className="block font-mono text-lg font-bold tracking-widest select-all mb-2">{virtualCard.cardNumber}</span>
-                        <div className="flex justify-between text-[11px] text-white/70 font-mono">
+                        <span className="block font-mono text-base md:text-lg font-bold tracking-widest select-all mb-2.5">{virtualCard.cardNumber}</span>
+                        <div className="flex justify-between text-[10px] text-slate-400 font-mono">
                           <div>
-                            <span className="text-[8px] text-slate-400 uppercase font-sans leading-none block">Card Holder</span>
-                            <span className="font-sans font-bold text-white uppercase mt-0.5 block">{virtualCard.holder}</span>
+                            <span className="text-[7px] text-slate-500 uppercase font-sans leading-none block">Card Holder</span>
+                            <span className="font-sans font-bold text-slate-200 uppercase mt-0.5 block">{virtualCard.holder}</span>
                           </div>
                           <div>
-                            <span className="text-[8px] text-slate-400 uppercase font-sans leading-none block">Expiry</span>
-                            <span className="font-bold text-white mt-0.5 block">{virtualCard.expiry}</span>
+                            <span className="text-[7px] text-slate-500 uppercase font-sans leading-none block">Expiry</span>
+                            <span className="font-bold text-slate-200 mt-0.5 block">{virtualCard.expiry}</span>
                           </div>
                           <div>
-                            <span className="text-[8px] text-slate-400 uppercase font-sans leading-none block">CVV</span>
-                            <span className="font-bold text-white mt-0.5 block">{virtualCard.cvv}</span>
+                            <span className="text-[7px] text-slate-500 uppercase font-sans leading-none block">CVV</span>
+                            <span className="font-bold text-slate-200 mt-0.5 block">{virtualCard.cvv}</span>
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between text-xs bg-slate-50 p-3 rounded-2xl relative border border-slate-100">
+                    <div className="flex items-center justify-between text-xs bg-slate-50 p-3 rounded-xl relative border border-slate-150/60">
                       <div>
-                        <span className="text-[10px] text-slate-450 block uppercase font-bold">Standard USD Rate</span>
-                        <span className="text-sm font-black text-slate-900 block mt-0.5 font-mono">1 USD = ₦1,550</span>
+                        <span className="text-[9px] text-slate-400 block uppercase font-bold">Exchange Rate</span>
+                        <span className="text-xs font-bold text-slate-800 block mt-0.5 font-mono">1 USD = ₦1,550</span>
                       </div>
                       <button
                         onClick={() => {
                           setVirtualCard(null);
-                          showNotice("info", "Virtual card configuration state reset successfully.");
+                          showNotice("info", "Virtual card configuration state reset.");
                         }}
-                        className="text-red-500 font-extrabold cursor-pointer"
+                        className="text-red-500 text-[11px] font-bold cursor-pointer hover:underline"
                       >
                         Reset Virtual Card
                       </button>
                     </div>
-
                   </div>
 
-                  {/* Card funding / details panel */}
-                  <div className="md:col-span-5 bg-white rounded-3xl p-6 border border-slate-150 shadow-xs space-y-4 flex flex-col justify-between">
-                    
+                  {/* Card funding details */}
+                  <div className="md:col-span-5 bg-white rounded-2xl p-5 border border-slate-150 shadow-xs space-y-4 flex flex-col justify-between">
                     <div>
-                      <span className="text-[10px] text-slate-450 block uppercase font-bold tracking-widest">AVALABLE DOLLAR ASSETS</span>
-                      <h4 className="text-2xl font-black font-mono text-slate-950 mt-1">
+                      <span className="text-[9px] text-slate-450 block uppercase font-bold tracking-wider">AVAILABLE DOLLAR BALANCE</span>
+                      <h4 className="text-2xl font-black font-mono text-slate-900 mt-1">
                         ${virtualCard.balance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </h4>
                     </div>
 
                     <form onSubmit={handleFundVirtualCard} className="space-y-4 pt-4 border-t border-slate-100">
                       <div className="space-y-1">
-                        <label className="text-[10px] uppercase font-bold text-slate-500 block">Top Up US Dollar Balance</label>
+                        <label className="text-[9px] uppercase font-bold text-slate-450 block">Top Up USD Value</label>
                         <div className="relative">
                           <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-mono font-bold text-slate-400">$</span>
                           <input
@@ -1341,19 +1311,18 @@ export default function DashboardStore() {
                             value={cardTopupAmount}
                             onChange={(e) => setCardTopupAmount(e.target.value)}
                             placeholder="e.g. 20"
-                            className="w-full text-xs rounded-xl border border-slate-200 bg-white pl-8 pr-3 py-3 text-slate-800 font-bold focus:outline-none"
+                            className="w-full text-xs rounded-lg border border-slate-200 bg-white pl-8 pr-3 py-2.5 text-slate-800 font-bold focus:outline-none focus:border-orange-500"
                           />
                         </div>
                       </div>
 
                       <button
                         type="submit"
-                        className="w-full bg-[#2E3DFD] hover:bg-blue-700 text-white font-bold py-3 text-xs rounded-xl shadow-md cursor-pointer transition-all active:scale-95 text-center leading-none"
+                        className="w-full bg-[#11131E] hover:bg-slate-800 text-white font-bold py-2.5 text-xs rounded-lg shadow-sm cursor-pointer transition-all active:scale-95 text-center"
                       >
-                        Verify & Fund Card Balance (+₦{(parseFloat(cardTopupAmount) * 1550 || 0).toLocaleString()})
+                        Verify & Fund Card (+₦{(parseFloat(cardTopupAmount) * 1550 || 0).toLocaleString()})
                       </button>
                     </form>
-
                   </div>
 
                 </div>
@@ -1365,56 +1334,56 @@ export default function DashboardStore() {
           {/* DYNAMIC SEGMENT: VTU TELECOM SERVICES */}
           {activeSegment === "vtu" && (
             <div className="space-y-6 animate-fade-in" id="vtu-carrier-terminal">
-              <div className="bg-white rounded-3xl p-6 border border-slate-150 shadow-xs">
+              <div className="bg-white rounded-2xl p-5 border border-slate-150 shadow-xs">
                 
-                <div className="flex items-center justify-between mb-4 pb-3 border-b">
-                  <div className="flex items-center space-x-2.5">
-                    <Smartphone className="h-5 w-5 text-[#2E3DFD]" />
-                    <h3 className="text-sm font-black text-slate-900 uppercase">VTU & Bill Settlements</h3>
+                <div className="flex items-center justify-between mb-4 border-b pb-3 flex-col sm:flex-row gap-3">
+                  <div className="flex items-center space-x-2">
+                    <Smartphone className="h-4.5 w-4.5 text-orange-600" />
+                    <h3 className="text-xs font-black text-slate-900 uppercase">VTU & Bill Settlements</h3>
                   </div>
                   
-                  <div className="flex gap-1">
+                  <div className="flex gap-1 flex-wrap justify-center">
                     <button
                       onClick={() => setVtuType("airtime")}
-                      className={`px-3 py-1.5 rounded-xl text-[10px] font-black tracking-tight ${vtuType === 'airtime' ? 'bg-[#2E3DFD] text-white shadow-xs' : 'bg-slate-100 text-slate-650 hover:bg-slate-200'} transition-all`}
+                      className={`px-3 py-1.5 rounded-lg text-[9px] font-bold tracking-tight ${vtuType === 'airtime' ? 'bg-orange-600 text-white shadow-xs' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'} transition-all`}
                     >
                       Airtime Swap
                     </button>
                     <button
                       onClick={() => setVtuType("data")}
-                      className={`px-3 py-1.5 rounded-xl text-[10px] font-black tracking-tight ${vtuType === 'data' ? 'bg-[#2E3DFD] text-white shadow-xs' : 'bg-slate-100 text-slate-650 hover:bg-slate-200'} transition-all`}
+                      className={`px-3 py-1.5 rounded-lg text-[9px] font-bold tracking-tight ${vtuType === 'data' ? 'bg-orange-600 text-white shadow-xs' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'} transition-all`}
                     >
                       Mobile Data
                     </button>
                     <button
                       onClick={() => setVtuType("cable")}
-                      className={`px-3 py-1.5 rounded-xl text-[10px] font-black tracking-tight ${vtuType === 'cable' ? 'bg-[#2E3DFD] text-white shadow-xs' : 'bg-slate-100 text-slate-650 hover:bg-slate-200'} transition-all`}
+                      className={`px-3 py-1.5 rounded-lg text-[9px] font-bold tracking-tight ${vtuType === 'cable' ? 'bg-orange-600 text-white shadow-xs' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'} transition-all`}
                     >
                       Smart TV
                     </button>
                     <button
                       onClick={() => setVtuType("electricity")}
-                      className={`px-3 py-1.5 rounded-xl text-[10px] font-black tracking-tight ${vtuType === 'electricity' ? 'bg-[#2E3DFD] text-white shadow-xs' : 'bg-slate-100 text-slate-650 hover:bg-slate-200'} transition-all`}
+                      className={`px-3 py-1.5 rounded-lg text-[9px] font-bold tracking-tight ${vtuType === 'electricity' ? 'bg-orange-600 text-white shadow-xs' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'} transition-all`}
                     >
-                      Utility Bill
+                      Prepaid Power
                     </button>
                   </div>
                 </div>
 
                 <form onSubmit={handleVtuSubmit} className="space-y-4 max-w-md">
                   
-                  {/* Show carrier logo only for airtime/data */}
+                  {/* Carrier logs operator */}
                   {(vtuType === "airtime" || vtuType === "data") && (
                     <div className="space-y-1">
-                      <label className="text-[10px] uppercase font-bold text-slate-400 block font-sans">Telecom operator network</label>
-                      <div className="grid grid-cols-4 gap-2 text-center font-sans">
+                      <label className="text-[9px] uppercase font-bold text-slate-400 block">Telecom Carrier Network Choice</label>
+                      <div className="grid grid-cols-4 gap-2 text-center">
                         {["MTN", "Airtel", "Glo", "9mobile"].map((operator) => (
                           <button
                             key={operator}
                             type="button"
                             onClick={() => setTelcoOperator(operator)}
-                            className={`py-2 rounded-xl border text-[11px] font-black transition-all cursor-pointer ${
-                              telcoOperator === operator ? "border-[#2E3DFD] bg-blue-50 text-[#2E3DFD]" : "border-slate-200 bg-white text-slate-600"
+                            className={`py-2 rounded-lg border text-[11px] font-bold transition-all cursor-pointer ${
+                              telcoOperator === operator ? "border-orange-500 bg-orange-50 text-orange-600" : "border-slate-200 bg-white text-slate-600"
                             }`}
                           >
                             {operator}
@@ -1426,41 +1395,41 @@ export default function DashboardStore() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1">
-                      <label className="text-[10px] uppercase font-bold text-slate-450 block font-sans">
-                        {vtuType === "cable" ? "Cable Smartcard (DSTV/GOTV) ID" : vtuType === "electricity" ? "Utility prepaid Meter Line" : "Naija Subscriber Phone Line"}
+                      <label className="text-[9px] uppercase font-bold text-slate-450 block">
+                        {vtuType === "cable" ? "DSTV/GOTV Smartcard ID" : vtuType === "electricity" ? "Utility prepaid Meter Number" : "Subscriber Tel Line"}
                       </label>
                       <input
                         type="text"
                         required
                         value={vtuPhone}
                         onChange={(e) => setVtuPhone(e.target.value)}
-                        placeholder={vtuType === "cable" ? "e.g. 1025038741" : vtuType === "electricity" ? "04125586634" : "e.g. 08031234567"}
-                        className="w-full text-xs rounded-xl border border-slate-200 bg-white p-3 text-slate-800 font-bold focus:outline-none focus:border-[#2E3DFD]"
+                        placeholder={vtuType === "cable" ? "e.g. 1025038741" : vtuType === "electricity" ? "e.g. 04125586634" : "e.g. 08031234567"}
+                        className="w-full text-xs rounded-lg border border-slate-200 bg-white p-2.5 text-slate-800 font-bold focus:outline-none focus:border-orange-500"
                       />
                     </div>
 
                     <div className="space-y-1">
                       {vtuType === "airtime" && (
                         <>
-                          <label className="text-[10px] uppercase font-bold text-slate-450 block">Recharge Value (Naira)</label>
+                          <label className="text-[9px] uppercase font-bold text-slate-450 block">Airtime Value amount (₦)</label>
                           <input
                             type="number"
                             required
                             value={vtuAmount}
                             onChange={(e) => setVtuAmount(e.target.value)}
                             placeholder="e.g. 1000"
-                            className="w-full text-xs rounded-xl border border-slate-200 bg-white p-3 text-slate-800 font-bold focus:outline-none focus:border-[#2E3DFD]"
+                            className="w-full text-xs rounded-lg border border-slate-200 bg-white p-2.5 text-slate-800 font-bold focus:outline-none focus:border-orange-500"
                           />
                         </>
                       )}
 
                       {vtuType === "data" && (
                         <>
-                          <label className="text-[10px] uppercase font-bold text-slate-450 block">Data Volume Bundle plan</label>
+                          <label className="text-[9px] uppercase font-bold text-slate-455 block">Data Volume Bundle plan</label>
                           <select
                             value={vtuDataPlan}
                             onChange={(e) => setVtuDataPlan(e.target.value)}
-                            className="w-full text-xs rounded-xl border border-slate-200 bg-white p-3 text-slate-800 font-bold focus:outline-none focus:border-[#2E3DFD]"
+                            className="w-full text-xs rounded-lg border border-slate-200 bg-white p-2.5 text-slate-700 font-bold focus:outline-none focus:border-orange-500"
                           >
                             <option value="1.5GB / 30 Days (₦1,200)">MTN SME 1.5GB / 30 Days (₦1,200)</option>
                             <option value="3GB / 30 Days (₦1,800)">Airtel Giga 3GB / 30 Days (₦1,800)</option>
@@ -1471,8 +1440,8 @@ export default function DashboardStore() {
 
                       {vtuType === "cable" && (
                         <>
-                          <label className="text-[10px] uppercase font-bold text-slate-450 block">Cable Plan</label>
-                          <select className="w-full text-xs rounded-xl border border-slate-200 bg-[#FAFBFD] p-3 text-slate-500 font-semibold focus:outline-none cursor-not-allowed" disabled>
+                          <label className="text-[9px] uppercase font-bold text-slate-450 block">Package Plan</label>
+                          <select className="w-full text-xs rounded-lg border border-slate-200 bg-slate-50 p-2.5 text-slate-400 font-semibold focus:outline-none cursor-not-allowed" disabled>
                             <option>DSTV Jolly Compact (₦4,500/Month)</option>
                           </select>
                         </>
@@ -1480,14 +1449,14 @@ export default function DashboardStore() {
 
                       {vtuType === "electricity" && (
                         <>
-                          <label className="text-[10px] uppercase font-bold text-slate-450 block">Utilities power operator</label>
+                          <label className="text-[9px] uppercase font-bold text-slate-450 block">Utilities power operator</label>
                           <select 
                             value={utilityMeter}
                             onChange={(e) => setUtilityMeter(e.target.value)}
-                            className="w-full text-xs rounded-xl border border-slate-200 bg-white p-3 text-slate-800 font-bold focus:outline-none focus:border-[#2E3DFD]"
+                            className="w-full text-xs rounded-lg border border-slate-200 bg-white p-2.5 text-slate-705 font-bold focus:outline-none focus:border-orange-500"
                           >
-                            <option value="EKEDC">EKEDC Ikeja (₦5,000 / 32kW)</option>
-                            <option value="AEDC">AEDC Abuja Power (₦5,000 / 30kW)</option>
+                            <option value="EKEDC">EKEDC Ikeja (₦5,000 / 32Kw)</option>
+                            <option value="AEDC">AEDC Abuja Power (₦5,000 / 30Kw)</option>
                           </select>
                         </>
                       )}
@@ -1497,9 +1466,9 @@ export default function DashboardStore() {
                   <div className="pt-3 border-t">
                     <button
                       type="submit"
-                      className="bg-[#2E3DFD] hover:bg-blue-750 text-white font-extrabold w-full py-3.5 rounded-xl cursor-pointer shadow-md transition-all active:scale-95 text-xs text-center leading-none"
+                      className="bg-orange-600 hover:bg-orange-700 text-white font-bold w-full py-3.5 rounded-lg cursor-pointer text-xs text-center"
                     >
-                      Discharge Instant VTU Bundle
+                      Instant VTU Recharge Settle
                     </button>
                   </div>
                 </form>
@@ -1508,49 +1477,45 @@ export default function DashboardStore() {
             </div>
           )}
 
-          {/* DYNAMIC SEGMENT: WEBSITE WEBSHOP MALL */}
+          {/* DYNAMIC SEGMENT: WEBSITE MALL DEPOT */}
           {activeSegment === "websites" && (
             <div className="space-y-6 animate-fade-in" id="websites-mall">
-              <div className="bg-white rounded-3xl p-6 border border-slate-150 shadow-xs">
+              <div className="bg-white rounded-2xl p-5 border border-slate-150 shadow-xs">
                 
                 <div className="border-b pb-3 mb-5 flex items-center space-x-2">
-                  <Laptop className="h-5 w-5 text-[#2E3DFD]" />
+                  <Laptop className="h-4.5 w-4.5 text-orange-600" />
                   <div>
-                    <h3 className="text-sm font-black text-slate-900 uppercase">Ready-Made Landing Page & Web Apps Depot</h3>
-                    <p className="text-[11px] text-slate-450">Deploy top-tier presentation portfolios customized with lead captures instantly.</p>
+                    <h3 className="text-xs font-black text-slate-900 uppercase">Bespoke Ready Landing Pages Catalog</h3>
+                    <p className="text-[10px] text-slate-400">Deploy high-performance business website structures styled cleanly with dynamic lead integrations.</p>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {premiumWebsites.map((web) => (
-                    <div key={web.id} className="border border-slate-150 rounded-2xl bg-slate-50/20 overflow-hidden flex flex-col justify-between">
+                    <div key={web.id} className="border border-slate-150 rounded-xl bg-slate-50 overflow-hidden flex flex-col justify-between">
                       <img 
                         referrerPolicy="no-referrer"
                         src={web.img} alt={web.name} className="h-32 w-full object-cover border-b" />
                       
-                      <div className="p-4 space-y-2">
-                        <span className="text-[9px] bg-indigo-50 text-blue-700 font-bold px-2 py-0.5 rounded font-mono uppercase">{web.type}</span>
-                        <h4 className="font-bold text-xs text-slate-900 leading-snug">{web.name}</h4>
-                        
-                        <div className="flex items-center space-x-2 text-[10px] text-slate-450 mt-1">
-                          <span className="text-emerald-600 font-sans font-extrabold">▶ Google Lighthouse Speed: {web.speed}</span>
-                        </div>
+                      <div className="p-4 space-y-1.5">
+                        <span className="text-[8px] bg-orange-100 text-orange-700 font-extrabold px-2 py-0.5 rounded uppercase">{web.type}</span>
+                        <h4 className="font-extrabold text-xs text-slate-800 leading-tight block">{web.name}</h4>
+                        <span className="text-[9px] text-emerald-600 font-bold block">▶ Lighthouse Speed: {web.speed}</span>
                       </div>
 
-                      <div className="p-4 pt-0 border-t border-slate-100 flex items-center justify-between mt-3 text-xs">
+                      <div className="p-4 pt-0 border-t border-slate-200/60 flex items-center justify-between mt-3 text-xs">
                         <div>
-                          <span className="text-[9px] text-slate-400 font-bold block leading-none">Setup Payout</span>
-                          <span className="font-mono font-black text-slate-900 mt-1 block">₦{web.price.toLocaleString()}</span>
+                          <span className="text-[8px] text-slate-400 font-bold block">Setup cost</span>
+                          <span className="font-mono font-bold text-slate-900 mt-0.5 block">₦{web.price.toLocaleString()}</span>
                         </div>
 
                         <button
                           onClick={() => handleBuyWebsiteOrder(web.name, web.price)}
-                          className="bg-[#2E3DFD] text-white px-3 py-1.5 rounded-lg font-bold hover:bg-blue-700"
+                          className="bg-orange-600 hover:bg-orange-700 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg cursor-pointer"
                         >
-                          Acquire Setup
+                          Acquire Layout
                         </button>
                       </div>
-
                     </div>
                   ))}
                 </div>
@@ -1563,48 +1528,48 @@ export default function DashboardStore() {
 
       </div>
 
-      {/* --- APP OVERLAY DIALOGS & SLATE POPUPS --- */}
+      {/* --- FLOATING DIALOGS & OVERLAY SCREENS --- */}
 
       {/* 1. Deposit Fund dialog */}
       <AnimatePresence>
         {showFundModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4" onClick={() => setShowFundModal(false)}>
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4" onClick={() => setShowFundModal(false)}>
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="max-w-md w-full bg-white rounded-3xl p-6 border shadow-2xl relative text-left"
+              className="max-w-md w-full bg-white rounded-2xl p-6 border shadow-2xl relative text-left"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="border-b pb-3.5 mb-4 flex justify-between items-center">
-                <h3 className="text-sm font-black text-slate-900 uppercase">Load Liquid E-wallet Cash</h3>
-                <button onClick={() => setShowFundModal(false)} className="text-slate-400 hover:text-slate-700 font-extrabold">✕</button>
+                <h3 className="text-xs font-black text-slate-900 uppercase">Interactive Deposit Sandbox</h3>
+                <button onClick={() => setShowFundModal(false)} className="text-slate-400 hover:text-slate-700 font-extrabold cursor-pointer">✕</button>
               </div>
 
-              <form onSubmit={handleDepositSubmit} className="space-y-4 font-sans">
+              <form onSubmit={handleDepositSubmit} className="space-y-4">
                 <div className="space-y-1">
-                  <label className="text-[10px] uppercase font-bold text-slate-500 block">Payout Value amount (Naira)</label>
+                  <label className="text-[9px] uppercase font-bold text-slate-450 block">Funding Value (₦ Naira)</label>
                   <input
                     type="number"
                     required
                     value={fundAmount}
                     onChange={(e) => setFundAmount(e.target.value)}
                     placeholder="e.g. 5000"
-                    className="w-full text-xs rounded-xl border border-slate-200 bg-[#FAFBFD] p-3 text-slate-800 font-bold focus:outline-none"
+                    className="w-full text-xs rounded-lg border border-slate-200 p-2.5 text-slate-800 font-bold focus:outline-none focus:border-orange-500"
                   />
                 </div>
 
-                <div className="p-3 bg-blue-50 border border-blue-100 rounded-2xl text-[10px] text-slate-500 leading-snug">
-                  <span className="font-bold text-blue-900 block mb-1">PROVIPUS BANK INSTANT ESCROW GATEWAY:</span>
-                  Transfer specified cash manually to <strong className="text-blue-900 select-all">1925038721</strong> on any local mobile bank app. Click verify button to trigger system auto-credit.
+                <div className="p-3 bg-orange-50/50 border border-orange-100 rounded-xl text-[10px] text-slate-600 leading-relaxed font-sans">
+                  <span className="font-bold text-orange-900 block mb-1">PROVIDUS BANK DIRECT DISPATCH SIMULATION:</span>
+                  TransferSpecified cash manually to reference account <strong className="text-orange-950 select-all font-mono pl-1 text-[11px] font-bold">1925038721</strong> on your real bank app. Clicking authorize below will simulate successful instant pipeline credit triggers.
                 </div>
 
                 <div className="pt-2">
                   <button
                     type="submit"
-                    className="w-full bg-[#2E3DFD] text-white font-extrabold py-3.5 rounded-xl cursor-pointer text-xs"
+                    className="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 rounded-lg cursor-pointer text-xs shadow-sm"
                   >
-                    Authorize manual deposit simulation
+                    Simulate Deposit Pipeline
                   </button>
                 </div>
               </form>
@@ -1616,67 +1581,67 @@ export default function DashboardStore() {
       {/* 2. Withdraw cash dialog */}
       <AnimatePresence>
         {showWithdrawModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4" onClick={() => setShowWithdrawModal(false)}>
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4" onClick={() => setShowWithdrawModal(false)}>
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="max-w-md w-full bg-white rounded-3xl p-6 border shadow-2xl relative text-left font-sans"
+              className="max-w-md w-full bg-white rounded-2xl p-6 border shadow-2xl relative text-left"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="border-b pb-3.5 mb-4 flex justify-between items-center">
-                <h3 className="text-sm font-black text-slate-900 uppercase font-sans">Discharge Cash Settlement (Naira)</h3>
-                <button onClick={() => setShowWithdrawModal(false)} className="text-slate-400 hover:text-slate-700 font-extrabold">✕</button>
+                <h3 className="text-xs font-black text-slate-900 uppercase">Setup E-Wallet Withdrawal Settle</h3>
+                <button onClick={() => setShowWithdrawModal(false)} className="text-slate-400 hover:text-slate-700 font-extrabold cursor-pointer">✕</button>
               </div>
 
               <form onSubmit={handleWithdrawSubmit} className="space-y-4">
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1">
-                    <label className="text-[10px] uppercase font-bold text-slate-500 block">Bank Name</label>
+                    <label className="text-[9px] uppercase font-bold text-slate-450 block">Select Target Bank</label>
                     <select
                       value={withdrawBank}
                       onChange={(e) => setWithdrawBank(e.target.value)}
-                      className="w-full text-xs rounded-xl border border-slate-205 p-3 text-slate-750 font-bold focus:outline-none"
+                      className="w-full text-xs rounded-lg border border-slate-200 p-2.5 text-slate-800 font-bold focus:outline-none"
                     >
-                      <option value="">Choose bank...</option>
+                      <option value="">Select bank...</option>
                       <option value="Access Bank">Access Bank Plc</option>
                       <option value="GTBank">Guaranty Trust Bank</option>
-                      <option value="UBA">United Bank For Africa</option>
                       <option value="Wema Bank">Wema Bank</option>
+                      <option value="Opay">OPay Digital</option>
                     </select>
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[10px] uppercase font-bold text-slate-500 block">Account Number</label>
+                    <label className="text-[9px] uppercase font-bold text-slate-450 block">Account Number</label>
                     <input
                       type="text"
                       required
                       value={withdrawAccount}
                       onChange={(e) => setWithdrawAccount(e.target.value)}
                       placeholder="e.g. 1022354896"
-                      className="w-full text-xs rounded-xl border border-slate-205 p-3 text-slate-800 font-bold focus:outline-none"
+                      className="w-full text-xs rounded-lg border border-slate-205 p-2.5 text-slate-800 font-bold focus:outline-none"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[10px] uppercase font-bold text-slate-500 block">Withdrawal Value (₦)</label>
+                  <label className="text-[9px] uppercase font-bold text-slate-450 block">Withdrawal Value (₦)</label>
                   <input
                     type="number"
                     required
                     value={withdrawAmount}
                     onChange={(e) => setWithdrawAmount(e.target.value)}
                     placeholder="e.g. 4000"
-                    className="w-full text-xs rounded-xl border border-slate-205 p-3 text-slate-800 font-bold focus:outline-none"
+                    className="w-full text-xs rounded-lg border border-slate-205 p-2.5 text-slate-800 font-bold focus:outline-none"
                   />
                 </div>
 
                 <div className="pt-2">
                   <button
                     type="submit"
-                    className="w-full bg-[#2E3DFD] text-white font-extrabold py-3 text-xs rounded-xl cursor-pointer"
+                    className="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 text-xs rounded-lg cursor-pointer"
                   >
-                    Confirm Payout Dispatch
+                    Confirm Payout Settle
                   </button>
                 </div>
               </form>
@@ -1685,73 +1650,73 @@ export default function DashboardStore() {
         )}
       </AnimatePresence>
 
-      {/* Floating Bottom Toolbar for Mobile Accommodations (exact replication of 5 menu tabs with light design) */}
-      <div className="fixed bottom-0 left-0 right-0 z-45 w-full bg-white/95 border-t border-slate-200 backdrop-blur-md px-2 py-2 md:hidden">
+      {/* Floating Bottom Navigation Tab bar for Mobile Accommodations (Vastly Simplified & Modernized menu) */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 border-t border-slate-200 backdrop-blur-md px-2 py-2.5 md:hidden">
         <div className="flex items-center justify-around text-center max-w-md mx-auto">
           
           <button
             onClick={() => {
               setActiveSegment("services");
-              showNotice("info", "Displaying Finance Ledger summaries & statistics.");
+              showNotice("info", "Displaying dashboard main indices.");
             }}
-            className={`flex-1 flex flex-col items-center justify-center py-1 cursor-pointer transition-all ${
-              activeSegment === "services" ? "text-[#2E3DFD] font-black" : "text-slate-400"
+            className={`flex-1 flex flex-col items-center justify-center py-1 transition-all ${
+              activeSegment === "services" ? "text-orange-600 font-bold scale-105" : "text-slate-400 hover:text-slate-600"
             }`}
           >
-            <Wallet className="h-5 w-5 stroke-[2.2]" />
-            <span className="text-[9.5px] font-bold mt-1 tracking-tight">Home</span>
+            <Wallet className="h-4.5 w-4.5 stroke-[2.2]" />
+            <span className="text-[9px] font-bold mt-1">Main</span>
           </button>
 
           <button
             onClick={() => {
               setActiveSegment("numbers");
-              showNotice("info", "Opening SIM lease & OTP Bypass terminal.");
+              showNotice("info", "Opening SIM Lease Terminal.");
             }}
-            className={`flex-1 flex flex-col items-center justify-center py-1 cursor-pointer transition-all ${
-              activeSegment === "numbers" ? "text-[#2E3DFD] font-black" : "text-slate-400"
+            className={`flex-1 flex flex-col items-center justify-center py-1 transition-all ${
+              activeSegment === "numbers" ? "text-orange-600 font-bold scale-105" : "text-slate-400 hover:text-slate-600"
             }`}
           >
-            <Smartphone className="h-5 w-5 stroke-[2.2]" />
-            <span className="text-[9.5px] font-bold mt-1 tracking-tight">SIM-OTP</span>
+            <Smartphone className="h-4.5 w-4.5 stroke-[2.2]" />
+            <span className="text-[9px] font-bold mt-1">SIM-OTP</span>
           </button>
 
           <button
             onClick={() => {
               setActiveSegment("card");
-              showNotice("info", "Interactive Dollar Prepaid Cards triggered.");
+              showNotice("info", "Opening Dollar Card sandbox.");
             }}
-            className={`flex-1 flex flex-col items-center justify-center py-1 cursor-pointer transition-all ${
-              activeSegment === "card" ? "text-[#2E3DFD] font-black" : "text-slate-400"
+            className={`flex-1 flex flex-col items-center justify-center py-1 transition-all ${
+              activeSegment === "card" ? "text-orange-600 font-bold scale-105" : "text-slate-400 hover:text-slate-600"
             }`}
           >
-            <CreditCard className="h-5 w-5 stroke-[2.2]" />
-            <span className="text-[9.5px] font-bold mt-1 tracking-tight">USD Card</span>
+            <CreditCard className="h-4.5 w-4.5 stroke-[2.2]" />
+            <span className="text-[9px] font-bold mt-1">USD-Card</span>
           </button>
 
           <button
             onClick={() => {
               setActiveSegment("vtu");
-              showNotice("info", "Carrier services store loaded.");
+              showNotice("info", "Loaded telecom VTU services.");
             }}
-            className={`flex-1 flex flex-col items-center justify-center py-1 cursor-pointer transition-all ${
-              activeSegment === "vtu" ? "text-[#2E3DFD] font-black" : "text-slate-400"
+            className={`flex-1 flex flex-col items-center justify-center py-1 transition-all ${
+              activeSegment === "vtu" ? "text-orange-600 font-bold scale-105" : "text-slate-400 hover:text-slate-600"
             }`}
           >
-            <RefreshCw className="h-5 w-5 stroke-[2.2]" />
-            <span className="text-[9.5px] font-bold mt-1 tracking-tight">VTU Bill</span>
+            <RefreshCw className="h-4.5 w-4.5 stroke-[2.2]" />
+            <span className="text-[9px] font-bold mt-1">VTU Bill</span>
           </button>
 
           <button
             onClick={() => {
               setActiveSegment("smm");
-              showNotice("info", "SMM Panel traffic growth dispatch portal.");
+              showNotice("info", "Loaded SMM boost panel.");
             }}
-            className={`flex-1 flex flex-col items-center justify-center py-1 cursor-pointer transition-all ${
-              activeSegment === "smm" ? "text-[#2E3DFD] font-black" : "text-slate-400"
+            className={`flex-1 flex flex-col items-center justify-center py-1 transition-all ${
+              activeSegment === "smm" ? "text-orange-600 font-bold scale-105" : "text-slate-400 hover:text-slate-600"
             }`}
           >
-            <Share2 className="h-5 w-5 stroke-[2.2]" />
-            <span className="text-[9.5px] font-bold mt-1 tracking-tight">SMM Sells</span>
+            <Share2 className="h-4.5 w-4.5 stroke-[2.2]" />
+            <span className="text-[9px] font-bold mt-1">Boost</span>
           </button>
 
         </div>
